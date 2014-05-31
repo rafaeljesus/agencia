@@ -1,19 +1,8 @@
-module.exports = function(app) {
-
-  var db = require('../lib/db_connect')();
-  var Schema = require('mongoose').Schema;
-
-  var contact = Schema({
-    name: String
-  , email: String
+module.exports = function(sequelize, DataTypes) {
+  var User = sequelize.define('User', {
+    username: DataTypes.STRING
   });
-
-  var user = Schema({
-      name: { type: String, required: true }
-    , email: { type: String, required: true
-             , index: {unique: true} }
-    , contacts: [contact]
-  });
-
-  return db.model('users', user);
+ 
+  return User;
+  
 };

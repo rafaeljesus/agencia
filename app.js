@@ -1,4 +1,5 @@
 var express = require('express')
+, db   = require('./models')
 , load = require('express-load')
 , path = require('path')
 , logfmt = require('logfmt')
@@ -19,14 +20,28 @@ app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// development only
+if ('development' === app.get('env')) {
+  app.use(express.errorHandler())
+}
+
 load('controllers')
   .then('routes')
   .into(app);
 
 var port = Number(process.env.PORT || 3000);
 
-app.listen(port, function(){
-  console.log('running Agencia do Namoro Gay Web Site on port ' + port);
-})
+db
+  .sequelize
+  .sync({ force: true })
+  .complete(function(err) {
+    if (err) {
+      throw err[0]
+    } else {
+      http.createServer(app).listen(port, function(){
+        console.log('Express server listening on port ' + port))
+      })
+    }
+  });
 
 module.exports = app;
