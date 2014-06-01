@@ -8,7 +8,7 @@ describe('Home Controller', function() {
     request.get('/').end(function(err, res){
       res.status.should.eql(200);
       done();
-    });
+  	});
   });
 
 });

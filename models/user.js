@@ -1,8 +1,11 @@
-module.exports = function(sequelize, DataTypes) {
-  var User = sequelize.define('User', {
-    username: DataTypes.STRING,
-    password: DataTypes.STRING
-  });
- 
-  return User;
+module.exports = function() {
+
+  var db = require('../lib/db_connect');
+
+  var User = {
+    name: db.Sequelize.STRING,
+    password: db.Sequelize.STRING
+  };
+
+  return db.sequelize.define('users', User);
 };

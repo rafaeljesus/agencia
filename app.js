@@ -1,6 +1,6 @@
 var express = require('express')
 , http = require('http')
-, db   = require('./models')
+, db   = require('./lib/db_connect')
 , load = require('express-load')
 , path = require('path')
 , logfmt = require('logfmt')
