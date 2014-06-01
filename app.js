@@ -1,4 +1,5 @@
 var express = require('express')
+, http = require('http')
 , db   = require('./models')
 , load = require('express-load')
 , path = require('path')
@@ -20,11 +21,6 @@ app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// development only
-if ('development' === app.get('env')) {
-  app.use(express.errorHandler())
-}
-
 load('controllers')
   .then('routes')
   .into(app);
@@ -39,7 +35,7 @@ db
       throw err[0]
     } else {
       http.createServer(app).listen(port, function(){
-        console.log('Express server listening on port ' + port))
+        console.log('Agencia do Namoro Gay running on port ' + port);
       })
     }
   });

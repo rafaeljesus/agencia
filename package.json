@@ -8,7 +8,8 @@
   },
   "private": false,
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
+    "test": "NODE_ENV=test ./node_modules/mocha/bin/mocha test/*.js"
   },
   "dependencies": {
     "express": "~4.2.0",
@@ -22,9 +23,13 @@
     "compression": "~1.0.2",
     "logfmt": "~1.1.2",
     "mysql": "~2.3.2",
-    "sequelize": "~1.7.5"
+    "sequelize": "~1.7.5",
+    "lodash": "~2.4.1"
   },
   "devDependencies": {
+    "mocha": "*",
+    "should": "*",
+    "supertest": "*",
     "gulp": "~3.6.2",
     "gulp-minify-css": "~0.3.4",
     "gulp-uglify": "~0.3.0",

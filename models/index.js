@@ -2,7 +2,8 @@ var fs        = require('fs')
   , path      = require('path')
   , Sequelize = require('sequelize')
   , lodash    = require('lodash')
-  , sequelize = new Sequelize('sequelize_test', 'root', null)
+  , db_env = { test: 'agenia_test', development: 'agencia' }
+  , sequelize = new Sequelize(db_env[process.env.NODE_ENV || 'development'], 'root', 'root', { dialect: 'mysql' })
   , db        = {};
  
 fs
