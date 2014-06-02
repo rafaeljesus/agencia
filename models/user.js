@@ -4,7 +4,8 @@ module.exports = function() {
 
   var User = {
     name: db.Sequelize.STRING,
-    password: db.Sequelize.STRING
+    password: db.Sequelize.STRING,
+    password_confirmation: db.Sequelize.STRING
   };
 
   return db.sequelize.define('users', User);
