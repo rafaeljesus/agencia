@@ -5,10 +5,10 @@ var sequelize = require('../lib/db_connect').sequelize
 describe('User', function(){
 
   it('registers a new user', function(done){
-  	var user = User.build({
-      name: 'user-test',
-      password: 'i-am-so-great',
-      password_confirmation: 'i-am-so-great'
+    var user = User.build({
+      primeiro_nome: 'user-test',
+      login: 'i-am-so-great',
+      senha: 'i-am-so-great'
     });
 
     user
@@ -18,7 +18,7 @@ describe('User', function(){
           userTest.should.equal(null);
           done();
         } else {
-          userTest.name.should.equal('user-test');
+          userTest.primeiro_nome.should.equal('user-test');
           done();
         }
       });

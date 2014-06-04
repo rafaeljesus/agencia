@@ -1,6 +1,5 @@
 var express = require('express')
 , http = require('http')
-, db   = require('./lib/db_connect')
 , load = require('express-load')
 , path = require('path')
 , logfmt = require('logfmt')
@@ -27,17 +26,8 @@ load('controllers')
 
 var port = Number(process.env.PORT || 3000);
 
-db
-  .sequelize
-  .sync({ force: true })
-  .complete(function(err) {
-    if (err) {
-      throw err[0]
-    } else {
-      http.createServer(app).listen(port, function(){
-        console.log('Agencia do Namoro Gay running on port ' + port);
-      })
-    }
-  });
+app.listen(port, function(){
+  console.log('running Rafael Jesus Web Site on port ' + port);
+});
 
 module.exports = app;
