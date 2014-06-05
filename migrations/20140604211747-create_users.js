@@ -1,6 +1,6 @@
 module.exports = {
   up: function(migration, DataTypes, done) {
-    migration.createTable('tb_clients_gls', {
+    migration.createTable('tb_clientes_gls', {
       id: {
         type: DataTypes.INTEGER,
         primaryKey: true,

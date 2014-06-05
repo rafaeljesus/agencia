@@ -2,7 +2,7 @@ module.exports = function() {
 
   var db = require('../lib/db_connect');
 
-  var User = {
+  var Model = {
     primeiro_nome: db.Sequelize.STRING,
     sobrenome: db.Sequelize.STRING,
     login: db.Sequelize.STRING,
@@ -46,6 +46,7 @@ module.exports = function() {
     recebe_cadastros: db.Sequelize.INTEGER
   };
 
-  return db.sequelize.define('users', User, { tableName: 'tb_clients_gls' });
-
+  return db
+    .sequelize
+    .define('user', Model, { tableName: 'tb_clientes_gls' });
 };

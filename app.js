@@ -9,7 +9,7 @@ var express = require('express')
 , bodyParser = require('body-parser')
 , app = express();
 
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'app/views'));
 app.set('view engine', 'ejs');
 
 app.use(logfmt.requestLogger());
@@ -20,7 +20,7 @@ app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-load('controllers')
+load('controllers', { cwd: 'app' })
   .then('routes')
   .into(app);
 
