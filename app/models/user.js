@@ -7,7 +7,12 @@ module.exports = function() {
     sobrenome: db.Sequelize.STRING,
     login: db.Sequelize.STRING,
     senha: db.Sequelize.STRING,
-    email: db.Sequelize.STRING,
+    email: {
+      type: db.Sequelize.STRING,
+      validate: {
+        isEmail: true
+      }
+    },
     msn: db.Sequelize.STRING,
     tel_residencial: db.Sequelize.STRING,
     tel_celular: db.Sequelize.STRING,

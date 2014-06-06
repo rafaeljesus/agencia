@@ -1,4 +1,4 @@
-var sequelize = require('../../lib/db_connect').sequelize
+var sequelize = require('../lib/db_connect').sequelize
 , User = require('../app/models/user')()
 , should = require('should');
 
@@ -8,7 +8,8 @@ describe('User', function(){
     var user = User.build({
       primeiro_nome: 'user-test',
       login: 'i-am-so-great',
-      senha: 'i-am-so-great'
+      senha: 'i-am-so-great',
+      email: 'valid@mail.com'
     });
 
     user
