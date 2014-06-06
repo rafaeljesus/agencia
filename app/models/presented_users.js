@@ -1,6 +1,6 @@
 module.exports = function(){
 
-  var db = require('../lib/db_connect')
+  var db = require('../../lib/db_connect')
   , User = require('user')
   , PresentedUser = require('user');
 

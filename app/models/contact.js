@@ -1,6 +1,6 @@
 module.exports = function() {
 
-  var db = require('../lib/db_connect')
+  var db = require('../../lib/db_connect')
   , User = require('user');
 
   var Model = {
@@ -12,8 +12,7 @@ module.exports = function() {
     e_mail_contato: db.Sequelize.STRING
   };
 
-  return
-    db
+  return db
     .sequelize
     .define('contact', Model, { tableName: 'tb_contatos_gls' })
     .belongsTo(User, { foreignKey: 'id_cliente' });

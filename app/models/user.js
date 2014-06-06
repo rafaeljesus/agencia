@@ -1,12 +1,17 @@
 module.exports = function() {
 
-  var db = require('../lib/db_connect');
+  var db = require('../../lib/db_connect');
 
   var Model = {
     primeiro_nome: db.Sequelize.STRING,
     sobrenome: db.Sequelize.STRING,
     login: db.Sequelize.STRING,
     senha: db.Sequelize.STRING,
+    email: db.Sequelize.STRING,
+    msn: db.Sequelize.STRING,
+    tel_residencial: db.Sequelize.STRING,
+    tel_celular: db.Sequelize.STRING,
+    tel_trabalho: db.Sequelize.STRING,
     ativado: db.Sequelize.BOOLEAN,
     compromissado: db.Sequelize.BOOLEAN,
     permissiao: db.Sequelize.INTEGER,

@@ -1,6 +1,6 @@
 module.exports = function(){
 
-  var db = require('../lib/db_connect')
+  var db = require('../../lib/db_connect')
   , Answer = require('answer')
   , Votes = require('votes');
 

@@ -1,5 +1,5 @@
-var sequelize = require('../lib/db_connect').sequelize
-, User = require('../models/user')()
+var sequelize = require('../../lib/db_connect').sequelize
+, User = require('../app/models/user')()
 , should = require('should');
 
 describe('User', function(){

@@ -1,6 +1,6 @@
 module.exports = function() {
 
-  var db = require('../lib/db_connect');
+  var db = require('../../lib/db_connect');
 
   var Model = {
     id_enquete: db.Sequelize.INTEGER,
