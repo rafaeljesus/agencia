@@ -1,28 +1,60 @@
-var sequelize = require('../lib/db_connect').sequelize
-, User = require('../app/models/user')()
+var User = require('../app/models').User
 , should = require('should');
 
 describe('User', function(){
 
-  it('registers a new user', function(done){
-    var user = User.build({
-      primeiro_nome: 'user-test',
-      login: 'i-am-so-great',
-      senha: 'i-am-so-great',
-      email: 'valid@mail.com'
-    });
+  var currentUser = null;
 
-    user
-      .save()
-      .complete(function(err, userTest) {
-        if (!!err) {
-          userTest.should.equal(null);
-          done();
-        } else {
-          userTest.primeiro_nome.should.equal('user-test');
-          done();
-        }
-      });
+  beforeEach(function(done){
+    User.create({
+      primeiro_nome: 'userTest',
+      login: 'userTestLogin',
+      senha: 'userTestPassword',
+      email: 'valid@mail.com'
+    }).success(function(obj){
+      currentUser = obj;
+      done();
     });
+  });
+
+  afterEach(function(done){
+    User.destroy().success(function(){
+      done();
+    });
+  });
+
+  it('ensure user is created', function(done){
+    currentUser.should.not.equal(null);
+    currentUser.primeiro_nome.should.equal('userTest');
+    done();
+  });
+
+  it('should successfully authenticate a user by login', function(done){
+    var options = {
+      login: currentUser.login,
+      password: currentUser.senha
+    };
+    User
+      .authenticate(options)
+      .complete(function(err, user){
+        user.login.should.equal(currentUser.login);
+        user.email.should.equal(currentUser.email);
+        done();
+      })
+  });
+
+  it('should successfully authenticate a user by email', function(done){
+     var options = {
+      email: currentUser.email,
+      password: currentUser.senha
+    };
+    User
+      .authenticate(options)
+      .complete(function(err, user){
+        user.login.should.equal(currentUser.login);
+        user.email.should.equal(currentUser.email);
+        done();
+      })
+  });
 
 });

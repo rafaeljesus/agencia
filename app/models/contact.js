@@ -1,19 +1,22 @@
-module.exports = function() {
+module.exports = function(sequelize, DataTypes) {
 
-  var db = require('../../lib/db_connect')
-  , User = require('user');
-
-  var Model = {
-    email: db.Sequelize.STRING,
-    msn: db.Sequelize.STRING,
-    tel_residencial: db.Sequelize.STRING,
-    tel_celular: db.Sequelize.STRING,
-    tel_trabalho: db.Sequelize.STRING,
-    e_mail_contato: db.Sequelize.STRING
+  var definition = {
+    email: DataTypes.STRING,
+    msn: DataTypes.STRING,
+    tel_residencial: DataTypes.STRING,
+    tel_celular: DataTypes.STRING,
+    tel_trabalho: DataTypes.STRING,
+    e_mail_contato: DataTypes.STRING
   };
 
-  return db
-    .sequelize
-    .define('contact', Model, { tableName: 'tb_contatos_gls' })
-    .belongsTo(User, { foreignKey: 'id_cliente' });
+  var Contact = sequelize.define('Contact', definition, {
+    classMethods: {
+      associate: function(models) {
+        Contact.belongsTo(models.User, { foreignKey: 'id_cliente' });
+      }
+    },
+    tableName: 'tb_contatos_gls'
+  });
+
+  return Contact;
 };

@@ -1,13 +1,20 @@
-module.exports = function() {
+module.exports = function(sequelize, DataTypes) {
 
-  var db = require('../../lib/db_connect');
-
-  var Model = {
-    id_enquete: db.Sequelize.INTEGER,
-    id_resposta: db.Sequelize.INTEGER
+  var definition = {
+    id_enquete: DataTypes.INTEGER,
+    id_resposta: DataTypes.INTEGER
   };
 
-  return db
-    .sequelize
-    .define('votes', Model, { timestamps: false, tableName: 'tb_votos_gls' });
+  var Votes = sequelize.define('Votes', definition, {
+    classMethods: {
+      associate: function(models) {
+        Votes.belongsTo(models.Poll, { foreignKey: 'id_enquete', constraints: false });
+        Votes.belongsTo(models.Answer, { foreignKey: 'id_resposta', constraints: false });
+      }
+    },
+    timestamps: false,
+    tableName: 'tb_votos_gls'
+  });
+
+  return Votes;
 };

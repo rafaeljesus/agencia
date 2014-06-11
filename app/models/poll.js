@@ -1,15 +1,18 @@
-module.exports = function(){
+module.exports = function(sequelize, DataTypes){
 
-  var db = require('../../lib/db_connect')
-  , Answer = require('answer')
-  , Votes = require('votes');
-
-  var Model = {
-    pergunta: db.Sequelize.STRING
+  var definition = {
+    pergunta: DataTypes.STRING
   };
 
-  return db
-    .sequelize
-    .define('poll', Model, { timestamps: false, tableName: 'tb_enquetes_gls' })
-    .hasMany(Answer, { through: Votes });
+  var Poll = sequelize.define('Poll', definition, {
+    classMethods: {
+      associate: function(models) {
+        Poll.hasMany(models.Answer, { through: models.Votes });
+      }
+    },
+    timestamps: false,
+    tableName: 'tb_enquetes_gls'
+  });
+
+  return Poll;
 };

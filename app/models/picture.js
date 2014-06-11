@@ -1,16 +1,20 @@
-module.exports = function(){
+module.exports = function(sequelize, DataTypes){
 
-  var db = require('../../lib/db_connect')
-  , User = require('user');
-
-  var Model = {
-    foto1: db.Sequelize.BLOB,
-    foto2: db.Sequelize.BLOB,
-    foto3: db.Sequelize.BLOB
+  var definition = {
+    foto1: DataTypes.BLOB,
+    foto2: DataTypes.BLOB,
+    foto3: DataTypes.BLOB
   };
 
-  return db
-    .sequelize
-    .define('picture', Model, { timestamps: false, tableName: 'tb_fotos_gls' })
-    .belongsTo(User, { foreignKey: 'id_cliente', constraints: false })''
+  var Picture = sequelize.define('Picture', definition, {
+    classMethods: {
+      associate: function(models) {
+        Picture.belongsTo(models.User, { foreignKey: 'id_cliente', constraints: false });
+      }
+    },
+    timestamps: false,
+    tableName: 'tb_fotos_gls'
+  });
+
+  return Picture;
 };

@@ -1,10 +1,14 @@
-module.exports = function(){
+module.exports = function(sequelize, DataTypes){
 
-  var db = require('../../lib/db_connect')
-  , PresentedUser = require('user');
+  var Alert = sequelize.define('Alert', {}, {
+    classMethods: {
+      associate: function(models){
+        Alert.belongsTo(models.PresentedUsers, { foreignKey: 'id_clientes_apresentados', constraints: false });
+      }
+    },
+    tableName: 'tb_alerta_gls'
+  });
 
-  return db
-    .sequelize
-    .define('alert', {}, { tableName: 'tb_alerta_gls' })
-    .belongsTo(PresentedUser, { foreignKey: 'id_clientes_apresentados', constraints: false });
+  return Alert;
+
 };

@@ -1,19 +1,24 @@
-module.exports = function(){
+module.exports = function(sequelize, DataTypes){
 
-  var db = require('../../lib/db_connect')
-  , User = require('user');
-
-  var Model = {
-    valor: db.Sequelize.FLOAT,
-    data_inicio: db.Sequelize.DATE,
-    data_fim: db.Sequelize.DATE,
-    numero: db.Sequelize.STRING,
-    data_pagamento: db.Sequelize.DATE,
-    situacao: db.Sequelize.INTEGER
+  var definition = {
+    valor: DataTypes.FLOAT,
+    data_inicio: DataTypes.DATE,
+    data_fim: DataTypes.DATE,
+    numero: DataTypes.STRING,
+    data_pagamento: DataTypes.DATE,
+    situacao: DataTypes.INTEGER
   };
 
-  return db
-    .sequelize
-    .define('payments', Model, { createdAt: 'data_pagamento', updatedAt: false, tableName: 'tb_pagamento_gls' })
-    .belongsTo(User, { foreignKey: 'id_cliente', constraints: false });
+  var Payment = sequelize.define('Payment', definition, {
+      classMethods: {
+        associate: function(models) {
+          Payment.belongsTo(models.User, { foreignKey: 'id_cliente', constraints: false });
+        }
+      },
+      createdAt: 'data_pagamento',
+      updatedAt: false,
+      tableName: 'tb_pagamento_gls'
+    });
+
+  return Payment;
 };

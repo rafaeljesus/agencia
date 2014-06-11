@@ -1,18 +1,22 @@
-module.exports = function(){
+module.exports = function(sequelize, DataTypes){
 
-  var db = require('../../lib/db_connect')
-  , User = require('user')
-  , Topic = require('topic');
-
-  var Model = {
-    assunto: db.Sequelize.STRING,
-    mensagem: db.Sequelize.TEXT,
-    data: db.Sequelize.DATE
+  var definition = {
+    assunto: DataTypes.STRING,
+    mensagem: DataTypes.TEXT,
+    data: DataTypes.DATE
   };
 
-  return db
-    .sequelize
-    .define('messages', Model, { createdAt: 'data', updatedAt: false, tableName: 'tb_mensagens_gls' })
-    .belongsTo(User, { foreignKey: 'id_cliente', constraints: false })
-    .belongsTo(Topic, { foreignKey: 'id_topico', constraints: false });
+  var Message = sequelize.define('Message', definition, {
+    classMethods: {
+      associate: function(models) {
+        Message.belongsTo(models.User, { foreignKey: 'id_cliente', constraints: false });
+        Message.belongsTo(models.Topic, { foreignKey: 'id_topico', constraints: false });
+      }
+    },
+    createdAt: 'data',
+    updatedAt: false,
+    tableName: 'tb_mensagens_gls'
+  });
+
+  return Message;
 };
