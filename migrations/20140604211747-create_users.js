@@ -13,6 +13,7 @@ module.exports = {
       login: DataTypes.STRING,
       senha: DataTypes.STRING,
       email: DataTypes.STRING,
+      rg: DataTypes.STRING,
       msn: DataTypes.STRING,
       tel_residencial: DataTypes.STRING,
       tel_celular: DataTypes.STRING,

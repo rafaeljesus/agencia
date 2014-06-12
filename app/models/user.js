@@ -12,6 +12,7 @@ module.exports = function(sequelize, DataTypes) {
       }
     },
     msn: DataTypes.STRING,
+    rg: DataTypes.STRING,
     tel_residencial: DataTypes.STRING,
     tel_celular: DataTypes.STRING,
     tel_trabalho: DataTypes.STRING,

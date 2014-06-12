@@ -4,7 +4,9 @@ var express = require('express')
 , path = require('path')
 , logfmt = require('logfmt')
 , favicon = require('static-favicon')
+, session = require('express-session')
 , cookieParser = require('cookie-parser')
+, methodOverride = require('method-override')
 , compress = require('compression')
 , bodyParser = require('body-parser')
 , app = express();
@@ -14,11 +16,13 @@ app.set('view engine', 'ejs');
 
 app.use(logfmt.requestLogger());
 app.use(favicon());
-app.use(compress());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
+app.use(methodOverride());
 app.use(cookieParser());
+app.use(session);
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(compress());
 
 load('controllers', { cwd: 'app' })
   .then('routes')

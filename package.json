@@ -24,7 +24,9 @@
     "logfmt": "~1.1.2",
     "mysql": "~2.3.2",
     "sequelize": "~1.7.5",
-    "lodash": "~2.4.1"
+    "lodash": "~2.4.1",
+    "method-override": "~2.0.2",
+    "express-session": "~1.2.1"
   },
   "devDependencies": {
     "mocha": "*",
