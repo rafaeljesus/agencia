@@ -11,10 +11,8 @@ module.exports = function(sequelize, DataTypes) {
     login: DataTypes.STRING,
     senha: {
       type: DataTypes.STRING,
-      allowNull: false,
       validate: {
-        max: 30,
-        min: 6
+        notEmpty: true,
       }
     },
     email: {
@@ -70,9 +68,11 @@ module.exports = function(sequelize, DataTypes) {
   var User = sequelize.define('User', definition, {
     classMethods: {
       authenticate: function(options) {
+        var shaSum = crypto.createHash('sha256');
+        shaSum.update(options.password);
         return User.find({
           where: sequelize.and({
-            senha: options.password
+            senha: shaSum.digest('hex')
           }, sequelize.or(
             { login: options.login },
             { email: options.email })
@@ -82,18 +82,17 @@ module.exports = function(sequelize, DataTypes) {
       register: function(options) {
         var shaSum = crypto.createHash('sha256');
         shaSum.update(options.password);
-        options.password = shaSum.digest('hex')
         var attrs = {
           email: options.email,
-          senha: options.password,
+          senha: shaSum.digest('hex'),
           primeiro_nome: options.firstName,
           sobrenome: options.lastName
         };
         return User.create(attrs);
-      }
-    },
-    changePassword: function(options){
+      },
+      changePassword: function(options){
 
+      }
     },
     tableName: 'tb_clientes_gls'
   });

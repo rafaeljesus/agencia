@@ -18,8 +18,7 @@ module.exports = function(app){
             return;
           }
           req.session.user = {
-            id: user.id,
-            login: user.login,
+            firstName: user.primeiro_nome,
             email: user.email
           }
           res.send(req.session.user);
@@ -41,13 +40,11 @@ module.exports = function(app){
             return;
           }
           req.session.user = {
-            id: user.id,
-            login: user.login,
+            firstName: user.primeiro_nome,
             email: user.email
           }
           res.send(req.session.user);
         });
-      }
     },
 
     changePassword: function(req, res){
@@ -58,6 +55,7 @@ module.exports = function(app){
           res.send(200);
         });
     }
+  };
 
   return AuthController;
 };

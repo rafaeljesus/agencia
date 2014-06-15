@@ -8,10 +8,10 @@ describe('Auth Controller', function() {
   var currentUser = null;
 
   beforeEach(function(done){
-    User.create({
-      primeiro_nome: 'userTest',
-      login: 'userTestLogin',
-      senha: 'userTestPassword',
+    User.register({
+      firstName: 'userTest',
+      lastName: 'userTestLogin',
+      password: 'userTestPassword',
       email: 'valid@email.com'
     }).complete(function(err, obj){
       if (err) return done(err);
@@ -27,19 +27,23 @@ describe('Auth Controller', function() {
   });
 
   it('when user is valid then authenticate', function(done){
-    var options = { email: currentUser.email, password: currentUser.senha };
+    var options = { email: currentUser.email, password: 'userTestPassword' };
     request
       .post('/authenticate')
       .set('Accept', 'application/json')
-      .expect('Content-Type', /json/)
       .send(options)
+      .expect('Content-Type', /json/)
       .expect(200)
-      .end(done);
+      .end(function(err, res){
+        if (err) return done(err);
+        expect(res.body.firstName).to.equal('userTest');
+        done();
+      });
   });
 
   it('when user is valid then register', function(done){
     var options = {
-      email: 'valid@email.com',
+      email: 'somevalid@email.com',
       password: 'valid-password',
       firstName: 'User Test First Name',
       lastName: 'User Last Name'
@@ -52,7 +56,7 @@ describe('Auth Controller', function() {
       .expect(200)
       .end(function(err, res){
         if (err) return done(err);
-        expect(res.body.email).to.equal(currentUser.email);
+        expect(res.body.firstName).to.equal('User Test First Name');
         done();
       });
   });

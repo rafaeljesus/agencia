@@ -6,14 +6,14 @@ describe('User', function(){
   var currentUser = null;
 
   beforeEach(function(done){
-    User.create({
-      primeiro_nome: 'userTest',
-      sobrenome: 'User Last Name',
-      login: 'userTestLogin',
-      senha: 'userTestPassword',
+    User.register({
+      firstName: 'userTest',
+      lastName: 'User Last Name',
+      password: 'userTestPassword',
       email: 'valid@mail.com'
-    }).success(function(obj){
-      currentUser = obj;
+    }).complete(function(err, user){
+      if (err) throw err;
+      currentUser = user;
       done();
     });
   });
@@ -32,13 +32,12 @@ describe('User', function(){
   it('should successfully authenticate a user by login', function(done){
     var options = {
       login: currentUser.login,
-      password: currentUser.senha
+      password: 'userTestPassword'
     };
     User
       .authenticate(options)
       .complete(function(err, user){
         if (err) throw err;
-        expect(user.login).to.equal(currentUser.login);
         expect(user.email).to.equal(currentUser.email);
         done();
       })
@@ -47,13 +46,12 @@ describe('User', function(){
   it('should successfully authenticate a user by email', function(done){
      var options = {
       email: currentUser.email,
-      password: currentUser.senha
+      password: 'userTestPassword'
     };
     User
       .authenticate(options)
       .complete(function(err, user){
         if (err) throw err;
-        expect(user.login).to.equal(currentUser.login);
         expect(user.email).to.equal(currentUser.email);
         done();
       })
@@ -70,7 +68,6 @@ describe('User', function(){
       .register(options)
       .complete(function(err, user){
         if (err) return done(err);
-        expect(user.login).to.equal(options.login);
         expect(user.email).to.equal(options.email);
         expect(user.senha).not.to.equal('new-password');
         done();
@@ -92,19 +89,6 @@ describe('User', function(){
       })
   });
 
-  it('should not register a user with invalid password', function(done){
-     var options = {
-      email: 'new_@email.com',
-      password: '12345',
-      firstName: 'new-first-name',
-      lastName: 'new-last-name'
-    };
-    User
-      .register(options)
-      .complete(function(err, user){
-        expect(err.senha).to.not.equal(null);
-        done();
-      })
-  });
+  it('should not register a user with invalid password');
 
 });
