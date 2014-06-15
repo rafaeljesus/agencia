@@ -1,10 +1,20 @@
 module.exports = function(sequelize, DataTypes) {
 
   var definition = {
-    primeiro_nome: DataTypes.STRING,
+    primeiro_nome: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
     sobrenome: DataTypes.STRING,
     login: DataTypes.STRING,
-    senha: DataTypes.STRING,
+    senha: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        max: 30,
+        min: 6
+      }
+    },
     email: {
       type: DataTypes.STRING,
       validate: {
@@ -67,8 +77,14 @@ module.exports = function(sequelize, DataTypes) {
           )
         });
       },
-      signUp: function() {
-
+      register: function(options) {
+        var attrs = {
+          email: options.email,
+          senha: options.password,
+          primeiro_nome: options.firstName,
+          sobrenome: options.lastName
+        };
+        return User.create(attrs);
       }
     },
     tableName: 'tb_clientes_gls'

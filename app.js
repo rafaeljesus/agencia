@@ -1,5 +1,4 @@
 var express = require('express')
-, http = require('http')
 , load = require('express-load')
 , path = require('path')
 , logfmt = require('logfmt')
@@ -19,8 +18,8 @@ app.use(favicon());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(methodOverride());
-app.use(cookieParser());
-app.use(session);
+app.use(cookieParser('S3CRE7'));
+app.use(session());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(compress());
 

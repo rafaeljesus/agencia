@@ -3,6 +3,7 @@ module.exports = function(app){
   var User = require('../models').User;
 
   var AuthController = {
+
     authenticate: function(req, res){
       var options = {
         email: req.body.email,
@@ -17,13 +18,35 @@ module.exports = function(app){
             return;
           }
           req.session.user = {
-            name: user.name,
+            login: user.login,
             email: user.email
           }
           res.send(req.session.user);
         });
-    }
-  };
+    },
+
+    register: function(req, res){
+      var options = {
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        email: req.body.email,
+        password: req.body.password
+      };
+      User
+        .register(options)
+        .complete(function(err, user){
+          if (!!err) {
+            res.send(401);
+            return;
+          }
+          req.session.user = {
+            login: user.login,
+            email: user.email
+          }
+          res.send(req.session.user);
+        });
+      }
+    };
 
   return AuthController;
 };
