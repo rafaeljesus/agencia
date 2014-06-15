@@ -1,5 +1,7 @@
 module.exports = function(sequelize, DataTypes) {
 
+  var crypto = require('crypto');
+
   var definition = {
     primeiro_nome: {
       type: DataTypes.STRING,
@@ -78,6 +80,9 @@ module.exports = function(sequelize, DataTypes) {
         });
       },
       register: function(options) {
+        var shaSum = crypto.createHash('sha256');
+        shaSum.update(options.password);
+        options.password = shaSum.digest('hex')
         var attrs = {
           email: options.email,
           senha: options.password,
@@ -86,6 +91,9 @@ module.exports = function(sequelize, DataTypes) {
         };
         return User.create(attrs);
       }
+    },
+    changePassword: function(options){
+
     },
     tableName: 'tb_clientes_gls'
   });

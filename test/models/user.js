@@ -72,6 +72,7 @@ describe('User', function(){
         if (err) return done(err);
         expect(user.login).to.equal(options.login);
         expect(user.email).to.equal(options.email);
+        expect(user.senha).not.to.equal('new-password');
         done();
       })
   });

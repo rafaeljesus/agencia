@@ -18,6 +18,7 @@ module.exports = function(app){
             return;
           }
           req.session.user = {
+            id: user.id,
             login: user.login,
             email: user.email
           }
@@ -40,13 +41,23 @@ module.exports = function(app){
             return;
           }
           req.session.user = {
+            id: user.id,
             login: user.login,
             email: user.email
           }
           res.send(req.session.user);
         });
       }
-    };
+    },
+
+    changePassword: function(req, res){
+     var options = { email: req.body.email, password: req.body.password };
+      User
+        .resetPassword(options)
+        .complete(function(err, user){
+          res.send(200);
+        });
+    }
 
   return AuthController;
 };

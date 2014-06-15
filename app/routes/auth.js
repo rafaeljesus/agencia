@@ -4,4 +4,6 @@ module.exports = function(app) {
 
   app.post('/authenticate', auth.authenticate);
   app.post('/register', auth.register);
+  app.post('/changePassword', auth.changePassword);
+
 };
