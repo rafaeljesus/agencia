@@ -27,7 +27,7 @@ describe('Auth Controller', function() {
   });
 
   it('when user is valid then authenticate', function(done){
-    var options = { email: currentUser.email, password: 'userTestPassword' };
+    var options = { user: { email: currentUser.email, password: 'userTestPassword' } };
     request
       .post('/authenticate')
       .set('Accept', 'application/json')
@@ -43,10 +43,12 @@ describe('Auth Controller', function() {
 
   it('when user is valid then register', function(done){
     var options = {
-      email: 'somevalid@email.com',
-      password: 'valid-password',
-      firstName: 'User Test First Name',
-      lastName: 'User Last Name'
+      user: {
+        email: 'somevalid@email.com',
+        password: 'valid-password',
+        firstName: 'User Test First Name',
+        lastName: 'User Last Name'
+      }
     };
     request
       .post('/register')
@@ -57,6 +59,26 @@ describe('Auth Controller', function() {
       .end(function(err, res){
         if (err) return done(err);
         expect(res.body.firstName).to.equal('User Test First Name');
+        done();
+      });
+  });
+
+  it('should change a existing password', function(done){
+    var options = {
+      user: {
+        id: currentUser.id,
+        password: 'new-password'
+      }
+    };
+    request
+      .post('/changePassword')
+      .set('Accept', 'application/json')
+      .send(options)
+      .expect('Content-Type', /json/)
+      .expect(200)
+      .end(function(err, res){
+        if (err) return done(err);
+        expect(res.status).to.equal(200);
         done();
       });
   });

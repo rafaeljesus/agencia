@@ -6,53 +6,59 @@ module.exports = function(app){
 
     authenticate: function(req, res){
       var options = {
-        email: req.body.email,
-        login: req.body.login,
-        password: req.body.password
+        email: req.body.user.email,
+        login: req.body.user.login,
+        password: req.body.user.password
       };
       User
         .authenticate(options)
         .complete(function(err, user){
           if (!!err) {
-            res.send(401);
+            res.json(401);
             return;
           }
           req.session.user = {
+            id: user.id,
             firstName: user.primeiro_nome,
             email: user.email
           }
-          res.send(req.session.user);
+          res.json(req.session.user);
         });
     },
 
     register: function(req, res){
       var options = {
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        email: req.body.email,
-        password: req.body.password
+        id: req.body.user.id,
+        firstName: req.body.user.firstName,
+        lastName: req.body.user.lastName,
+        email: req.body.user.email,
+        password: req.body.user.password
       };
       User
         .register(options)
         .complete(function(err, user){
           if (!!err) {
-            res.send(401);
+            res.json(401);
             return;
           }
           req.session.user = {
+            id: user.id,
             firstName: user.primeiro_nome,
             email: user.email
           }
-          res.send(req.session.user);
+          res.json(req.session.user);
         });
     },
 
     changePassword: function(req, res){
-     var options = { email: req.body.email, password: req.body.password };
+     var options = {
+        id: req.body.user.id,
+        password: req.body.user.password
+      };
       User
-        .resetPassword(options)
+        .changePassword(options)
         .complete(function(err, user){
-          res.send(200);
+          res.json(200);
         });
     }
   };

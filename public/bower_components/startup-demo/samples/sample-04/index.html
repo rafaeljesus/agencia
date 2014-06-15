@@ -33,7 +33,7 @@
                                 <li><a href="#">Contact</a></li>
                             </ul>
                             <form class="navbar-form pull-left">
-                                <a class="btn btn-info" href="#">Buy Now</a>
+                                <a class="btn btn-info" id="event" href="#">Buy Now</a>
                             </form>
                         </div>
                     </div>
@@ -191,6 +191,13 @@
                 </div>
             </footer>
         </div>
+
+        <script type="text/javascript">
+          var server = new EventSource('/events');
+          server.onMessage(function(e) {
+            console.log(e.data);
+          })
+        </script>
 
         <!-- Placed at the end of the document so the pages load faster -->
         <script src="../../common-files/js/jquery-1.10.2.min.js"></script>

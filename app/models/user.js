@@ -91,7 +91,13 @@ module.exports = function(sequelize, DataTypes) {
         return User.create(attrs);
       },
       changePassword: function(options){
-
+        var shaSum = crypto.createHash('sha256');
+        shaSum.update(options.password);
+        return User
+          .find(options.id)
+          .success(function(user){
+            user.updateAttributes({ password: shaSum.digest('hex') });
+          });
       }
     },
     tableName: 'tb_clientes_gls'
