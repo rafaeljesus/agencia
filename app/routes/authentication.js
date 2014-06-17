@@ -1,6 +1,6 @@
 module.exports = function(app) {
 
-  var auth = app.controllers.auth;
+  var auth = app.controllers.authentication;
 
   app.post('/authenticate', auth.authenticate);
   app.post('/register', auth.register);

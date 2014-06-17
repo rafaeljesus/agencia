@@ -10,9 +10,7 @@ module.exports = function(app){
         login: req.body.user.login,
         password: req.body.user.password
       };
-      User
-        .authenticate(options)
-        .complete(function(err, user){
+      User.authenticate(options, function(err, user){
           if (!!err) {
             res.json(401);
             return;
@@ -34,20 +32,18 @@ module.exports = function(app){
         email: req.body.user.email,
         password: req.body.user.password
       };
-      User
-        .register(options)
-        .complete(function(err, user){
-          if (!!err) {
-            res.json(401);
-            return;
-          }
-          req.session.user = {
-            id: user.id,
-            firstName: user.primeiro_nome,
-            email: user.email
-          }
-          res.json(req.session.user);
-        });
+      User.register(options, function(err, user){
+        if (!!err) {
+          res.json(401);
+          return;
+        }
+        req.session.user = {
+          id: user.id,
+          firstName: user.primeiro_nome,
+          email: user.email
+        }
+        res.json(req.session.user);
+      });
     },
 
     changePassword: function(req, res){
@@ -55,11 +51,9 @@ module.exports = function(app){
         id: req.body.user.id,
         password: req.body.user.password
       };
-      User
-        .changePassword(options)
-        .complete(function(err, user){
-          res.json(200);
-        });
+      User.changePassword(options, function(){
+        res.json(200);
+      });
     }
   };
 

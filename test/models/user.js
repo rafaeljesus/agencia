@@ -6,14 +6,15 @@ describe('User', function(){
   var currentUser = null;
 
   beforeEach(function(done){
-    User.register({
+    var options = {
       firstName: 'userTest',
-      lastName: 'User Last Name',
+      lastName: 'userTestLogin',
       password: 'userTestPassword',
-      email: 'valid@mail.com'
-    }).complete(function(err, user){
-      if (err) throw err;
-      currentUser = user;
+      email: 'valid@email.com'
+    };
+    User.register(options, function(err, obj){
+      if (err) return done(err);
+      currentUser = obj;
       done();
     });
   });
@@ -34,13 +35,11 @@ describe('User', function(){
       login: currentUser.login,
       password: 'userTestPassword'
     };
-    User
-      .authenticate(options)
-      .complete(function(err, user){
-        if (err) throw err;
-        expect(user.email).to.equal(currentUser.email);
-        done();
-      })
+    User.authenticate(options, function(err, user){
+      if (err) throw err;
+      expect(user.email).to.equal(currentUser.email);
+      done();
+    });
   });
 
   it('should successfully authenticate a user by email', function(done){
@@ -48,13 +47,11 @@ describe('User', function(){
       email: currentUser.email,
       password: 'userTestPassword'
     };
-    User
-      .authenticate(options)
-      .complete(function(err, user){
-        if (err) throw err;
-        expect(user.email).to.equal(currentUser.email);
-        done();
-      })
+    User.authenticate(options, function(err, user){
+      if (err) throw err;
+      expect(user.email).to.equal(currentUser.email);
+      done();
+    });
   });
 
   it('should successfully register a user', function(done){
@@ -64,14 +61,12 @@ describe('User', function(){
       firstName: 'new-first-name',
       lastName: 'new-last-name'
     };
-    User
-      .register(options)
-      .complete(function(err, user){
-        if (err) return done(err);
-        expect(user.email).to.equal(options.email);
-        expect(user.senha).not.to.equal('new-password');
-        done();
-      })
+    User.register(options, function(err, user){
+      if (err) return done(err);
+      expect(user.email).to.equal(options.email);
+      expect(user.senha).not.to.equal('new-password');
+      done();
+    });
   });
 
   it('should not register a user with invalid email', function(done){
@@ -81,12 +76,10 @@ describe('User', function(){
       firstName: 'new-first-name',
       lastName: 'new-last-name'
     };
-    User
-      .register(options)
-      .complete(function(err, user){
-        expect(err.email).to.not.equal(null);
-        done();
-      })
+    User.register(options, function(err, user){
+      expect(err.email).to.not.equal(null);
+      done();
+    })
   });
 
   it('should not register a user with invalid password');

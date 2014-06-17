@@ -67,7 +67,7 @@ module.exports = function(sequelize, DataTypes) {
 
   var User = sequelize.define('User', definition, {
     classMethods: {
-      authenticate: function(options) {
+      authenticate: function(options, callback) {
         var shaSum = crypto.createHash('sha256');
         shaSum.update(options.password);
         return User.find({
@@ -77,9 +77,11 @@ module.exports = function(sequelize, DataTypes) {
             { login: options.login },
             { email: options.email })
           )
+        }).complete(function(err, user){
+          callback(err, user)
         });
       },
-      register: function(options) {
+      register: function(options, callback) {
         var shaSum = crypto.createHash('sha256');
         shaSum.update(options.password);
         var attrs = {
@@ -88,16 +90,17 @@ module.exports = function(sequelize, DataTypes) {
           primeiro_nome: options.firstName,
           sobrenome: options.lastName
         };
-        return User.create(attrs);
+        return User.create(attrs).complete(function(err, user){
+          callback(err, user)
+        });
       },
-      changePassword: function(options){
+      changePassword: function(options, callback){
         var shaSum = crypto.createHash('sha256');
         shaSum.update(options.password);
-        return User
-          .find(options.id)
-          .success(function(user){
-            user.updateAttributes({ password: shaSum.digest('hex') });
-          });
+        return User.find(options.id).success(function(user){
+          user.updateAttributes({ password: shaSum.digest('hex') });
+          callback();
+        });
       }
     },
     tableName: 'tb_clientes_gls'

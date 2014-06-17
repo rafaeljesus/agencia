@@ -8,12 +8,13 @@ describe('Auth Controller', function() {
   var currentUser = null;
 
   beforeEach(function(done){
-    User.register({
+    var options = {
       firstName: 'userTest',
       lastName: 'userTestLogin',
       password: 'userTestPassword',
       email: 'valid@email.com'
-    }).complete(function(err, obj){
+    };
+    User.register(options, function(err, obj){
       if (err) return done(err);
       currentUser = obj;
       done();
