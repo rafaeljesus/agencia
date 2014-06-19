@@ -12,10 +12,11 @@ describe('User', function(){
       password: 'userTestPassword',
       email: 'valid@email.com'
     };
-    User.register(options, function(err, obj){
-      if (err) return done(err);
-      currentUser = obj;
+    User.register(options, function(user) {
+      currentUser = user;
       done();
+    }, function(err) {
+      return done(err);
     });
   });
 
@@ -35,10 +36,11 @@ describe('User', function(){
       login: currentUser.login,
       password: 'userTestPassword'
     };
-    User.authenticate(options, function(err, user){
-      if (err) throw err;
+    User.authenticate(options, function(user) {
       expect(user.email).to.equal(currentUser.email);
       done();
+    }, function(err) {
+      return done(err);
     });
   });
 
@@ -47,10 +49,11 @@ describe('User', function(){
       email: currentUser.email,
       password: 'userTestPassword'
     };
-    User.authenticate(options, function(err, user){
-      if (err) throw err;
+    User.authenticate(options, function(user) {
       expect(user.email).to.equal(currentUser.email);
       done();
+    }, function(err) {
+      return done(err);
     });
   });
 
@@ -61,11 +64,12 @@ describe('User', function(){
       firstName: 'new-first-name',
       lastName: 'new-last-name'
     };
-    User.register(options, function(err, user){
-      if (err) return done(err);
+    User.register(options, function(user){
       expect(user.email).to.equal(options.email);
       expect(user.senha).not.to.equal('new-password');
       done();
+    }, function(err) {
+      return done(err);
     });
   });
 
@@ -76,9 +80,12 @@ describe('User', function(){
       firstName: 'new-first-name',
       lastName: 'new-last-name'
     };
-    User.register(options, function(err, user){
-      expect(err.email).to.not.equal(null);
+    User.register(options, function(user) {
+      expect(user).to.equal(null);
       done();
+    }, function(err) {
+      expect(err).to.not.equal(null);
+      return done(err);
     })
   });
 

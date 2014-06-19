@@ -14,10 +14,11 @@ describe('Auth Controller', function() {
       password: 'userTestPassword',
       email: 'valid@email.com'
     };
-    User.register(options, function(err, obj){
-      if (err) return done(err);
-      currentUser = obj;
+    User.register(options, function(user) {
+      currentUser = user;
       done();
+    }, function(err) {
+      return done(err);
     });
   });
 

@@ -67,7 +67,7 @@ module.exports = function(sequelize, DataTypes) {
 
   var User = sequelize.define('User', definition, {
     classMethods: {
-      authenticate: function(options, callback) {
+      authenticate: function(options, success, error) {
         var shaSum = crypto.createHash('sha256');
         shaSum.update(options.password);
         return User.find({
@@ -78,10 +78,14 @@ module.exports = function(sequelize, DataTypes) {
             { email: options.email })
           )
         }).complete(function(err, user){
-          callback(err, user)
+          if (err || !user) {
+            error({ error: 'forbidden', reason: 'not_authenticated' });
+            return;
+          }
+          success(user);
         });
       },
-      register: function(options, callback) {
+      register: function(options, success, error) {
         var shaSum = crypto.createHash('sha256');
         shaSum.update(options.password);
         var attrs = {
@@ -90,16 +94,31 @@ module.exports = function(sequelize, DataTypes) {
           primeiro_nome: options.firstName,
           sobrenome: options.lastName
         };
-        return User.create(attrs).complete(function(err, user){
-          callback(err, user)
+        return User.create(attrs).complete(function(err, user) {
+          if (err) {
+            error(err);
+            return;
+          }
+          success(user);
         });
       },
-      changePassword: function(options, callback){
+      changePassword: function(options, success, error){
         var shaSum = crypto.createHash('sha256');
         shaSum.update(options.password);
-        return User.find(options.id).success(function(user){
-          user.updateAttributes({ password: shaSum.digest('hex') });
-          callback();
+        return User.find(options.id).complete(function(err, user) {
+          if (err) {
+            error(error);
+            return;
+          }
+          user
+            .updateAttributes({ password: shaSum.digest('hex') })
+            .complete(function(err, user) {
+              if (err) {
+                error(error);
+                return;
+              }
+              success(user);
+            });
         });
       }
     },
