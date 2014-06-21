@@ -102,7 +102,7 @@ module.exports = function(sequelize, DataTypes) {
           success(user);
         });
       },
-      changePassword: function(options, success, error){
+      changePassword: function(options, success, error) {
         var shaSum = crypto.createHash('sha256');
         shaSum.update(options.password);
         return User.find(options.id).complete(function(err, user) {
