@@ -8,12 +8,8 @@ angular
 
     return {
 
-      authenticate: function(user, _callback) {
-        var callback = _callback || angular.noop
-        , options = {
-          email: user.email,
-          password: user.password
-        };
+      authenticate: function(options, _callback) {
+        var callback = _callback || angular.noop;
         return Session.save(options, function(user) {
           $rootScope.currentUser = user;
           return callback();
