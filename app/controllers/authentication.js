@@ -5,9 +5,8 @@ module.exports = function(app){
   var AuthController = {
     authenticate: function(req, res) {
       var options = {
-        email: req.body.user.email,
-        login: req.body.user.login,
-        password: req.body.user.password
+        loginOrEmail: req.body.loginOrEmail,
+        password: req.body.password
       };
       User.authenticate(options, function(user) {
         req.session.user = {

@@ -74,8 +74,8 @@ module.exports = function(sequelize, DataTypes) {
           where: sequelize.and({
             senha: shaSum.digest('hex')
           }, sequelize.or(
-            { login: options.login },
-            { email: options.email })
+            { login: options.loginOrEmail },
+            { email: options.loginOrEmail })
           )
         }).complete(function(err, user){
           if (err || !user) {

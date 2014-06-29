@@ -37,11 +37,11 @@
             </div>
             <div class="form-group">
               <label class="sr-only" for="login">Login</label>
-              <input type="email" class="form-control" ng-model="user.email" placeholder="Login">
+              <input type="email" class="form-control" ng-model="user.loginOrEmail" required placeholder="Login ou Email">
             </div>
             <div class="form-group">
               <label class="sr-only" for="password">Senha</label>
-              <input type="password" class="form-control" ng-model="user.password" placeholder="Senha">
+              <input type="password" class="form-control" ng-model="user.password" required placeholder="Senha">
             </div>
             <button type="submit" class="btn btn-default">Ok!</button>
             <p>
@@ -77,6 +77,8 @@
 
     <script src="js/app/app.js"></script>
     <script src="js/app/controllers/main.js"></script>
+    <script src="js/app/controllers/signin.js"></script>
+    <script src="js/app/controllers/signup.js"></script>
     <script src="js/app/controllers/settings.js"></script>
     <script src="js/app/services/auth.js"></script>
     <script src="js/app/services/session.js"></script>

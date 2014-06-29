@@ -84,8 +84,8 @@ describe('User', function(){
       expect(user).to.equal(null);
       done();
     }, function(err) {
-      expect(err).to.not.equal(null);
-      return done(err);
+      expect(err.email).to.not.equal(null);
+      done();
     })
   });
 

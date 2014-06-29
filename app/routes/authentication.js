@@ -2,8 +2,8 @@ module.exports = function(app) {
 
   var auth = app.controllers.authentication;
 
-  app.post('/authenticate', auth.authenticate);
-  app.post('/register', auth.register);
-  app.post('/changePassword', auth.changePassword);
+  app.post('/session', auth.authenticate);
+  app.post('/users', auth.register);
+  app.put('/users/:id', auth.changePassword);
 
 };

@@ -29,9 +29,9 @@ describe('Auth Controller', function() {
   });
 
   it('when user is valid then authenticate', function(done){
-    var options = { user: { email: currentUser.email, password: 'userTestPassword' } };
+    var options = { loginOrEmail: currentUser.email, password: 'userTestPassword' };
     request
-      .post('/authenticate')
+      .post('/session')
       .set('Accept', 'application/json')
       .send(options)
       .expect('Content-Type', /json/)
@@ -53,7 +53,7 @@ describe('Auth Controller', function() {
       }
     };
     request
-      .post('/register')
+      .post('/users')
       .set('Accept', 'application/json')
       .send(options)
       .expect('Content-Type', /json/)
@@ -73,7 +73,7 @@ describe('Auth Controller', function() {
       }
     };
     request
-      .post('/changePassword')
+      .put('/users/' + currentUser.id)
       .set('Accept', 'application/json')
       .send(options)
       .expect('Content-Type', /json/)

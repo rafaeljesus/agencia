@@ -7,11 +7,7 @@ angular
     $scope.errors = {};
 
     $scope.authenticate = function() {
-      var options = {
-        email: $scope.user.email,
-        password: $scope.user.password
-      }
-      Auth.authenticate(options).then(function() {
+      Auth.authenticate($scope.user).then(function() {
         $location.path('/');
       }).catch(function(err) {
         err = err.data;
