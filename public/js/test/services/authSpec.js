@@ -94,4 +94,18 @@ describe('AuthSpec', function() {
     http.flush();
   });
 
+  it('when user enters a new password then change it', function(done) {
+    var expectedUser = { name: 'valid name', email: 'valid@gmail.com', password: '654321' }
+    , oldPassword = '123456'
+    , newPassword = expectedUser.password;
+    http.when('PUT', '/users').respond(expectedUser);
+    http.expectPUT('/users').respond(200, expectedUser);
+    auth.changePassword(oldPassword, newPassword, function(user) {
+      expect(user).to.not.be.an('undefined');
+      expect(user.password).to.be.equal(expectedUser.password);
+      done();
+    });
+    http.flush();
+  });
+
 });

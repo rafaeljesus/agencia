@@ -52,7 +52,6 @@ angular
           oldPassword: oldPassword,
           newPassword: newPassword
         };
-
         return User.update(options, function(user) {
           return callback(user);
         }, function(err) {
