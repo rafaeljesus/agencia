@@ -11,7 +11,7 @@ angular
         email: $scope.user.email,
         password: $scope.user.password
       }
-      Auth.authenticate(options).then(function(user) {
+      Auth.authenticate(options).then(function(err) {
         $location.path('/');
       }).catch(function(err) {
         err = err.data;

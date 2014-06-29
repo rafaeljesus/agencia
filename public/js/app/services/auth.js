@@ -4,22 +4,39 @@ angular
   .module('agencia')
   .factory('Auth', function Auth($location, $rootScope, Session, User) {
 
+    var emailPattern = /^(?:[\w\!\#\$\%\&\'\*\+\-\/\=\?\^\`\{\|\}\~]+\.)*[\w\!\#\$\%\&\'\*\+\-\/\=\?\^\`\{\|\}\~]+@(?:(?:(?:[a-zA-Z0-9](?:[a-zA-Z0-9\-](?!\.)){0,61}[a-zA-Z0-9]?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9\-](?!$)){0,61}[a-zA-Z0-9]?)|(?:\[(?:(?:[01]?\d{1,2}|2[0-4]\d|25[0-5])\.){3}(?:[01]?\d{1,2}|2[0-4]\d|25[0-5])\]))$/;
+
     $rootScope.currentUser = window.user || null;
 
     return {
 
-      authenticate: function(options, _callback) {
-        var callback = _callback || angular.noop;
-        return Session.save(options, function(user) {
+      register: function(user, cb) {
+        var callback = cb || angular.noop;
+        if (!emailPattern.test(user.email))
+          return callback({ error: 'Invalid email' });
+        return User.save(user, function(user) {
+            $rootScope.currentUser = user;
+            return callback(null, user);
+          },
+          function(err) {
+            return callback(err);
+          }).$promise;
+      },
+
+      authenticate: function(user, cb) {
+        var callback = cb || angular.noop;
+        if (!emailPattern.test(user.email))
+          return callback({ error: 'Invalid email' });
+        return Session.save(user, function(user) {
           $rootScope.currentUser = user;
-          return callback();
+          return callback(null);
         }, function(err) {
           return callback(err);
         }).$promise;
       },
 
-      logout: function(_callback) {
-        var callback = _callback || angular.noop;
+      logout: function(cb) {
+        var callback = cb || angular.noop;
         return Session.delete(function() {
             $rootScope.currentUser = null;
             return callback();
@@ -29,19 +46,8 @@ angular
           }).$promise;
       },
 
-      signup: function(user, _callback) {
-        var callback = _callback || angular.noop;
-        return User.save(user, function(user) {
-            $rootScope.currentUser = user;
-            return callback(user);
-          },
-          function(err) {
-            return callback(err);
-          }).$promise;
-      },
-
-      changePassword: function(oldPassword, newPassword, _callback) {
-        var callback = _callback || angular.noop
+      changePassword: function(oldPassword, newPassword, cb) {
+        var callback = cb || angular.noop
         , options = {
           oldPassword: oldPassword,
           newPassword: newPassword
