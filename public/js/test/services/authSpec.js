@@ -53,7 +53,7 @@ describe('AuthSpec', function() {
     var options = { name: 'valid name', email: 'valid@gmail.com', password: '123456' };
     http.when('POST', '/session').respond(options);
     http.expectPOST('/session').respond(200, options);
-    auth.authenticate(options, function(err, user) {
+    auth.authenticate(options, function(err) {
       expect(err).to.be.a('null');
       expect(rootScope.currentUser).to.not.be.an('undefined');
       expect(rootScope.currentUser.name).to.equal(options.name);

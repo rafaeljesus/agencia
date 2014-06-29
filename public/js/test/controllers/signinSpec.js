@@ -2,24 +2,35 @@ var expect = chai.expect;
 
 describe('SigninControllerSpec', function() {
 
-  var controller, scope, location;
+  var controller, scope, auth, location, http;
 
   beforeEach(function() {
     module('agencia');
   });
 
-  beforeEach(inject(function($rootScope, $controller, $location) {
+  beforeEach(inject(function($rootScope, $controller, $location, _$httpBackend_, Auth) {
+    auth = Auth;
     scope = $rootScope.$new();
     location = $location;
+    http = _$httpBackend_;
     controller = $controller('SigninController', {
       $scope: scope
     });
   }));
 
-  it('when login form is valid then authenticate', function() {
+  afterEach(function() {
+    http.verifyNoOutstandingExpectation();
+    http.verifyNoOutstandingRequest();
+  });
+
+  it('when login form is valid then authenticate', function(done) {
     scope.user = { email: 'valid@email.com', password: '123456' };
+    http.when('POST', '/session').respond(scope.user);
+    http.expectPOST('/session').respond(200, scope.user);
     scope.authenticate();
-    expect(location.path()).to.equal('/');
+    http.flush();
+    done();
+    expect(auth.isLoggedIn()).to.be.true;
   });
 
 });
