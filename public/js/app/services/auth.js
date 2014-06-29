@@ -4,19 +4,15 @@ angular
   .module('agencia')
   .factory('Auth', function Auth($location, $rootScope, Session, User) {
 
-    var emailPattern = /^(?:[\w\!\#\$\%\&\'\*\+\-\/\=\?\^\`\{\|\}\~]+\.)*[\w\!\#\$\%\&\'\*\+\-\/\=\?\^\`\{\|\}\~]+@(?:(?:(?:[a-zA-Z0-9](?:[a-zA-Z0-9\-](?!\.)){0,61}[a-zA-Z0-9]?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9\-](?!$)){0,61}[a-zA-Z0-9]?)|(?:\[(?:(?:[01]?\d{1,2}|2[0-4]\d|25[0-5])\.){3}(?:[01]?\d{1,2}|2[0-4]\d|25[0-5])\]))$/;
-
     $rootScope.currentUser = window.user || null;
 
     return {
 
       register: function(user, cb) {
         var callback = cb || angular.noop;
-        if (!emailPattern.test(user.email))
-          return callback({ error: 'Invalid email' });
         return User.save(user, function(user) {
             $rootScope.currentUser = user;
-            return callback(null, user);
+            return callback(user);
           },
           function(err) {
             return callback(err);
@@ -25,11 +21,9 @@ angular
 
       authenticate: function(user, cb) {
         var callback = cb || angular.noop;
-        if (!emailPattern.test(user.email))
-          return callback({ error: 'Invalid email' });
         return Session.save(user, function(user) {
           $rootScope.currentUser = user;
-          return callback(null);
+          return callback();
         }, function(err) {
           return callback(err);
         }).$promise;

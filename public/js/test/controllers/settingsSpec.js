@@ -1,6 +1,6 @@
 var expect = chai.expect;
 
-describe('SignupControllerSpec', function() {
+describe('SettingsControllerSpec', function() {
 
   var controller, scope, auth, location, http;
 
@@ -13,7 +13,7 @@ describe('SignupControllerSpec', function() {
     scope = $rootScope.$new();
     location = $location;
     http = _$httpBackend_;
-    controller = $controller('SignupController', {
+    controller = $controller('SettingsController', {
       $scope: scope
     });
   }));
@@ -23,14 +23,14 @@ describe('SignupControllerSpec', function() {
     http.verifyNoOutstandingRequest();
   });
 
-  it('when login form is valid then signup', function(done) {
-    scope.user = { name: 'valid name', email: 'valid@email.com', password: '123456' };
-    http.when('POST', '/users').respond(scope.user);
-    http.expectPOST('/users').respond(200, scope.user);
-    scope.register();
+  it('when user enters a new password then change it', function(done) {
+    scope.user = { oldPassword: '123456', newPassword: '654321' };
+    http.when('PUT', '/users').respond(scope.user);
+    http.expectPUT('/users').respond(200, scope.user);
+    scope.changePassword();
     http.flush();
     done();
-    expect(auth.isLoggedIn()).to.be.true;
+    expect(scope.message).to.be.equal('Password successfully changed.');
   });
 
 });
