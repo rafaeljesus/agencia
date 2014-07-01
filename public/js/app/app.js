@@ -1,6 +1,6 @@
 'use strict';
 
-angular
+var agencia = angular
   .module('agencia', ['ngResource', 'ngRoute'])
   .config(function ($routeProvider, $locationProvider, $httpProvider) {
     $routeProvider

@@ -1,7 +1,6 @@
 'use strict';
 
-angular
-  .module('agencia')
+agencia
   .controller('MainController', function() {
 
   });

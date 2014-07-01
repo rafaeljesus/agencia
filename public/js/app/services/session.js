@@ -1,7 +1,6 @@
 'use strict';
 
-angular
-  .module('agencia')
+agencia
   .factory('Session', function($resource) {
     return $resource('/session/');
   });

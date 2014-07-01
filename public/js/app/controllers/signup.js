@@ -1,7 +1,6 @@
 'use strict';
 
-angular
-  .module('agencia')
+agencia
   .controller('SignupController', function($scope, Auth, $location) {
     $scope.user = {};
     $scope.errors = {};

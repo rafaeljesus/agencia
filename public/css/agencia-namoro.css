@@ -1,5 +1,9 @@
 /* CUSTOMIZING FONTS - using googleFonts*/
 
+.required-true {
+  border-color: #a94442;
+}
+
 .carousel-font {
   font-family: 'Oswald', sans-serif;
   text-shadow: light-gray 5px 3px 3px;

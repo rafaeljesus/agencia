@@ -1,7 +1,6 @@
 'use strict';
 
-angular
-  .module('agencia')
+agencia
   .factory('User', function($resource) {
 
     return $resource('/users/:id', {

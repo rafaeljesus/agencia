@@ -1,7 +1,6 @@
 'use strict';
 
-angular
-  .module('agencia')
+agencia
   .factory('Auth', function Auth($location, $rootScope, Session, User) {
 
     $rootScope.currentUser = window.user || null;
@@ -23,6 +22,7 @@ angular
         var callback = cb || angular.noop;
         return Session.save(user, function(user) {
           $rootScope.currentUser = user;
+          $rootScope.$broadcast('user:loggedIn');
           return callback();
         }, function(err) {
           return callback(err);
@@ -33,6 +33,7 @@ angular
         var callback = cb || angular.noop;
         return Session.delete(function() {
             $rootScope.currentUser = null;
+            $rootScope.$broadcast('user:logout');
             return callback();
           },
           function(err) {

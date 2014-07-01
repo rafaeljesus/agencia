@@ -1,7 +1,6 @@
 'use strict';
 
-angular
-  .module('agencia')
+agencia
   .controller('SettingsController', function($scope, Auth) {
     $scope.errors = {};
 
