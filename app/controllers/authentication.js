@@ -4,11 +4,7 @@ module.exports = function(app){
 
   var AuthController = {
     authenticate: function(req, res) {
-      var options = {
-        loginOrEmail: req.body.loginOrEmail,
-        password: req.body.password
-      };
-      User.authenticate(options, function(user) {
+      User.authenticate(req.body.user, function(user) {
         req.session.user = {
           id: user.id,
           firstName: user.primeiro_nome,
@@ -20,14 +16,7 @@ module.exports = function(app){
       });
     },
     register: function(req, res) {
-      var options = {
-        id: req.body.user.id,
-        firstName: req.body.user.firstName,
-        lastName: req.body.user.lastName,
-        email: req.body.user.email,
-        password: req.body.user.password
-      };
-      User.register(options, function(user) {
+      User.register(req.body.user, function(user) {
         req.session.user = {
           id: user.id,
           firstName: user.primeiro_nome,

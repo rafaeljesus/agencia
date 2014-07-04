@@ -24,7 +24,7 @@ describe('SignupControllerSpec', function() {
   });
 
   it('when login form is valid then signup', function(done) {
-    scope.user = { name: 'valid name', email: 'valid@email.com', password: '123456' };
+    scope.user = { firstName: 'valid name', lastName: 'valid last name', email: 'valid@email.com', password: '123456' };
     http.when('POST', '/users').respond(scope.user);
     http.expectPOST('/users').respond(200, scope.user);
     scope.register();

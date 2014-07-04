@@ -1,0 +1,36 @@
+<div>
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+          <h4 class="modal-title" id="myModalLabel">Crie uma conta</h4>
+        </div>
+        <form name="registerForm" ng-submit="register()" role="form">
+          <div class="modal-body">
+            <div class="form-group" ng-class="{error: registerForm.login.$invalid && !registerForm.login.$pristine}">
+              <label for="firstName">Nome</label>
+              <input type="text" class="form-control" name="firstName" required ng-model="user.firstName" placeholder="Nome">
+            </div>
+            <div class="form-group" ng-class="{error: registerForm.login.$invalid && !registerForm.login.$pristine}">
+              <label for="lastName">Sobrenome</label>
+              <input type="text" class="form-control" name="lastName" required ng-model="user.lastName" placeholder="Sobrenome">
+            </div>
+            <div class="form-group" ng-class="{error: registerForm.login.$invalid && !registerForm.login.$pristine}">
+              <label for="email">Email</label>
+              <input type="email" class="form-control" name="email" required ng-model="user.email" placeholder="Email">
+            </div>
+            <div class="form-group" ng-class="{error: registerForm.password.$invalid && !registerForm.password.$pristine}">
+              <label for="password">Password</label>
+              <input type="password" class="form-control" name="password" required ng-model="user.password" placeholder="Senha">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-primary">Cadastre-se</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

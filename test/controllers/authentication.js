@@ -29,7 +29,7 @@ describe('Auth Controller', function() {
   });
 
   it('when user is valid then authenticate', function(done){
-    var options = { loginOrEmail: currentUser.email, password: 'userTestPassword' };
+    var options = { user: { loginOrEmail: currentUser.email, password: 'userTestPassword' } };
     request
       .post('/session')
       .set('Accept', 'application/json')
