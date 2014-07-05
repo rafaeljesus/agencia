@@ -3,6 +3,7 @@ module.exports = function(app){
   var User = require('../models').User;
 
   var AuthController = {
+
     authenticate: function(req, res) {
       User.authenticate(req.body.user, function(user) {
         req.session.user = {
@@ -15,6 +16,7 @@ module.exports = function(app){
         res.json(403, err);
       });
     },
+
     register: function(req, res) {
       User.register(req.body.user, function(user) {
         req.session.user = {
@@ -27,6 +29,7 @@ module.exports = function(app){
         res.json(401);
       });
     },
+
     changePassword: function(req, res) {
      var options = {
         id: req.body.user.id,
