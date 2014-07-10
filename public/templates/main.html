@@ -1,3 +1,19 @@
+ <div class="container">
+    <div class="row">
+      <div class="col-md-7" id="home">
+        <img src="img/logo.png" class="img-responsive"/>
+      </div>
+      <div class="col-md-5" ng-controller="SigninController">
+        <div form-login></div>
+      </div>
+      <div ng-controller="SignupController">
+        <div form-register></div>
+      </div>
+      <div forgot-password></div>
+  </div>
+</div>
+
+
 <!-- Carousel -->
 <div id="carousel" class="carousel slide" data-ride="carousel">
 
@@ -59,7 +75,7 @@
 
     <div class="col-lg-4">
       <button type="button" class="btn btn-circle red" id="depoimento-button-link"
-        onclick="window.location.href='#depoimentos'">
+        onclick="window.location.href='#depoimentos'; return false;">
         <i class="glyphicon glyphicon-bullhorn white"></i>
       </button>
       <h2>Depoimentos</h2>
@@ -72,7 +88,7 @@
     </div>
 
     <div class="col-lg-4">
-      <button type="button" class="btn btn-circle purple" onclick="window.location.href='#enquetes'">
+      <button type="button" class="btn btn-circle purple" onclick="window.location.href='#enquetes'; return false;">
         <i class="glyphicon glyphicon-list-alt white"></i>
       </button>
       <h2>Enquete</h2>
@@ -88,7 +104,7 @@
     </div>
 
     <div class="col-lg-4">
-      <button type="button" class="btn btn-circle green" id="como-funciona-link-btn" onclick="window.location.href='#comofunciona'">
+      <button type="button" class="btn btn-circle green" id="como-funciona-link-btn" onclick="window.location.href='#comofunciona'; return false;">
         <i class="glyphicon glyphicon-question-sign"></i>
       </button>
       <h2>Como funciona</h2>
@@ -201,7 +217,7 @@
       <div class="col-md-5">&nbsp;</div>
       <div class="col-md-2">
         <p>
-          <a class="btn btn-lg btn-primary" href="#home" role="button">home</a>
+          <a class="btn btn-lg btn-primary" href="#home" onclick="return false" role="button">home</a>
         </p>
       </div>
       <div class="col-md-5">&nbsp;</div>
@@ -258,7 +274,7 @@
       <div class="col-md-5">&nbsp;</div>
       <div class="col-md-2">
         <p>
-          <a class="btn btn-lg btn-primary" href="#home" role="button">home</a>
+          <a class="btn btn-lg btn-primary" href="#home" onclick="return false" role="button">home</a>
         </p>
       </div>
       <div class="col-md-5">&nbsp;</div>
@@ -318,7 +334,7 @@
       <div class="col-md-5">&nbsp;</div>
       <div class="col-md-2">
         <p>
-          <a class="btn btn-lg btn-primary" id="depoimento-home-link" href="#home" role="button">home</a>
+          <a class="btn btn-lg btn-primary" id="depoimento-home-link" onclick="return false" href="#home" role="button">home</a>
         </p>
       </div>
       <div class="col-md-5">&nbsp;</div>
@@ -569,7 +585,7 @@
     <div class="col-md-5">&nbsp;</div>
     <div class="col-md-2">
       <p>
-        <a class="btn btn-lg btn-primary" id="enquete-home-link" href="#home" role="button">home</a>
+        <a class="btn btn-lg btn-primary" id="enquete-home-link" href="#home" onclick="return false" role="button">home</a>
       </p>
     </div>
     <div class="col-md-5">&nbsp;</div>

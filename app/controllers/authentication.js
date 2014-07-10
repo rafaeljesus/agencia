@@ -6,12 +6,12 @@ module.exports = function(app){
 
     authenticate: function(req, res) {
       User.authenticate(req.body.user, function(user) {
-        req.session.user = {
+       req.session.user = {
           id: user.id,
           firstName: user.primeiro_nome,
           email: user.email
         }
-        res.json(req.session.user);
+        res.json(req.session.user);       
       }, function(err) {
         res.json(403, err);
       });

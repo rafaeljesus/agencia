@@ -11,10 +11,13 @@ agencia
         }
       }
       Auth.authenticate(options).then(function() {
-        $location.path('/');
+        $location.path('/backoffice');
       }).catch(function(err) {
         err = err.data;
-        $scope.errors.other = err.message;
+        $scope.errors = {other: err.message || ''};
+        if(err.reason === 'not_authenticated'){
+            alert('Usuário ou senha estão inválidos. TODO Usar alert do bootstrap');
+        }
       });
     };
 

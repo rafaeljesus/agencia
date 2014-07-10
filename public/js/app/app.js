@@ -12,6 +12,10 @@ var agencia = angular
         templateUrl: 'templates/settings.html',
         controller: 'SettingsController'
       })
+      .when('/backoffice', {
+        templateUrl: 'templates/backoffice.html',
+        controller: 'BackOfficeController'
+      })
       .otherwise({
         redirectTo: '/'
       });

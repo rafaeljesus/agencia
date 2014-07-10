@@ -12,10 +12,10 @@ agencia
         return User.save(user, function(user) {
             $rootScope.currentUser = user;
             return callback(user);
-          },
-          function(err) {
+        },
+        function(err) {
             return callback(err);
-          }).$promise;
+        }).$promise;
       },
 
       authenticate: function(user, cb) {

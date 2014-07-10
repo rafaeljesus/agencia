@@ -1,29 +1,25 @@
-/* CUSTOMIZING FONTS - using googleFonts*/
-
-.required-true {
-  border-color: #a94442;
-}
-
+/* CUSTOMIZING FONTS - using googleFonts*/	
+	
 .carousel-font {
-  font-family: 'Oswald', sans-serif;
-  text-shadow: light-gray 5px 3px 3px;
+	font-family: 'Oswald', sans-serif;
+	text-shadow: light-gray 5px 3px 3px;
 }
 h1{
-  font-family: 'Oswald', sans-serif;
-  text-shadow: light-gray 5px 3px 3px;
+	font-family: 'Oswald', sans-serif;
+	text-shadow: light-gray 5px 3px 3px;
 }
 
 .login-locker{
-  font-size: 17px;
-  color: gray;
+	font-size: 17px;
+	color: gray;
 }
 
 .text-orange{
-  color: orange;
+	color: orange;
 }
 
 .text-pink{
-  color: pink;
+	color: pink;
 }
 
 .text-red{
@@ -46,7 +42,7 @@ h1{
   font-size: 90px;
   line-height: 0;
   border-radius: 70px;
-  color: white;
+  color: white;  
 }
 
 
@@ -73,3 +69,4 @@ h1{
 /* text-shadow: gray 5px 3px 3px;
  * http://stackoverflow.com/questions/19250594/how-to-use-bootstrap-glyphicons-in-holder-js-images
 */
+
