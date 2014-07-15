@@ -1,7 +1,11 @@
 'use strict';
 
 agencia
-  .factory('Auth', function Auth($location, $rootScope, Session, User) {
+  .factory('Auth', function Auth($location, $rootScope, $sessionStorage, Session, User) {
+
+    if($sessionStorage){
+      window.user = $sessionStorage.userLoggedIn;      
+    }
 
     $rootScope.currentUser = window.user || null;
 
@@ -21,8 +25,14 @@ agencia
       authenticate: function(user, cb) {
         var callback = cb || angular.noop;
         return Session.save(user, function(user) {
+
+          if($sessionStorage){
+            $sessionStorage.userLoggedIn = user;
+          }    
+
           $rootScope.currentUser = user;
           $rootScope.$broadcast('user:loggedIn');
+        
           return callback();
         }, function(err) {
           return callback(err);
@@ -34,6 +44,12 @@ agencia
         return Session.delete(function() {
             $rootScope.currentUser = null;
             $rootScope.$broadcast('user:logout');
+
+            if($sessionStorage){
+              $sessionStorage.userLoggedIn = null;
+            }    
+
+
             return callback();
           },
           function(err) {

@@ -1,7 +1,7 @@
 'use strict';
 
 var agencia = angular
-  .module('agencia', ['ngResource', 'ngRoute'])
+  .module('agencia', ['ngResource', 'ngRoute', 'ngStorage'])
   .config(function ($routeProvider, $locationProvider, $httpProvider) {
     $routeProvider
       .when('/', {
@@ -37,10 +37,12 @@ var agencia = angular
       };
     }]);
   })
-  .run(function ($rootScope, $location, Auth) {
+  .run(function ($rootScope, $location, $sessionStorage, Auth) {
     $rootScope.$on('$routeChangeStart', function (event, next) {
       if (next.authenticate && !Auth.isLoggedIn()) {
         $location.path('/login');
+        return;
       }
+
     });
   });

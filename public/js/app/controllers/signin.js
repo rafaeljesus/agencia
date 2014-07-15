@@ -3,6 +3,10 @@
 agencia
   .controller('SigninController', function($scope, Auth, $location) {
 
+    if(window.user){
+       $location.path('/backoffice');
+    }
+
     $scope.authenticate = function() {
       var options = {
         user: {
