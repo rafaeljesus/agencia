@@ -1,12 +1,13 @@
 agencia
   .directive('backofficeMenuFooter', function($compile, $location) {
 
+    var template = '</div></div>';
+
     return {
       restrict: 'E',
-      templateUrl: 'templates/backoffice-menu-footer.html',
+      replace: true,
       link: function(scope, el, attrs) {
-        el.remove();
-                scope.$on('user:loggedIn', function() {
+        scope.$on('user:loggedIn', function() {
           el.html(template);
           $compile(el.html())(scope);
         });
@@ -17,4 +18,3 @@ agencia
       }
     };
 });
-s

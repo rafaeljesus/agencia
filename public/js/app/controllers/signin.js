@@ -4,6 +4,7 @@ agencia
   .controller('SigninController', function($scope, Auth, $location) {
 
     if(window.user){
+       $rootScope.$broadcast('user:loggedIn');
        $location.path('/backoffice');
     }
 

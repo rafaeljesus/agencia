@@ -25,9 +25,9 @@
 
   <body>
 
-    <backoffice-menu template='templates/backoffice-menu-header.html'></backoffice-menu>
+    <backoffice-menu-header></backoffice-menu-header>
     <div ng-view></div>
-    <backoffice-menu template='templates/backoffice-menu-footer.html'></backoffice-menu>
+    <backoffice-menu-footer></backoffice-menu-footer>
 
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
@@ -46,7 +46,8 @@
     <script src="js/app/directives/form-login.js"></script>
     <script src="js/app/directives/form-register.js"></script>
     <script src="js/app/directives/forgot-password.js"></script>
-    <script src="js/app/directives/backoffice-menu.js"></script>
+    <script src="js/app/directives/backoffice-menu-header.js"></script>
+    <script src="js/app/directives/backoffice-menu-footer.js"></script>
     
     <script src="js/app/controllers/main.js"></script>
     <script src="js/app/controllers/signin.js"></script>
