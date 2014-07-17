@@ -1,0 +1,30 @@
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ng-controller="ProfileController">
+      <br/><br/> 
+       <h1 class="page-header">Meu Perfil</h1>
+        <div class="row placeholders">
+              <div>Ol&aacute; <strong><span ng-bind="currentUser.firstName"/></strong><br/><br/> Seja muito bem vindo a <strong>Ag&ecirc;ncia Namoro Gay</strong>. Para come&ccedil;ar a utiliza&ccedil;&atilde;o da ag&ecirc;ncia &eacute; necess&aacute;rio completar o cadastro de seu perfil:
+              </div>
+
+            <br/><br/>  
+           
+            <div form-character></div>
+            
+        </div>
+    </div>
+
+  <!--Closing Divs from login directive-->
+  </div>
+</div>
+<script>
+ function showMeuPerfil(){
+   document.getElementById('meuPerfil').style.display='block';
+   document.getElementById('outrosClientes').style.display='none';
+ }
+  
+ function showOutrosClientes(){
+   document.getElementById('meuPerfil').style.display='none';
+   document.getElementById('outrosClientes').style.display='block';
+ }
+ </script>
+
+  

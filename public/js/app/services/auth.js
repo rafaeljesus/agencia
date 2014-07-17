@@ -3,10 +3,6 @@
 agencia
   .factory('Auth', function Auth($location, $rootScope, $sessionStorage, Session, User) {
 
-    if($sessionStorage){
-      window.user = $sessionStorage.userLoggedIn;      
-    }
-
     $rootScope.currentUser = window.user || null;
 
     return {
@@ -76,7 +72,17 @@ agencia
 
       isLoggedIn: function() {
         var user = $rootScope.currentUser;
-        return !!user;
+        if($sessionStorage){
+          user = $sessionStorage.userLoggedIn;      
+        }
+
+        if(!!user){
+          $rootScope.currentUser = user;
+          $rootScope.$broadcast('user:loggedIn');
+          return true;
+        }
+
+        return false;
       }
 
     };

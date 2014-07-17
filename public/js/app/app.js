@@ -6,21 +6,24 @@ var agencia = angular
     $routeProvider
       .when('/', {
         templateUrl: 'templates/main.html',
-        controller: 'MainController'
+        controller: 'MainController',
+        authenticatedUsersOnly: false
       })
       .when('/settings', {
         templateUrl: 'templates/settings.html',
-        controller: 'SettingsController'
+        controller: 'SettingsController',
+        authenticatedUsersOnly: true
       })
-      .when('/backoffice', {
-        templateUrl: 'templates/backoffice.html',
-        controller: 'BackOfficeController'
+      .when('/profile', {
+        templateUrl: 'templates/meuPerfil.html',
+        controller: 'ProfileController',
+        authenticatedUsersOnly: true
       })
       .otherwise({
         redirectTo: '/'
       });
 
-    $locationProvider.html5Mode(true);
+    //$locationProvider.html5Mode(true);
 
     // Intercept 401s and 403s and redirect you to login
     $httpProvider.interceptors.push(['$q', '$location', function($q, $location) {
@@ -39,7 +42,7 @@ var agencia = angular
   })
   .run(function ($rootScope, $location, $sessionStorage, Auth) {
     $rootScope.$on('$routeChangeStart', function (event, next) {
-      if (next.authenticate && !Auth.isLoggedIn()) {
+      if (next.$$route.authenticatedUsersOnly && !Auth.isLoggedIn()) {
         $location.path('/login');
         return;
       }

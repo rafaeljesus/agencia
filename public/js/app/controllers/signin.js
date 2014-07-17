@@ -3,9 +3,8 @@
 agencia
   .controller('SigninController', function($scope, Auth, $location) {
 
-    if(window.user){
-       $rootScope.$broadcast('user:loggedIn');
-       $location.path('/backoffice');
+    if(Auth.isLoggedIn()){
+       $location.path('/profile');
     }
 
     $scope.authenticate = function() {
@@ -16,7 +15,7 @@ agencia
         }
       }
       Auth.authenticate(options).then(function() {
-        $location.path('/backoffice');
+        $location.path('/profile');
       }).catch(function(err) {
         err = err.data;
         $scope.errors = {other: err.message || ''};
