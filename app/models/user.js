@@ -120,6 +120,16 @@ module.exports = function(sequelize, DataTypes) {
               success(user);
             });
         });
+      },
+      load: function(id, success, error) {
+        return User.find(id).complete(function(err, user) {
+          if (err) {
+            error(error);
+            return;
+          }
+          console.log(user);
+          return success(user);            
+        });
       }
     },
     tableName: 'tb_clientes_gls'
