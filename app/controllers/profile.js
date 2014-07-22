@@ -10,8 +10,18 @@ module.exports = function(app) {
     		function(err) {
         	res.json(401);
       	}
-      )}        
-  }
+    )},
+
+    update: function(req, res){
+      User.updateProfile(req.body.profile, function(user){
+        res.json(user);
+      },
+      function(err){
+        res.json(500);
+      }
+    )}
+
+  };
 
   return ProfileController;
 };

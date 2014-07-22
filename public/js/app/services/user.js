@@ -5,8 +5,7 @@ agencia
 
     return $resource('/users/:id', { id: '@id' },
     	{
-    		getAll: { method: "GET", params: {} },
-        get: { method: "GET", params: { id: 0 } },
-        update: {method: "PUT"}
+    		get: { method: "GET", params: { id: 0 } },
+        update: {method: "PUT", params:{} }
     	});
   });

@@ -1,3 +1,5 @@
+ <form role="form" ng-submit="updateProfile()">
+
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ng-controller="ProfileController" ng-init="loadProfile()">
       <br/><br/> 
        <h1 class="page-header">Meu Perfil</h1>
@@ -6,6 +8,7 @@
               </div>
 
             <br/><br/>  
+
 
             <div id="container">
                 <div id="content">
@@ -27,19 +30,29 @@
                               </div>
                               <!--altura-->
                                <div class="col-md-3"> 
-                                  <div class="form-group">
+                                  <div class="form-inline">
                                     <label>Altura</label> 
                                     <div>
-                                      <input type="text" ng-model="profile.altura" class="form-control" />
+                                      <select class="form-control" name="altura_metros" 
+                                      ng-model="altura.metros" 
+                                        required= "true" ng-options="n for n in [] | range:0:3"/><small>&nbsp;m&nbsp;</small>
+                                      <select class="form-control" name="altura_cm" 
+                                        ng-model="altura.centimetros" 
+                                        required= "true" ng-options="n for n in [] | range:0:100"/><small>&nbsp;cm</small>
                                     </div>
                                   </div>  
                                 </div>  
                                 <!--peso-->
                                 <div class="col-md-3">
-                                  <div class="form-group">
+                                  <div class="form-inline">
                                     <label>Peso</label> 
                                     <div>
-                                      <input type="text" class="form-control" ng-model="profile.peso" id="peso"/>
+                                      <select class="form-control" name="peso_kilo" 
+                                      ng-model="peso.kilos" 
+                                        required= "true" ng-options="n for n in [] | range:0:251"/><small>&nbsp;kilos&nbsp;</small>
+                                      <select class="form-control" name="peso_gramas" 
+                                        ng-model="peso.gramas" 
+                                        required= "true" ng-options="n for n in [] | range:0:1000"/><small>&nbsp;gramas</small>
                                     </div>    
                                   </div>                                  
                                 </div>
@@ -48,14 +61,14 @@
                                   <div class="form-group">
                                     <label>Tipo F&iacute;sico</label> 
                                     <div>
-                                      <input type="text" class="form-control" ng-model="profile.estilo_corpo" id="fisico"/>
+                                      <input type="text" class="form-control" ng-model="profile.estilo_corpo" id="fisico" required="true"/>
                                     </div>    
                                   </div>                                  
                                 </div>
                             </div>               
 
                              <div class="row">
-                                <button type="button" class="btn btn-success btn-lg">
+                                <button type="submit" class="btn btn-success btn-lg">
                                    <span class="glyphicon glyphicon-floppy-save"></span> Salvar
                                 </button>
                                 <button type="button" class="btn btn-default btn-lg">
@@ -63,123 +76,15 @@
                                 </button>
                             </div>                                
                                            
-                      </div><!--end caracteristicas tab-->
-
-
-                      <div class="tab-pane" id="orange">
-                          <h1>Orange</h1>
-                          <p>orange orange orange orange orange</p>
-                      </div>
-                      <div class="tab-pane" id="yellow">
-                          <h1>Yellow</h1>
-                          <p>yellow yellow yellow yellow yellow</p>
-                      </div>
-                      <div class="tab-pane" id="green">
-                          <h1>Green</h1>
-                          <p>green green green green green</p>
-                      </div>
-                      <div class="tab-pane" id="blue">
-                          <h1>Blue</h1>
-                          <p>blue blue blue blue blue</p>
-                      </div>                  
-                  </div> <!-- container -->
-
-
-              
-                    <!--div class="col-md-3">
-                      <div class="form-group">
-                          <label class="col-sm-2 control-label" for="trabalha">Voc&ecirc; Trabalha?</label> 
-                          <input type="text" id="trabalha" class="form-control"/>
-                      </div>
-                      <div class="form-group">
-                          <label class="col-sm-2 control-label" for="estuda">Voc&ecirc; Estuda?</label> 
-                          <input type="text" id="estuda" class="form-control"/>
-                      </div>
-                      <div class="form-group">
-                          <label class="col-sm-2 control-label" for="mora">Mora com Quem?</label> 
-                          <input type="text" id="mora" class="form-control"/>
-                      </div>
-
-                      <div class="form-group">
-                          <label class="col-sm-2 control-label" for="carroOuMoto">Possui Carro ou Moto?</label> 
-                          <input type="text" id="carroOuMoto" class="form-control"/>
-                      </div>
-
-                      <div class="form-group">
-                          <label class="col-sm-2 control-label" for="temFilhos">Tem Filhos?</label> 
-                          <input type="text" id="temFilhos" class="form-control"/>
-                      </div>
-
-                      <div class="form-group">
-                          <label class="col-sm-2 control-label" for="religiao">Religiao?</label> 
-                          <input type="text" id="religiao" class="form-control"/>
-                      </div>
-
-                      <div class="form-group">
-                          <label class="col-sm-2 control-label" for="escolaridade">Escolaridade?</label> 
-                          <input type="text" id="escolaridade" class="form-control"/>
-                      </div>
-                    </div>  
-
-                    <div class="col-md-3">
-                      <div class="form-group">
-                          <label class="col-sm-2 control-label" for="signo">Signo?</label> 
-                          <input type="text" id="signo" class="form-control"/>
-                      </div>
-
-                      <div class="form-group">
-                          <label class="col-sm-2 control-label" for="tv">Gosta de ver TV?</label> 
-                          <input type="text" id="tv" class="form-control"/>
-                      </div>
-
-                      <div class="form-group">
-                          <label class="col-sm-2 control-label" for="ler">Gosta de ler?</label> 
-                          <input type="text" id="ler" class="form-control"/>
-                      </div>
-
-                      <div class="form-group">
-                        <label class="col-sm-2 control-label" for="musica">Estilo de Música?</label> 
-                          <input type="text" id="musica" class="form-control"/>
-                          <input type="text" id="musica2" class="form-control"/>
-                          <input type="text" id="musica3" class="form-control"/>
-                          <input type="text" id="musica4" class="form-control"/>
-                          <input type="text" id="musica5" class="form-control"/>
-                      </div>
-
-                      <label class="col-sm-2 control-label" for="vestir">Estilo de Vestir?</label> 
-                      <input type="text" id="vestir"/>
-                      <br/><br/>
-
-                      <label class="col-sm-2 control-label" for="viajar">Prefere viajar para</label> 
-                      <input type="text" id="viajar"/>
-                      <br/><br/>
-
-                      <label class="col-sm-2 control-label" for="fuma">Você fuma?</label> 
-                      <input type="text" id="fuma"/>
-                      <br/><br/>
-
-                      <label class="col-sm-2 control-label" for="pratica">Pratica exerc&iacute;cios?</label> 
-                      <input type="text" id="pratica"/>
-                      <br/><br/>
-
-                      <label class="col-sm-2 control-label" for="bebe">Bebe?</label> 
-                      <input type="text" id="bebe"/>
-                      <br/><br/>
-                    </div-->  
-                </div>            
-              </div>
-
-
-
-
-
-            
+                     </div><!--end caracteristicas tab-->
+                  </div> <!-- tab content-->
+               </div>  <!-- end content-->
+            </div> <!--end container -->
         </div>
     </div>
+</form>
+         
 
-  <!--Closing Divs from login directive-->
-  </div>
-</div>
 <script>
  function showMeuPerfil(){
    document.getElementById('meuPerfil').style.display='block';

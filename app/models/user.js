@@ -130,7 +130,26 @@ module.exports = function(sequelize, DataTypes) {
           console.log(user);
           return success(user);            
         });
+      },
+      updateProfile: function(options, success, error){
+        console.log(options);
+        return User.find(options.id).complete(function(err, user) {
+          if (err) {
+            error(error);
+            return;
+          }
+          user
+            .updateAttributes(options)
+            .complete(function(err, user) {
+              if (err) {
+                error(error);
+                return;
+              }
+              success(user);
+            });
+        });
       }
+
     },
     tableName: 'tb_clientes_gls'
   });
