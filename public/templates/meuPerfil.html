@@ -1,6 +1,7 @@
- <form role="form" ng-submit="updateProfile()">
+  <form role="form" ng-submit="updateProfile()">
 
-    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ng-controller="ProfileController" ng-init="loadProfile()">
+      <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ng-controller="ProfileController" ng-init="loadProfile()">
+
       <br/><br/> 
        <h1 class="page-header">Meu Perfil</h1>
         <div class="row placeholders">
@@ -25,9 +26,9 @@
                             <br/>
                             
                             <div class="row">
-                              <div class="col-md-1">
-                                &nbsp;
-                              </div>
+                               <div class="col-md-2">
+                                  &nbsp;
+                               </div> 
                               <!--altura-->
                                <div class="col-md-3"> 
                                   <div class="form-inline">
@@ -38,51 +39,123 @@
                                         required= "true" ng-options="n for n in [] | range:0:3"/><small>&nbsp;m&nbsp;</small>
                                       <select class="form-control" name="altura_cm" 
                                         ng-model="altura.centimetros" 
-                                        required= "true" ng-options="n for n in [] | range:0:100"/><small>&nbsp;cm</small>
+                                        required= "true" ng-options="n for n in [] | range:0:100"/><small>cm</small>
                                     </div>
                                   </div>  
                                 </div>  
                                 <!--peso-->
-                                <div class="col-md-3">
+                                <div class="col-md-2">
                                   <div class="form-inline">
                                     <label>Peso</label> 
                                     <div>
                                       <select class="form-control" name="peso_kilo" 
-                                      ng-model="peso.kilos" 
-                                        required= "true" ng-options="n for n in [] | range:0:251"/><small>&nbsp;kilos&nbsp;</small>
-                                      <select class="form-control" name="peso_gramas" 
-                                        ng-model="peso.gramas" 
-                                        required= "true" ng-options="n for n in [] | range:0:1000"/><small>&nbsp;gramas</small>
+                                      ng-model="profile.peso"                                  required= "true" ng-options="n for n in [] | range:0:251"/><small>&nbsp;kilos&nbsp;</small>
+                                      
                                     </div>    
                                   </div>                                  
                                 </div>
                                 <!--fisico-->
-                                <div class="col-md-3">
+                                <div class="col-md-2">
                                   <div class="form-group">
                                     <label>Tipo F&iacute;sico</label> 
                                     <div>
-                                      <input type="text" class="form-control" ng-model="profile.estilo_corpo" id="fisico" required="true"/>
+                                      <select class="form-control" name="tipo_fisico" 
+                                      ng-model="profile.estilo_corpo"                      required= "true" ng-options="tipoFisico as tipoFisico for tipoFisico in tiposFisicos">
+                                        <option value=""></option>
+                                      </select>
                                     </div>    
                                   </div>                                  
                                 </div>
+                               
                             </div>               
 
-                             <div class="row">
-                                <button type="submit" class="btn btn-success btn-lg">
-                                   <span class="glyphicon glyphicon-floppy-save"></span> Salvar
-                                </button>
-                                <button type="button" class="btn btn-default btn-lg">
-                                  Cancelar
-                                </button>
-                            </div>                                
+                            <div class="row">
+                              <div class="col-md-2">
+                                &nbsp;
+                              </div>
+                               <!--pele-->
+                                <div class="col-md-3">
+                                  <div class="form-group">
+                                    <label>Tom de Pele</label> 
+                                    <div>
+                                      <select class="form-control" name="pele" 
+                                      ng-model="profile.tom_pele"                      required= "true" ng-options="tomPele as tomPele for tomPele in tonsPele">
+                                        <option value=""></option>
+                                      </select>                                      
+                                    </div>    
+                                  </div>                                  
+                                </div>
+                              <!--olhos-->
+                              <div class="col-md-2">
+                                <div class="form-group">
+                                  <label>Cor dos Olhos</label> 
+                                  <div>
+                                    <select class="form-control" name="olhos" 
+                                    ng-model="profile.cor_olhos" required= "true" ng-options="corOlhos as corOlhos for corOlhos in corOlhos">
+                                    <option value=""></option>
+                                  </select>                                    
+                                  </div>    
+                                </div>                                  
+                              </div>
+                               <!--cor dos cabelos-->
+                              <div class="col-md-2">
+                                <div class="form-group">
+                                  <label>Cor dos Cabelos</label> 
+                                  <div>
+                                    <select class="form-control" name="cabelos" 
+                                    ng-model="profile.cor_cabelo" required="true" ng-options="corCabelos as corCabelos for corCabelos in corCabelos">
+                                    <option value=""></option>
+                                  </select>
+                                  </div>    
+                                </div>                                  
+                              </div>
+                              
+                            </div>  
+
+                            <div class="row">
+                              <div class="col-md-2">
+                                 &nbsp;
+                              </div> 
+                              <!--Volume cabelos-->
+                              <div class="col-md-3">
+                                <div class="form-group">
+                                  <label>Volume dos Cabelos</label> 
+                                  <div>
+                                    <select class="form-control" name="cabelos" 
+                                    ng-model="profile.volume_cabelo" required="true" ng-options="volumeCabelos as volumeCabelos for volumeCabelos in volumeCabelos">
+                                    <option value=""></option>
+                                  </select>
+                                  </div>    
+                                </div>                                  
+                              </div> 
+                            </div>  
+                            
+                            <h1>Social</h3>
+                            <hr></hr>     
+                            <br/>
+                            
+                            <div class="row">
+                               <div class="col-md-2">
+                                  &nbsp;
+                               </div> 
+                            </div>   
+                           
+                            <div class="row">
+                              <button type="submit" class="btn btn-success btn-lg">
+                                   <span class="glyphicon glyphicon-floppy-save"></span>Salvar
+                             </button>
+                             <button type="button" class="btn btn-default btn-lg">
+                              Cancelar
+                            </button>
+                          </div>                                
                                            
                      </div><!--end caracteristicas tab-->
                   </div> <!-- tab content-->
                </div>  <!-- end content-->
             </div> <!--end container -->
-        </div>
+        </div> 
     </div>
-</form>
+</form>  
          
 
 <script>
