@@ -1,6 +1,6 @@
   <form role="form" ng-submit="updateProfile()">
 
-      <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ng-controller="ProfileController" ng-init="loadProfile()">
+      <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ng-init="loadProfile()">
 
       <br/><br/> 
        <h1 class="page-header">Meu Perfil</h1>
@@ -36,10 +36,10 @@
                                     <div>
                                       <select class="form-control" name="altura_metros" 
                                       ng-model="altura.metros" 
-                                        required= "true" ng-options="n for n in [] | range:0:3"/><small>&nbsp;m&nbsp;</small>
+                                        required= "true" ng-options="n for n in [] | range:0:3:false"/><small>&nbsp;m&nbsp;</small>
                                       <select class="form-control" name="altura_cm" 
                                         ng-model="altura.centimetros" 
-                                        required= "true" ng-options="n for n in [] | range:0:100"/><small>cm</small>
+                                        required= "true" ng-options="n for n in [] | range:0:100:true"/><small>cm</small>
                                     </div>
                                   </div>  
                                 </div>  
@@ -49,7 +49,7 @@
                                     <label>Peso</label> 
                                     <div>
                                       <select class="form-control" name="peso_kilo" 
-                                      ng-model="profile.peso"                                  required= "true" ng-options="n for n in [] | range:0:251"/><small>&nbsp;kilos&nbsp;</small>
+                                      ng-model="profile.peso"                                 required= "true" ng-options="n for n in [] | range:0:251:false"/><small>&nbsp;kilos&nbsp;</small>
                                       
                                     </div>    
                                   </div>                                  
@@ -102,7 +102,7 @@
                                 <div class="form-group">
                                   <label>Cor dos Cabelos</label> 
                                   <div>
-                                    <select class="form-control" name="cabelos" 
+                                    <select class="form-control" name="corCabelos" 
                                     ng-model="profile.cor_cabelo" required="true" ng-options="corCabelos as corCabelos for corCabelos in corCabelos">
                                     <option value=""></option>
                                   </select>
@@ -137,12 +137,61 @@
                             <div class="row">
                                <div class="col-md-2">
                                   &nbsp;
-                               </div> 
+                               </div>
+                              <!--trabalha-->
+                              <div class="col-md-2">
+                                <div class="form-group">
+                                  <label>Você Trabalha</label> 
+                                  <div>
+                                    <select class="form-control" name="trabalha" 
+                                    ng-model="profile.trabalha" required="true" ng-options="sn as sn.text for sn in simNao">
+                                    <option value=""></option>
+                                  </select>
+                                  </div>    
+                                </div>                                  
+                              </div> 
+                              <!-- estuda-->
+                              <div class="col-md-2">
+                                <div class="form-group">
+                                  <label>Você Estuda</label> 
+                                  <div>
+                                    <select class="form-control" name="estuda" 
+                                    ng-model="profile.estuda" required="true" ng-options="sn as sn.text for sn in simNao">
+                                    <option value=""></option>
+                                  </select>
+                                  </div>    
+                                </div>                                  
+                              </div>
+                              <!--Carro-->
+                              <div class="col-md-2">
+                                <div class="form-group">
+                                  <label>T&ecirc;m carro ou moto</label> 
+                                  <div>
+                                    <select class="form-control" name="carro" 
+                                    ng-model="profile.possui_carro" required="true" ng-options="sn as sn.text for sn in simNao">
+                                    <option value=""></option>
+                                  </select>
+                                  </div>    
+                                </div>                                  
+                              </div> 
+                              <!--Filhos-->
+                              <div class="col-md-2">
+                                <div class="form-group">
+                                  <label>T&ecirc;m filhos?</label> 
+                                  <div>
+                                    <select class="form-control" name="filhos" 
+                                    ng-model="profile.tem_filhos" required="true" ng-options="sn as sn.text for sn in simNao">
+                                    <option value=""></option>
+                                  </select>
+                                  </div>    
+                                </div>                                  
+                              </div> 
+
                             </div>   
                            
                             <div class="row">
                               <button type="submit" class="btn btn-success btn-lg">
-                                   <span class="glyphicon glyphicon-floppy-save"></span>Salvar
+                                   <span class="glyphicon glyphicon-floppy-save"></span>&nbsp;Salvar
                              </button>
                              <button type="button" class="btn btn-default btn-lg">
                               Cancelar
