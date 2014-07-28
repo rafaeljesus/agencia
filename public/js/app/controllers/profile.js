@@ -28,8 +28,50 @@ agencia
     ];
 
      $scope.simNao = [
-     { value: true , text: "Sim"},
-     { value: false, text: "Não"}
+      { value: true , text: "Sim"},
+      { value: false, text: "Não"}
+    ];
+
+    $scope.moraComQuem = [
+      { value: "Moro sozinho(a)", text: "Sozinho(a)"},
+      { value: "Moro com minha família", text: "Família"},
+      { value: "Moro com amigos(as)", text: "Amigos"},
+    ];
+
+    $scope.religiao = [
+      'Cristão - Católico', 'Judáica', 'Espírita', 'Budista', 'Evangélico', 'Agnóstico', 'Ateu', 
+      'Espiritual, mas sem religião', 'Adventista','Cristão - Protestante', 'Cristão - Outros', 
+      'Hindu', 'Muçulmano', 'Outros'
+    ];
+
+    $scope.escolaridade = [
+      'Até 2o grau', 'Superior cursando', 'Técnico profissionalizante', 
+      'Superior completo', 'Superior incompleto', 'Pós-graduado', 
+      'PHD/pós doutorado'
+    ];
+
+    $scope.signo = [
+      'Áries','Touro','Gêmeos','Câncer','Leão','Virgem',
+      'Libra','Escorpião','Sagitário','Capricórnio','Aquário','Peixes'
+    ];
+
+    $scope.estiloMusical = [
+      'Clássica','New Age','MPB','Pagode','Jazz','Axé','Samba','Rock progressivo','Sertanejo',
+      'Ópera','Dance','Pop','Punk','Pop','Bossa nova', 'Blues','Reggae','Heavy metal','Techno',
+      'Rock and Roll','Funk'
+    ];
+
+    $scope.visual = [
+      'Sofisticado','Fashion','Sensual','Descontraído','Elegante','Casual',
+      'Esportivo','Hippie','Clássico Formal','Clubber','Punk'
+    ];
+
+    $scope.viajar = [
+      'Praias','Campos','Montanhas','Ecológicas','Acampamentos','Culturais','Românticas'
+    ];
+
+    $scope.bebidaAlcoolica = [
+      'Não Bebo','Bebo socialmente','Bebo regularmente'
     ];
 
    $scope.loadProfile = function(){
@@ -48,6 +90,11 @@ agencia
       $scope.profile.estuda = profileTransformer.findJsonInArray($scope.simNao, profile.estuda);
       $scope.profile.tem_filhos = profileTransformer.findJsonInArray($scope.simNao, profile.tem_filhos);
       $scope.profile.possui_carro = profileTransformer.findJsonInArray($scope.simNao, profile.possui_carro);
+      $scope.profile.como_mora = profileTransformer.findJsonInArray($scope.moraComQuem, profile.como_mora);
+      $scope.profile.gosta_tv = profileTransformer.findJsonInArray($scope.simNao, profile.gosta_tv);
+      $scope.profile.gosta_ler = profileTransformer.findJsonInArray($scope.simNao, profile.gosta_ler);
+      $scope.profile.fuma = profileTransformer.findJsonInArray($scope.simNao, profile.fuma);
+      $scope.profile.pratica_exercicio = profileTransformer.findJsonInArray($scope.simNao, profile.pratica_exercicio);
     });
 
    
@@ -66,6 +113,22 @@ agencia
             estuda: $scope.profile.estuda.value,
             tem_filhos: $scope.profile.tem_filhos.value,
             possui_carro: $scope.profile.possui_carro.value, 
+            como_mora: $scope.profile.como_mora.value,
+            religiao: $scope.profile.religiao,
+            formacao_academica: $scope.profile.formacao_academica,
+            signo: $scope.profile.signo,
+            gosta_tv: $scope.profile.gosta_tv.value,
+            gosta_ler: $scope.profile.gosta_ler.value,
+            fuma: $scope.profile.fuma.value,
+            estilo_musical1: $scope.profile.estilo_musical1,
+            estilo_musical2: $scope.profile.estilo_musical2,
+            estilo_musical3: $scope.profile.estilo_musical3,
+            estilo_musical4: $scope.profile.estilo_musical4,
+            visual: $scope.profile.visual,
+            viagem1: $scope.profile.viagem1,
+            viagem2: $scope.profile.viagem2,
+            pratica_exercicio: $scope.profile.pratica_exercicio.value,
+            bebida: $scope.profile.bebida
           }
       };
 

@@ -42,7 +42,7 @@ module.exports = function(sequelize, DataTypes) {
     volume_cabelo: DataTypes.STRING,
     trabalha: DataTypes.BOOLEAN,
     estuda: DataTypes.BOOLEAN,
-    como_mora: DataTypes.BOOLEAN,
+    como_mora: DataTypes.STRING,
     tem_filhos: DataTypes.BOOLEAN,
     possui_carro: DataTypes.BOOLEAN,
     religiao: DataTypes.STRING,
