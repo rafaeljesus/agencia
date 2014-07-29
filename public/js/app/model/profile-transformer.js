@@ -12,6 +12,7 @@ AGENCIA.TransformFields = (function(){
   TransformFields.prototype.setAltura = function() {
       var alturaString = ""+this.scope.profile.altura;
       var alturaSplit = alturaString.split('.');
+      if(alturaSplit[1].length == 1){  alturaSplit[1] = '0'+alturaSplit[1]; }
       this.scope.altura = { metros: parseInt(''+alturaSplit[0]), centimetros: parseInt(''+alturaSplit[1])};
   };
 

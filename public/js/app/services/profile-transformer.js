@@ -11,6 +11,7 @@ agencia
 
       toAltura: function(profile) {
       	var alturaSplit = (""+profile.altura).split('.');
+        if(alturaSplit[1].length == 1){  alturaSplit[1] = '0'+alturaSplit[1]; }
     		return { metros: ''+alturaSplit[0], centimetros: ''+alturaSplit[1]};
       },
       

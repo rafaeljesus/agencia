@@ -1,11 +1,10 @@
-  <form role="form" ng-submit="updateProfile()">
+  <form role="form" name="profileForm" ng-submit="updateProfile()">
 
       <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ng-init="loadProfile()">
-
       <br/><br/> 
        <h1 class="page-header">Meu Perfil</h1>
         <div class="row placeholders">
-              <div>Ol&aacute; <strong><span ng-bind="profile.primeiro_nome"/></strong><br/><br/> Seja muito bem vindo a <strong>Ag&ecirc;ncia Namoro Gay</strong>. Para come&ccedil;ar a utiliza&ccedil;&atilde;o da ag&ecirc;ncia &eacute; necess&aacute;rio completar o cadastro de seu perfil:
+              <div>Ol&aacute; <strong><span ng-bind="profile.primeiro_nome"/></strong><br/><br/>Parab&eacute;ns! Você agora faz parte da Ag&ecirc;ncia de Namoro Gay! Seja muito bem vindo<br/>. Para come&ccedil;ar a utiliza&ccedil;&atilde;o da ag&ecirc;ncia &eacute; necess&aacute;rio completar o cadastro de seu perfil:
               </div>
 
             <br/><br/>  
@@ -13,446 +12,568 @@
 
             <div id="container">
                 <div id="content">
-                  <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
-                      <li><a href="#pessoais" onclick="return false" data-toggle="tab">Dados Pessoais</a></li>
-                      <li class="active"><a href="#caracteristicas" onclick="return false" data-toggle="tab">Caracter&iacute;sticas / Social</a></li>
+                  <ul id="tabs" class="nav nav-tabs form-tabs" data-tabs="tabs">
+                      <li class="active"><a href="#pessoais" onclick="return false" data-toggle="tab">Dados Pessoais</a></li>
+                      <li><a href="#caracteristicas" onclick="return false" data-toggle="tab">Caracter&iacute;sticas / Social</a></li>
                       
                   </ul>
                   <div id="my-tab-content" class="tab-content">
 
-                      <div class="tab-pane active" id="caracteristicas">                       
-                            <h1>Caracter&iacute;sticas</h3>
-                            <hr></hr>     
-                            <br/>
-                            
-                            <div class="row">
-                               <div class="col-md-2">
-                                  &nbsp;
-                               </div> 
-                              <!--altura-->
-                               <div class="col-md-3"> 
-                                  <div class="form-inline">
-                                    <label>Altura</label> 
-                                    <div>
-                                      <select class="form-control" name="altura_metros" 
-                                      ng-model="altura.metros" 
-                                        required= "true" ng-options="n for n in [] | range:0:3:false"/><small>&nbsp;m&nbsp;</small>
-                                      <select class="form-control" name="altura_cm" 
-                                        ng-model="altura.centimetros" 
-                                        required= "true" ng-options="n for n in [] | range:0:100:true"/><small>cm</small>
-                                    </div>
-                                  </div>  
-                                </div>  
-                                <!--peso-->
-                                <div class="col-md-2">
-                                  <div class="form-inline">
-                                    <label>Peso</label> 
-                                    <div>
-                                      <select class="form-control" name="peso_kilo" 
-                                      ng-model="profile.peso"                                 required= "true" ng-options="n for n in [] | range:0:251:false"/><small>&nbsp;kilos&nbsp;</small>
-                                      
-                                    </div>    
-                                  </div>                                  
-                                </div>
-                                <!--fisico-->
-                                <div class="col-md-2">
-                                  <div class="form-group">
-                                    <label>Tipo F&iacute;sico</label> 
-                                    <div>
-                                      <select class="form-control" name="tipo_fisico" 
-                                      ng-model="profile.estilo_corpo"                      required= "true" ng-options="tipoFisico as tipoFisico for tipoFisico in tiposFisicos">
-                                        <option value=""></option>
-                                      </select>
-                                    </div>    
-                                  </div>                                  
-                                </div>
-                               
-                            </div>               
+                      <div class="tab-pane active" id="pessoais">
+						            <h1>Dados Pessoais</h3>
+                        <hr></hr>     
+                        <br/>
 
-                            <div class="row">
-                              <div class="col-md-2">
-                                &nbsp;
-                              </div>
-                               <!--pele-->
-                                <div class="col-md-3">
-                                  <div class="form-group">
-                                    <label>Tom de Pele</label> 
-                                    <div>
-                                      <select class="form-control" name="pele" 
-                                      ng-model="profile.tom_pele"                      required= "true" ng-options="tomPele as tomPele for tomPele in tonsPele">
-                                        <option value=""></option>
-                                      </select>                                      
-                                    </div>    
-                                  </div>                                  
-                                </div>
-                              <!--olhos-->
-                              <div class="col-md-2">
-                                <div class="form-group">
-                                  <label>Cor dos Olhos</label> 
-                                  <div>
-                                    <select class="form-control" name="olhos" 
-                                    ng-model="profile.cor_olhos" required= "true" ng-options="corOlhos as corOlhos for corOlhos in corOlhos">
-                                    <option value=""></option>
-                                  </select>                                    
-                                  </div>    
-                                </div>                                  
-                              </div>
-                               <!--cor dos cabelos-->
-                              <div class="col-md-2">
-                                <div class="form-group">
-                                  <label>Cor dos Cabelos</label> 
-                                  <div>
-                                    <select class="form-control" name="corCabelos" 
-                                    ng-model="profile.cor_cabelo" required="true" ng-options="corCabelos as corCabelos for corCabelos in corCabelos">
-                                    <option value=""></option>
-                                  </select>
-                                  </div>    
-                                </div>                                  
-                              </div>
-                              
-                            </div>  
+                        <div class="row">
+                           <div class="col-md-3">
+                              &nbsp;
+                           </div> 
+                          <!--login-->
+                          <div class="input-group col-md-6">
+                            <span class="input-group-addon">Login</span>
+                            <input maxlength="20" type="text" name="login" ng-model="profile.login" required="true" class="form-control"/>
+                          </div>                          
+                        </div>  
+                        
+                        <br/> 
+                          
+                        <div class="row">
+                           <div class="col-md-3">
+                              &nbsp;
+                           </div> 
+                          <!--senha-->
+                          <div class="input-group col-md-6">
+                            <span class="input-group-addon">Senha</span>
+                            <input maxlength="20" type="password" name="senha" ng-model="senha" required="true" class="form-control"/>
+                          </div>                          
+                        </div>  
+                        
+                        <br/> 
+                          
+                        <div class="row">
+                           <div class="col-md-3">
+                              &nbsp;
+                           </div> 
+                          <!--email-->
+                          <div class="input-group col-md-6">
+                            <div class="input-group-addon">E-mail</div>
+                            <input maxlength="100" type="email" name="email" ng-model="profile.email" required="true" class="form-control"/>
 
-                            <div class="row">
-                              <div class="col-md-2">
-                                 &nbsp;
-                              </div> 
-                              <!--Volume cabelos-->
-                              <div class="col-md-3">
-                                <div class="form-group">
-                                  <label>Volume dos Cabelos</label> 
-                                  <div>
-                                    <select class="form-control" name="cabelos" 
-                                    ng-model="profile.volume_cabelo" required="true" ng-options="volumeCabelos as volumeCabelos for volumeCabelos in volumeCabelos">
-                                    <option value=""></option>
-                                  </select>
-                                  </div>    
-                                </div>                                  
-                              </div> 
-                            </div>  
-                            
-                            <h1>Social</h3>
-                            <hr></hr>     
-                            <br/>
-                            
-                            <div class="row">
-                               <div class="col-md-2">
-                                  &nbsp;
-                               </div>
-                              <!--trabalha-->
-                              <div class="col-md-2">
-                                <div class="form-group">
-                                  <label>Você Trabalha</label> 
-                                  <div>
-                                    <select class="form-control" name="trabalha" 
-                                    ng-model="profile.trabalha" required="true" ng-options="sn as sn.text for sn in simNao">
-                                    <option value=""></option>
-                                  </select>
-                                  </div>    
-                                </div>                                  
-                              </div> 
-                              <!-- estuda-->
-                              <div class="col-md-2">
-                                <div class="form-group">
-                                  <label>Você Estuda</label> 
-                                  <div>
-                                    <select class="form-control" name="estuda" 
-                                    ng-model="profile.estuda" required="true" ng-options="sn as sn.text for sn in simNao">
-                                    <option value=""></option>
-                                  </select>
-                                  </div>    
-                                </div>                                  
-                              </div>
-                              <!--Carro-->
-                              <div class="col-md-2">
-                                <div class="form-group">
-                                  <label>T&ecirc;m carro ou moto</label> 
-                                  <div>
-                                    <select class="form-control" name="carro" 
-                                    ng-model="profile.possui_carro" required="true" ng-options="sn as sn.text for sn in simNao">
-                                    <option value=""></option>
-                                  </select>
-                                  </div>    
-                                </div>                                  
-                              </div> 
-                              <!--Filhos-->
-                              <div class="col-md-2">
-                                <div class="form-group">
-                                  <label>T&ecirc;m filhos?</label> 
-                                  <div>
-                                    <select class="form-control" name="filhos" 
-                                    ng-model="profile.tem_filhos" required="true" ng-options="sn as sn.text for sn in simNao">
-                                    <option value=""></option>
-                                  </select>
-                                  </div>    
-                                </div>                                  
-                              </div> 
+                              <div class="input-group-addon">Sexo</div>
+                              <select class="form-control" name="sexo" 
+                                 ng-model="profile.sexo"
+                                 required= "true" ng-options="sx as sx.text for sx in sexo">
+                                 <option value=""></option>
+                              </select>   
 
-                            </div>   
+                          </div>                          
+                        </div>  
 
-                           <div class="row">
-                              <div class="col-md-2">
-                                 &nbsp;
-                              </div>
-                              <!--Mora com quem-->
-                              <div class="col-md-2">
-                                <div class="form-group">
-                                  <label>Mora com quem?</label> 
-                                  <div>
-                                    <select class="form-control" name="moraComQuem" 
-                                    ng-model="profile.como_mora" required="false" ng-options="mcq as mcq.text for mcq in moraComQuem">
-                                    <option value=""></option>
-                                  </select>
-                                  </div>    
-                                </div>                                  
-                              </div> 
-                              <!-- religiao-->
-                              <div class="col-md-3">
-                                <div class="form-group">
-                                  <label>Religião</label> 
-                                  <div>
-                                    <select class="form-control" name="religiao" 
-                                    ng-model="profile.religiao" required="true" ng-options="religiao as religiao for religiao in religiao">
-                                    <option value=""></option>
-                                  </select>
-                                  </div>    
-                                </div>                                  
-                              </div>
-                              <!--escolaridade-->
-                              <div class="col-md-3">
-                                <div class="form-group">
-                                  <label>Escolaridade</label> 
-                                  <div>
-                                    <select class="form-control" name="escolaridade" 
-                                    ng-model="profile.formacao_academica" required="true" ng-options="escolaridade as escolaridade for escolaridade in escolaridade">
-                                    <option value=""></option>
-                                  </select>
-                                  </div>    
-                                </div>                                  
-                              </div>
-                            </div>
+                        <br/> 
 
-                            <div class="row">
-                               <div class="col-md-2">
-                                  &nbsp;
-                               </div> 
-
-                              <!-- signo-->
-                              <div class="col-md-2">
-                                <div class="form-group">
-                                  <label>Signo</label> 
-                                  <div>
-                                    <select class="form-control" name="signo" 
-                                    ng-model="profile.signo" required="true" ng-options="signo as signo for signo in signo">
-                                    <option value=""></option>
-                                  </select>
-                                  </div>    
-                                </div>                                  
-                              </div>
-                              
-                              
-                               <!--gosta de tv-->
-                               <div class="col-md-2">
-                                <div class="form-group">
-                                  <label>Voc&ecirc; Gosta de TV?</label> 
-                                  <div>
-                                    <select class="form-control" name="tv" 
-                                    ng-model="profile.gosta_tv" required="true" ng-options="sn as sn.text for sn in simNao">
-                                    <option value=""></option>
-                                  </select>
-                                  </div>    
-                                </div>                                  
-                              </div> 
-
-                               <!--gosta de tv-->
-                              <div class="col-md-2">
-                                <div class="form-group">
-                                  <label>Voc&ecirc; Gosta de ler?</label> 
-                                  <div>
-                                    <select class="form-control" name="tv" 
-                                    ng-model="profile.gosta_ler" required="true" ng-options="sn as sn.text for sn in simNao">
-                                    <option value=""></option>
-                                  </select>
-                                  </div>    
-                                </div>                                  
-                              </div> 
-
-                              <!--fuma-->
-                               <div class="col-md-2">
-                                <div class="form-group">
-                                  <label>Voc&ecirc; Fuma?</label> 
-                                  <div>
-                                    <select class="form-control" name="tv" 
-                                    ng-model="profile.fuma" required="true" ng-options="sn as sn.text for sn in simNao">
-                                    <option value=""></option>
-                                  </select>
-                                  </div>    
-                                </div>                                  
-                              </div> 
-                            
-                            </div>  
-
-                            <div class="row">
-                              <hr></hr>     
-                              <br/> 
-                            </div> 
-
-  
-                            <div class="row">
-                               <div class="col-md-2">
-                                  &nbsp;
-                               </div> 
-
-                              <!-- estilo musical 1-->
-                              <div class="col-md-2">
-                                <div class="form-group">
-                                  <label>Estilo Musical: Primeira op&ccedil;&atilde;o</label> 
-                                  <div>
-                                    <select class="form-control" name="estilo_musical_1" 
-                                    ng-model="profile.estilo_musical1" required="true" ng-options="estilo as estilo for estilo in estiloMusical">
-                                    <option value=""></option>
-                                  </select>
-                                  </div>    
-                                </div>                                  
-                              </div>
-
-                              <!-- estilo musical 2-->
-                              <div class="col-md-2">
-                                <div class="form-group">
-                                  <label>Estilo Musical: Segunda op&ccedil;&atilde;o</label> 
-                                  <div>
-                                    <select class="form-control" name="estilo_musical_2" 
-                                    ng-model="profile.estilo_musical2" required="true" ng-options="estilo as estilo for estilo in estiloMusical">
-                                    <option value=""></option>
-                                  </select>
-                                  </div>    
-                                </div>                                  
-                              </div>
-
-                              <!-- estilo musical 3-->
-                              <div class="col-md-2">
-                                <div class="form-group">
-                                  <label>Estilo Musical: Terceira op&ccedil;&atilde;o</label> 
-                                  <div>
-                                    <select class="form-control" name="estilo_musical_3" 
-                                    ng-model="profile.estilo_musical3" required="true" ng-options="estilo as estilo for estilo in estiloMusical">
-                                    <option value=""></option>
-                                  </select>
-                                  </div>    
-                                </div>                                  
-                              </div>
-
-                              <!-- estilo musical 4-->
-                              <div class="col-md-2">
-                                <div class="form-group">
-                                  <label>Estilo Musical: Quarta op&ccedil;&atilde;o</label> 
-                                  <div>
-                                    <select class="form-control" name="estilo_musical_4" 
-                                    ng-model="profile.estilo_musical4" required="true" ng-options="estilo as estilo for estilo in estiloMusical">
-                                    <option value=""></option>
-                                  </select>
-                                  </div>    
-                                </div>                                  
-                              </div>
-
-                            </div>    
-
-                            <div class="row">
-                              <hr></hr>     
-                              <br/> 
-                            </div> 
-
-                            <div class="row">
-                               <div class="col-md-2">
-                                  &nbsp;
-                               </div> 
-
-                              <!-- estilo de se vestir-->
-                              <div class="col-md-2">
-                                <div class="form-group">
-                                  <label>Estilo de Vestir</label> 
-                                  <div>
-                                    <select class="form-control" name="visual" 
-                                    ng-model="profile.visual" required="true" ng-options="vs as vs for vs in visual">
-                                    <option value=""></option>
-                                  </select>
-                                  </div>    
-                                </div>                                  
-                              </div>
-
-                              <!-- viajar1-->
-                              <div class="col-md-3">
-                                <div class="form-group">
-                                  <label>Tipo de Viagem: Primeira Op&ccedil;&atilde;o</label> 
-                                  <div>
-                                    <select class="form-control" name="viagem1" 
-                                    ng-model="profile.viagem1" required="true" ng-options="v as v for v in viajar">
-                                    <option value=""></option>
-                                  </select>
-                                  </div>    
-                                </div>                                  
-                              </div>
-
-                              <!-- viajar2-->
-                              <div class="col-md-3">
-                                <div class="form-group">
-                                  <label>Tipo de Viagem: Segunda Op&ccedil;&atilde;o</label> 
-                                  <div>
-                                    <select class="form-control" name="viagem2" 
-                                    ng-model="profile.viagem2" required="true" ng-options="v as v for v in viajar">
-                                    <option value=""></option>
-                                  </select>
-                                  </div>    
-                                </div>                                  
-                              </div>
-
+                        <div class="row">
+                           <div class="col-md-3">
+                              &nbsp;
+                           </div> 
+                           <!--nome-->
+                           <div class="input-group col-md-6">
+                             <div class="input-group-addon">Nome</div>
+                             <input maxlength="100" name="nome" type="text" ng-model="profile.primeiro_nome" required="true" class="form-control"/>
                            </div>
+                      </div>                         
 
-                           <div class="row">
-                               <div class="col-md-2">
-                                  &nbsp;
-                               </div> 
+                      <br/> 
 
-                              <!--pratica exercicio-->
-                              <div class="col-md-3">
-                                <div class="form-group">
-                                  <label>Faz Exerc&iacute;cios F&iacute;sicos?</label> 
-                                  <div>
-                                    <select class="form-control" name="exercicio" 
-                                    ng-model="profile.pratica_exercicio" required="true" ng-options="sn as sn.text for sn in simNao">
+                      <div class="row">
+                           <div class="col-md-3">
+                              &nbsp;
+                           </div> 
+                           <div class="form-group"> 
+                            <div class="input-group  col-md-6">  
+                              <div class="input-group-addon">Sobrenome</div>
+                              <input maxlength="100" type="text" name="sobrenome" ng-model="profile.sobrenome"  required="true" class="form-control"/>
+
+                              <div class="input-group-addon">Idade</div>
+                              <select class="form-control" name="idade" 
+                                 ng-model="profile.idade" 
+                                 required= "true" ng-options="n for n in [] | 
+                                 range:18:80:true">
+                                <option value=""></option>
+                              </select>  
+                            </div>
+                          </div> 
+                      </div>  
+
+                      <div class="row">
+                          <div class="col-md-3">
+                            &nbsp;
+                          </div>
+                          <div class="form-group">
+                              <div class="input-group col-md-6">
+                                  <div class="input-group-addon">Atua Como    </div>
+                                  <select class="form-control" name="trabalha" 
+                                    ng-model="profile.como_atua" required="true" ng-options="ca as ca.text for ca in comoAtua">
+                                    <option value=""></option>
+                                  </select>  
+
+                                  <div class="input-group-addon">Compromissado</div>
+                                  <select class="form-control" name="compromissado" 
+                                    ng-model="profile.compromissado" 
+                                    required= "true" ng-options="sn as sn.text for sn in simNao">
                                     <option value=""></option>
                                   </select>
-                                  </div>    
-                                </div>                                  
                               </div> 
+                          </div>
+                      </div> 
+                      <div class="row">
+                        <div class="col-md-3">&nbsp;</div>
+                        <div class="col-md-2">&nbsp;</div>
+                        <div class="col-md-4">
+                          <small>selecione "Sim" se voc&ecirc; estiver ficando com algu&eacute;m e deseja n&atilde;o ser apresentado(a) a mais ningu&eacute;m por enquanto</small>
+                        </div>
+                      </div>     
+                          
 
-                              <!--bebida-->
-                              <div class="col-md-3">
-                                <div class="form-group">
-                                  <label>Bebida Alc&oacute;olica</label> 
-                                  <div>
-                                    <select class="form-control" name="bebida" 
-                                    ng-model="profile.bebida" required="true" ng-options="b as b for b in bebidaAlcoolica">
+                     </div><!--end dados pessoais tab-->
+
+                     <div class="tab-pane" id="caracteristicas">                       
+                        <h1>Caracter&iacute;sticas</h3>
+                        <hr></hr>     
+                        <br/>
+                        
+                        <div class="row">
+                           <div class="col-md-2">
+                              &nbsp;
+                           </div> 
+                          <!--altura-->
+                           <div class="col-md-3"> 
+                              <div class="form-inline">
+                                <label>Altura</label> 
+                                <div>
+                                  <select class="form-control" name="altura_metros" 
+                                  ng-model="altura.metros" 
+                                    required= "true" ng-options="n for n in [] | range:0:3:false"/><small>&nbsp;m&nbsp;</small>
+                                  <select class="form-control" name="altura_cm" 
+                                    ng-model="altura.centimetros" 
+                                    required= "true" ng-options="n for n in [] | range:0:100:true"/><small>cm</small>
+                                </div>
+                              </div>  
+                            </div>  
+                            <!--peso-->
+                            <div class="col-md-2">
+                              <div class="form-inline">
+                                <label>Peso</label> 
+                                <div>
+                                  <select class="form-control" name="peso_kilo" 
+                                  ng-model="profile.peso"                                 required= "true" ng-options="n for n in [] | range:0:251:false"/><small>&nbsp;kilos&nbsp;</small>
+                                  
+                                </div>    
+                              </div>                                  
+                            </div>
+                            <!--fisico-->
+                            <div class="col-md-2">
+                              <div class="form-group">
+                                <label>Tipo F&iacute;sico</label> 
+                                <div>
+                                  <select class="form-control" name="tipo_fisico" 
+                                  ng-model="profile.estilo_corpo"                      required= "true" ng-options="tipoFisico as tipoFisico for tipoFisico in tiposFisicos">
                                     <option value=""></option>
                                   </select>
-                                  </div>    
-                                </div>                                  
-                              </div> 
-
-
-                            </div>    
-
+                                </div>    
+                              </div>                                  
+                            </div>
                            
-                            <div class="row">
-                              <button type="submit" class="btn btn-success btn-lg">
-                                   <span class="glyphicon glyphicon-floppy-save"></span>&nbsp;Salvar
-                             </button>
-                             <button type="button" class="btn btn-default btn-lg">
-                              Cancelar
-                            </button>
-                          </div>                                
-                                           
+                        </div>               
+
+                        <div class="row">
+                          <div class="col-md-2">
+                            &nbsp;
+                          </div>
+                           <!--pele-->
+                            <div class="col-md-3">
+                              <div class="form-group">
+                                <label>Tom de Pele</label> 
+                                <div>
+                                  <select class="form-control" name="pele" 
+                                  ng-model="profile.tom_pele"                      required= "true" ng-options="tomPele as tomPele for tomPele in tonsPele">
+                                    <option value=""></option>
+                                  </select>                                      
+                                </div>    
+                              </div>                                  
+                            </div>
+                          <!--olhos-->
+                          <div class="col-md-2">
+                            <div class="form-group">
+                              <label>Cor dos Olhos</label> 
+                              <div>
+                                <select class="form-control" name="olhos" 
+                                ng-model="profile.cor_olhos" required= "true" ng-options="corOlhos as corOlhos for corOlhos in corOlhos">
+                                <option value=""></option>
+                              </select>                                    
+                              </div>    
+                            </div>                                  
+                          </div>
+                           <!--cor dos cabelos-->
+                          <div class="col-md-2">
+                            <div class="form-group">
+                              <label>Cor dos Cabelos</label> 
+                              <div>
+                                <select class="form-control" name="corCabelos" 
+                                ng-model="profile.cor_cabelo" required="true" ng-options="corCabelos as corCabelos for corCabelos in corCabelos">
+                                <option value=""></option>
+                              </select>
+                              </div>    
+                            </div>                                  
+                          </div>
+                          
+                        </div>  
+
+                        <div class="row">
+                          <div class="col-md-2">
+                             &nbsp;
+                          </div> 
+                          <!--Volume cabelos-->
+                          <div class="col-md-3">
+                            <div class="form-group">
+                              <label>Volume dos Cabelos</label> 
+                              <div>
+                                <select class="form-control" name="cabelos" 
+                                ng-model="profile.volume_cabelo" required="true" ng-options="volumeCabelos as volumeCabelos for volumeCabelos in volumeCabelos">
+                                <option value=""></option>
+                              </select>
+                              </div>    
+                            </div>                                  
+                          </div> 
+                        </div>  
+                        
+                        <h1>Social</h3>
+                        <hr></hr>     
+                        <br/>
+                        
+                        <div class="row">
+                           <div class="col-md-2">
+                              &nbsp;
+                           </div>
+                          <!--trabalha-->
+                          <div class="col-md-2">
+                            <div class="form-group">
+                              <label>Você Trabalha</label> 
+                              <div>
+                                <select class="form-control" name="trabalha" 
+                                ng-model="profile.trabalha" required="true" ng-options="sn as sn.text for sn in simNao">
+                                <option value=""></option>
+                              </select>
+                              </div>    
+                            </div>                                  
+                          </div> 
+                          <!-- estuda-->
+                          <div class="col-md-2">
+                            <div class="form-group">
+                              <label>Você Estuda</label> 
+                              <div>
+                                <select class="form-control" name="estuda" 
+                                ng-model="profile.estuda" required="true" ng-options="sn as sn.text for sn in simNao">
+                                <option value=""></option>
+                              </select>
+                              </div>    
+                            </div>                                  
+                          </div>
+                          <!--Carro-->
+                          <div class="col-md-2">
+                            <div class="form-group">
+                              <label>T&ecirc;m carro ou moto</label> 
+                              <div>
+                                <select class="form-control" name="carro" 
+                                ng-model="profile.possui_carro" required="true" ng-options="sn as sn.text for sn in simNao">
+                                <option value=""></option>
+                              </select>
+                              </div>    
+                            </div>                                  
+                          </div> 
+                          <!--Filhos-->
+                          <div class="col-md-2">
+                            <div class="form-group">
+                              <label>T&ecirc;m filhos?</label> 
+                              <div>
+                                <select class="form-control" name="filhos" 
+                                ng-model="profile.tem_filhos" required="true" ng-options="sn as sn.text for sn in simNao">
+                                <option value=""></option>
+                              </select>
+                              </div>    
+                            </div>                                  
+                          </div> 
+
+                        </div>   
+
+                       <div class="row">
+                          <div class="col-md-2">
+                             &nbsp;
+                          </div>
+                          <!--Mora com quem-->
+                          <div class="col-md-2">
+                            <div class="form-group">
+                              <label>Mora com quem?</label> 
+                              <div>
+                                <select class="form-control" name="moraComQuem" 
+                                ng-model="profile.como_mora" required="false" ng-options="mcq as mcq.text for mcq in moraComQuem">
+                                <option value=""></option>
+                              </select>
+                              </div>    
+                            </div>                                  
+                          </div> 
+                          <!-- religiao-->
+                          <div class="col-md-3">
+                            <div class="form-group">
+                              <label>Religião</label> 
+                              <div>
+                                <select class="form-control" name="religiao" 
+                                ng-model="profile.religiao" required="true" ng-options="religiao as religiao for religiao in religiao">
+                                <option value=""></option>
+                              </select>
+                              </div>    
+                            </div>                                  
+                          </div>
+                          <!--escolaridade-->
+                          <div class="col-md-3">
+                            <div class="form-group">
+                              <label>Escolaridade</label> 
+                              <div>
+                                <select class="form-control" name="escolaridade" 
+                                ng-model="profile.formacao_academica" required="true" ng-options="escolaridade as escolaridade for escolaridade in escolaridade">
+                                <option value=""></option>
+                              </select>
+                              </div>    
+                            </div>                                  
+                          </div>
+                        </div>
+
+                        <div class="row">
+                           <div class="col-md-2">
+                              &nbsp;
+                           </div> 
+
+                          <!-- signo-->
+                          <div class="col-md-2">
+                            <div class="form-group">
+                              <label>Signo</label> 
+                              <div>
+                                <select class="form-control" name="signo" 
+                                ng-model="profile.signo" required="true" ng-options="signo as signo for signo in signo">
+                                <option value=""></option>
+                              </select>
+                              </div>    
+                            </div>                                  
+                          </div>
+                          
+                          
+                           <!--gosta de tv-->
+                           <div class="col-md-2">
+                            <div class="form-group">
+                              <label>Voc&ecirc; Gosta de TV?</label> 
+                              <div>
+                                <select class="form-control" name="tv" 
+                                ng-model="profile.gosta_tv" required="true" ng-options="sn as sn.text for sn in simNao">
+                                <option value=""></option>
+                              </select>
+                              </div>    
+                            </div>                                  
+                          </div> 
+
+                           <!--gosta de tv-->
+                          <div class="col-md-2">
+                            <div class="form-group">
+                              <label>Voc&ecirc; Gosta de ler?</label> 
+                              <div>
+                                <select class="form-control" name="tv" 
+                                ng-model="profile.gosta_ler" required="true" ng-options="sn as sn.text for sn in simNao">
+                                <option value=""></option>
+                              </select>
+                              </div>    
+                            </div>                                  
+                          </div> 
+
+                          <!--fuma-->
+                           <div class="col-md-2">
+                            <div class="form-group">
+                              <label>Voc&ecirc; Fuma?</label> 
+                              <div>
+                                <select class="form-control" name="tv" 
+                                ng-model="profile.fuma" required="true" ng-options="sn as sn.text for sn in simNao">
+                                <option value=""></option>
+                              </select>
+                              </div>    
+                            </div>                                  
+                          </div> 
+                        
+                        </div>  
+
+                        <div class="row">
+                          <hr></hr>     
+                          <br/> 
+                        </div> 
+
+
+                        <div class="row">
+                           <div class="col-md-2">
+                              &nbsp;
+                           </div> 
+
+                          <!-- estilo musical 1-->
+                          <div class="col-md-2">
+                            <div class="form-group">
+                              <label>Estilo Musical: Primeira op&ccedil;&atilde;o</label> 
+                              <div>
+                                <select class="form-control" name="estilo_musical_1" 
+                                ng-model="profile.estilo_musical1" required="true" ng-options="estilo as estilo for estilo in estiloMusical">
+                                <option value=""></option>
+                              </select>
+                              </div>    
+                            </div>                                  
+                          </div>
+
+                          <!-- estilo musical 2-->
+                          <div class="col-md-2">
+                            <div class="form-group">
+                              <label>Estilo Musical: Segunda op&ccedil;&atilde;o</label> 
+                              <div>
+                                <select class="form-control" name="estilo_musical_2" 
+                                ng-model="profile.estilo_musical2" required="true" ng-options="estilo as estilo for estilo in estiloMusical">
+                                <option value=""></option>
+                              </select>
+                              </div>    
+                            </div>                                  
+                          </div>
+
+                          <!-- estilo musical 3-->
+                          <div class="col-md-2">
+                            <div class="form-group">
+                              <label>Estilo Musical: Terceira op&ccedil;&atilde;o</label> 
+                              <div>
+                                <select class="form-control" name="estilo_musical_3" 
+                                ng-model="profile.estilo_musical3" required="true" ng-options="estilo as estilo for estilo in estiloMusical">
+                                <option value=""></option>
+                              </select>
+                              </div>    
+                            </div>                                  
+                          </div>
+
+                          <!-- estilo musical 4-->
+                          <div class="col-md-2">
+                            <div class="form-group">
+                              <label>Estilo Musical: Quarta op&ccedil;&atilde;o</label> 
+                              <div>
+                                <select class="form-control" name="estilo_musical_4" 
+                                ng-model="profile.estilo_musical4" required="true" ng-options="estilo as estilo for estilo in estiloMusical">
+                                <option value=""></option>
+                              </select>
+                              </div>    
+                            </div>                                  
+                          </div>
+
+                        </div>    
+
+                        <div class="row">
+                          <hr></hr>     
+                          <br/> 
+                        </div> 
+
+                        <div class="row">
+                           <div class="col-md-2">
+                              &nbsp;
+                           </div> 
+
+                          <!-- estilo de se vestir-->
+                          <div class="col-md-2">
+                            <div class="form-group">
+                              <label>Estilo de Vestir</label> 
+                              <div>
+                                <select class="form-control" name="visual" 
+                                ng-model="profile.visual" required="true" ng-options="vs as vs for vs in visual">
+                                <option value=""></option>
+                              </select>
+                              </div>    
+                            </div>                                  
+                          </div>
+
+                          <!-- viajar1-->
+                          <div class="col-md-3">
+                            <div class="form-group">
+                              <label>Tipo de Viagem: Primeira Op&ccedil;&atilde;o</label> 
+                              <div>
+                                <select class="form-control" name="viagem1" 
+                                ng-model="profile.viagem1" required="true" ng-options="v as v for v in viajar">
+                                <option value=""></option>
+                              </select>
+                              </div>    
+                            </div>                                  
+                          </div>
+
+                          <!-- viajar2-->
+                          <div class="col-md-3">
+                            <div class="form-group">
+                              <label>Tipo de Viagem: Segunda Op&ccedil;&atilde;o</label> 
+                              <div>
+                                <select class="form-control" name="viagem2" 
+                                ng-model="profile.viagem2" required="true" ng-options="v as v for v in viajar">
+                                <option value=""></option>
+                              </select>
+                              </div>    
+                            </div>                                  
+                          </div>
+
+                       </div>
+
+                       <div class="row">
+                           <div class="col-md-2">
+                              &nbsp;
+                           </div> 
+
+                          <!--pratica exercicio-->
+                          <div class="col-md-3">
+                            <div class="form-group">
+                              <label>Faz Exerc&iacute;cios F&iacute;sicos?</label> 
+                              <div>
+                                <select class="form-control" name="exercicio" 
+                                ng-model="profile.pratica_exercicio" required="true" ng-options="sn as sn.text for sn in simNao">
+                                <option value=""></option>
+                              </select>
+                              </div>    
+                            </div>                                  
+                          </div> 
+
+                          <!--bebida-->
+                          <div class="col-md-3">
+                            <div class="form-group">
+                              <label>Bebida Alc&oacute;olica</label> 
+                              <div>
+                                <select class="form-control" name="bebida" 
+                                ng-model="profile.bebida" required="true" ng-options="b as b for b in bebidaAlcoolica">
+                                <option value=""></option>
+                              </select>
+                              </div>    
+                            </div>                                  
+                          </div> 
+                        </div>
+
                      </div><!--end caracteristicas tab-->
-                  </div> <!-- tab content-->
+
+                    <div class="row">
+                          <hr></hr>     
+                          <br/> 
+                    </div>                                            
+
+                    <div class="row">
+                      <!--ng-disabled="profileForm.$invalid"-->
+                        <button type="submit" class="btn btn-success btn-lg" >
+                           <span class="glyphicon glyphicon-floppy-save"></span>&nbsp;Salvar
+                        </button>
+                        <button type="button" class="btn btn-default btn-lg">
+                           Cancelar
+                        </button>
+                    </div>                                   
+
+                </div> <!-- tab content-->
+
                </div>  <!-- end content-->
             </div> <!--end container -->
         </div> 

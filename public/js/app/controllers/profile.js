@@ -74,6 +74,18 @@ agencia
       'Não Bebo','Bebo socialmente','Bebo regularmente'
     ];
 
+    $scope.comoAtua = [
+      { value: "0", text: "Passivo"},
+      { value: "1", text: "Ativo"},
+      { value: "2", text: "Ambos"},
+    ];
+
+    $scope.sexo = [
+      { value: "0", text: "Feminino"},
+      { value: "1", text: "Masculino"},
+      { value: "3", text: "Transsexual/Travesti"},
+    ];
+
    $scope.loadProfile = function(){
       User.get({ id: $scope.currentUser.id }).$promise.then(function(user){      
           $scope.$emit('profileLoaded', user);          
@@ -95,6 +107,11 @@ agencia
       $scope.profile.gosta_ler = profileTransformer.findJsonInArray($scope.simNao, profile.gosta_ler);
       $scope.profile.fuma = profileTransformer.findJsonInArray($scope.simNao, profile.fuma);
       $scope.profile.pratica_exercicio = profileTransformer.findJsonInArray($scope.simNao, profile.pratica_exercicio);
+      $scope.profile.sexo = profileTransformer.findJsonInArray($scope.sexo, profile.sexo);
+      $scope.profile.como_atua = profileTransformer.findJsonInArray($scope.comoAtua, profile.como_atua);
+      $scope.profile.idade = ''+profile.idade;
+      $scope.profile.compromissado = profileTransformer.findJsonInArray($scope.simNao, profile.compromissado);
+      
     });
 
    
@@ -128,7 +145,16 @@ agencia
             viagem1: $scope.profile.viagem1,
             viagem2: $scope.profile.viagem2,
             pratica_exercicio: $scope.profile.pratica_exercicio.value,
-            bebida: $scope.profile.bebida
+            bebida: $scope.profile.bebida,
+            //login: $scope.profile.login, todo validar
+            //senha: $scope.profile.senha, todo validar
+            //email: $scope.profile.email, todo validar
+            sexo: parseInt($scope.profile.sexo.value),
+            primeiro_nome: $scope.profile.primeiro_nome,
+            sobrenome: $scope.profile.sobrenome,
+            idade: parseInt($scope.profile.idade),
+            como_atua: parseInt($scope.profile.como_atua.value),
+            compromissado: $scope.profile.compromissado.value
           }
       };
 
@@ -140,5 +166,11 @@ agencia
   	jQuery(document).ready(function ($) {
         $('#tabs').tab();
     });
+
+    $('a[data-toggle="tab"]').on('shown', function (e) {
+      error.target // activated tab
+      e.relatedTarget // previous tab
+    });
    		
 }]);
+
