@@ -132,7 +132,24 @@ module.exports = function(sequelize, DataTypes) {
       },
       updateProfile: function(options, success, error){
         sequelize.transaction(function(transaction) {
-           
+          
+          
+          //init of onCompleteUpdateAttributes
+          var onCompleteUpdateAttributes = function(err, user) {
+              if (err) {
+                  error(error);
+                  transaction.rollback();
+                  return;
+              }
+              
+              //commit
+              transaction.commit();
+              success(user);
+          };
+          //end of onCompleteUpdateAttributes
+          
+          
+          
           //init of onCompleteFindUser 
           var onCompleteFindUser = function(err, user){
             
@@ -144,18 +161,7 @@ module.exports = function(sequelize, DataTypes) {
            
             user
              .updateAttributes(options)
-              .complete(function(err, user) {
-                  
-                if (err) {
-                    error(error);
-                    transaction.rollback();
-                    return;
-                }
-                
-                //commit
-                transaction.commit();
-                success(user);
-              });
+              .complete(onCompleteUpdateAttributes);
           };
           //end of onCompleteFindUser
            
