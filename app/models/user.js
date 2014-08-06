@@ -127,13 +127,77 @@ module.exports = function(sequelize, DataTypes) {
             error(error);
             return;
           }
-          console.log(user);
           return success(user);            
         });
       },
+      
       updateProfile: function(options, success, error){
-        console.log(options);
-        return User.find(options.id).complete(function(err, user) {
+        
+        sequelize.transaction(function(transaction) {
+          
+           
+          //init of whenFindUser 
+          var whenFindUser = function(err, user){
+            
+            if (err) {
+              error(error);
+              transaction.rollback();
+              return;
+            }
+           
+            user
+             .updateAttributes(options)
+              .complete(function(err, user) {
+                  
+                if (err) {
+                    error(error);
+                    transaction.rollback();
+                    return;
+                }
+                
+                //commit
+                transaction.commit();
+                success(user);
+              });
+          };
+          //end of whenFindUser
+           
+           
+           
+          //init whenFindAll
+          var whenFindAll = function(err, user){
+            
+             if(err){
+               error(err);
+               transaction.rollback();
+               return;
+             }
+             
+             console.log('userID founded: '+user.id);
+             console.log('userID sent: '+options.id);
+             
+             if(user!=undefined){
+               transaction.rollback();
+               error({ error: 'error', reason: 'email_being_used' });
+               return;
+             }
+             
+             User.find(options.id).complete(whenFindUser);//end of user find
+          };
+           //end of whenFindAll
+           
+           
+           return User.findAll({
+              where: {
+                id: { ne: options.id  },
+                email: options.email
+              }
+              
+           }).complete(whenFindAll);//end complete findall
+             
+        });//end of transaction     
+        
+        /*return User.find(options.id).complete(function(err, user) {
           if (err) {
             error(error);
             return;
@@ -147,8 +211,9 @@ module.exports = function(sequelize, DataTypes) {
               }
               success(user);
             });
-        });
-      }
+        });*/
+        
+      }//end updateProfile
 
     },
     tableName: 'tb_clientes_gls'
