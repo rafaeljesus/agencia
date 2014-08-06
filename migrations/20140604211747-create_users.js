@@ -25,6 +25,7 @@ module.exports = {
       idade: DataTypes.INTEGER(10).UNSIGNED,
       estado: DataTypes.STRING,
       cidade: DataTypes.STRING,
+      pais: DateTypes.STRING,
       altura: DataTypes.FLOAT,
       peso: DataTypes.INTEGER(10).UNSIGNED,
       estilo_corpo: DataTypes.STRING,
