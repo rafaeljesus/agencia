@@ -130,11 +130,8 @@ module.exports = function(sequelize, DataTypes) {
           return success(user);            
         });
       },
-      
       updateProfile: function(options, success, error){
-        
         sequelize.transaction(function(transaction) {
-           
            
           //init of onCompleteFindUser 
           var onCompleteFindUser = function(err, user){
@@ -196,26 +193,8 @@ module.exports = function(sequelize, DataTypes) {
            
              
         });//end of transaction     
-        
-        
-        /*return User.find(options.id).complete(function(err, user) {
-          if (err) {
-            error(error);
-            return;
-          }
-          user
-            .updateAttributes(options)
-            .complete(function(err, user) {
-              if (err) {
-                error(error);
-                return;
-              }
-              success(user);
-            });
-        });*/
-        
       }//end updateProfile
-
+      
     },
     tableName: 'tb_clientes_gls'
   });
