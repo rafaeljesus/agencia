@@ -134,10 +134,10 @@ module.exports = function(sequelize, DataTypes) {
       updateProfile: function(options, success, error){
         
         sequelize.transaction(function(transaction) {
-          
            
-          //init of whenFindUser 
-          var whenFindUser = function(err, user){
+           
+          //init of onCompleteFindUser 
+          var onCompleteFindUser = function(err, user){
             
             if (err) {
               error(error);
@@ -160,12 +160,12 @@ module.exports = function(sequelize, DataTypes) {
                 success(user);
               });
           };
-          //end of whenFindUser
+          //end of onCompleteFindUser
            
            
            
-          //init whenFindAll
-          var whenFindAll = function(err, user){
+          //init onCompleteFindAll
+          var onCompleteFindAll = function(err, user){
             
              if(err){
                error(err);
@@ -182,20 +182,21 @@ module.exports = function(sequelize, DataTypes) {
                return;
              }
              
-             User.find(options.id).complete(whenFindUser);//end of user find
+             User.find(options.id).complete(onCompleteFindUser);
           };
-           //end of whenFindAll
+          //end of onCompleteFindAll
            
            
-           return User.findAll({
-              where: {
-                id: { ne: options.id  },
-                email: options.email
-              }
-              
-           }).complete(whenFindAll);//end complete findall
+          return User.findAll({
+             where: {
+               id: { ne: options.id  },
+               email: options.email
+             }
+          }).complete(onCompleteFindAll);//end complete findall
+           
              
         });//end of transaction     
+        
         
         /*return User.find(options.id).complete(function(err, user) {
           if (err) {
