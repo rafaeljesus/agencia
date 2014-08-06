@@ -34,6 +34,7 @@ module.exports = function(sequelize, DataTypes) {
     idade: DataTypes.INTEGER,
     estado: DataTypes.STRING,
     cidade: DataTypes.STRING,
+    pais: DateTypes.STRING,
     altura: DataTypes.FLOAT,
     peso: DataTypes.INTEGER,
     estilo_corpo: DataTypes.STRING,
