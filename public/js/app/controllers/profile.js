@@ -3,7 +3,9 @@
 agencia
   .controller('ProfileController', ['$scope','profileTransformer','User', 'Profile',
   function($scope, profileTransformer, User, Profile) {
-
+    
+    $scope.isFormValid = false;
+    
     $scope.tiposFisicos = [
       "Magro", "Médio",  "Em forma",  "Pouco Acima do Peso", 
       "Muito Acima do Peso", "Musculoso", "Pequeno"
@@ -115,7 +117,11 @@ agencia
     });
 
    
-    $scope.updateProfile = function(){      
+    $scope.updateProfile = function(){ 
+      
+      $scope.isFormValid = !profileForm.$invalid;
+      if(!$scope.isFormValid) return false;
+      
       var options = {
           profile: {
             id : $scope.currentUser.id,
