@@ -173,9 +173,9 @@ module.exports = function(sequelize, DataTypes) {
              console.log('userID founded: '+user.id);
              console.log('userID sent: '+options.id);
              
-             if(user!=undefined){
+             if(user){
                transaction.rollback();
-               error({ error: 'error', reason: 'email_being_used' });
+               error({ error: 'error', reason: 'another_user_with_same_email' });
                return;
              }
              
