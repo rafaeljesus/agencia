@@ -1,4 +1,9 @@
-  <form role="form" name="profileForm" ng-submit="updateProfile()">
+  <form role="form" name="profileForm" ng-submit="updateProfile()" novalidate>
+  
+       <div class="alert alert-dange alert-dismissible" role="alert" ng-show="isFormValid">
+  	   <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Fechar</span></button>
+       	   <strong>Aten&ccedil&atilde;o!</strong> Por favor preencha todos os campos em todas as abas ("Dados Pessoas" e "Caracter&iacute;sticas/Social").
+       </div>
 
       <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ng-init="loadProfile()">
       <br/><br/> 
