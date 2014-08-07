@@ -53,7 +53,7 @@ agencia
           }).$promise;
       },
 
-      changePassword: function(oldPassword, newPassword, cb) {
+      resetPassword: function(oldPassword, newPassword, cb) {
         var callback = cb || angular.noop
         , options = {
           oldPassword: oldPassword,
