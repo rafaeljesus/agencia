@@ -6,11 +6,11 @@ agencia
     $scope.message = undefined;
 
     //Cria um novo password
-    $scope.changePassword = function() {
+    $scope.resetPassword = function() {
       $scope.message = undefined;
 
       Auth
-        .changePassword($scope.user.oldPassword, $scope.user.newPassword )
+        .resetPassword($scope.user.oldPassword, $scope.user.newPassword )
         .then(function(user) {
           $scope.user = user;
           $scope.message = 'Sua senha foi alterada com sucesso';
