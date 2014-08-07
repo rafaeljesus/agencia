@@ -139,7 +139,7 @@ module.exports = function(sequelize, DataTypes) {
           //init of onCompleteUpdateAttributes
           var onCompleteUpdateAttributes = function(err, user) {
               if (err) {
-                  error(error);
+                  error(500, error);
                   transaction.rollback();
                   return;
               }
@@ -156,7 +156,7 @@ module.exports = function(sequelize, DataTypes) {
           var onCompleteFindUser = function(err, user){
             
             if (err) {
-              error(error);
+              error(500, error);
               transaction.rollback();
               return;
             }
@@ -173,17 +173,14 @@ module.exports = function(sequelize, DataTypes) {
           var onCompleteFindAll = function(err, user){
             
              if(err){
-               error(err);
+               error(500, err);
                transaction.rollback();
                return;
              }
              
-             console.log('userID founded: '+user.id);
-             console.log('userID sent: '+options.id);
-             
-             if(user){
+             if(user && user.id){
                transaction.rollback();
-               error({ error: 'error', reason: 'another_user_with_same_email' });
+               error(500, { error: 'error', reason: 'another_user_with_same_email' });
                return;
              }
              

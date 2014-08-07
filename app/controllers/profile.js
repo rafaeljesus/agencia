@@ -19,7 +19,17 @@ module.exports = function(app) {
       function(err){
         res.json(500);
       }
-    )}
+    )},
+
+    changePassword: function(req, res){
+      //TODO implement
+      console.log('changePassword entrou'); 
+    },
+
+    checkMailInUse: function(req, res){
+      //TODO implement
+      console.log('check mail entrou'); 
+    }
 
   };
 

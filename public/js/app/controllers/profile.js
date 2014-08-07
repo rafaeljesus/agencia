@@ -4,7 +4,7 @@ agencia
   .controller('ProfileController', ['$scope','profileTransformer','User', 'Profile',
   function($scope, profileTransformer, User, Profile) {
     
-    $scope.isFormValid = false;
+    $scope.isFormValid = true;
     
     $scope.tiposFisicos = [
       "Magro", "Médio",  "Em forma",  "Pouco Acima do Peso", 
@@ -95,6 +95,8 @@ agencia
     };
 
     $scope.altura = {};
+
+    $scope.displayChangePassword = false;
     
     $scope.$on('profileLoaded', function(event, profile){
       $scope.altura = profileTransformer.toAltura(profile);          
@@ -119,7 +121,7 @@ agencia
    
     $scope.updateProfile = function(){ 
       
-      $scope.isFormValid = !profileForm.$invalid;
+      $scope.isFormValid = $scope.profileForm.$valid;
       if(!$scope.isFormValid) return false;
       
       var options = {
@@ -154,7 +156,7 @@ agencia
             bebida: $scope.profile.bebida,
             //login: $scope.profile.login, todo validar
             //senha: $scope.profile.senha, todo validar
-            //email: $scope.profile.email, todo validar
+            email: $scope.profile.email, 
             sexo: parseInt($scope.profile.sexo.value),
             primeiro_nome: $scope.profile.primeiro_nome,
             sobrenome: $scope.profile.sobrenome,
@@ -166,8 +168,45 @@ agencia
 
       Profile.update(options).$promise.then(function(profile){
         alert('Profile atualizado com sucesso');
+      }, function(err){
+        alert('Error: '+err);
       });
     };
+    //end of update
+
+
+
+
+    //altera validando com o antigo
+    $scope.changePasswordConfirming = function(){
+      $scope.message = undefined;
+      if($scope.newPassword && $scope.oldPassword && $scope.confirmPassword){
+          if($scope.newPassword === $scope.confirmPassword){
+            
+            $scope.user = {
+                  oldPassword: $scope.oldPassword, 
+                  newPassword: $scope.newPassword, 
+                  id: $scope.currentUser.id
+            };
+
+            return Profile.changePassword($scope.user)
+                  .then(function(user) {
+                    $scope.user = user;
+                    $scope.message = 'Sua senha foi alterada com sucesso';
+                  }).catch(function() {
+                    $scope.message = 'Senha fornecida está incorreta';
+                  });
+            }
+
+          $scope.message = 'A senha nova deve ser idêntica a sua confirmação';
+          return false;
+      } 
+      $scope.message = 'Forneça os valores para todos os campos corretamente';
+      return false;
+    };//end of changePasswordConfirming
+
+
+
 
   	jQuery(document).ready(function ($) {
         $('#tabs').tab();

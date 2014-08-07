@@ -3,9 +3,11 @@
 agencia
   .factory('Profile', function($resource) {
 
-   return $resource('/profile/', {}, 
+   return $resource('/profile/:action', {action: "@action"}, 
     		{
-          get: {method: 'GET'},
-          update: {method: 'PUT'}
+          get: {method: 'GET', params: {}},
+          update: {method: 'PUT', params: {}},
+          changePassword: {method: 'PUT', params: {action: 'changePassword'}},
+          checkMail: {method: 'GET', params: {action: 'checkMail'}},
      		});
 });  

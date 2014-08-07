@@ -3,16 +3,23 @@
 agencia
   .controller('SettingsController', function($scope, Auth) {
     $scope.errors = {};
+    $scope.message = undefined;
 
+    //Cria um novo password
     $scope.changePassword = function() {
+      $scope.message = undefined;
+
       Auth
         .changePassword($scope.user.oldPassword, $scope.user.newPassword )
         .then(function(user) {
           $scope.user = user;
-          $scope.message = 'Password successfully changed.';
+          $scope.message = 'Sua senha foi alterada com sucesso';
         }).catch(function() {
           form.password.$setValidity('mongoose', false);
-          $scope.errors.other = 'Incorrect password';
+          $scope.errors.other = 'Incorreect password';
+          $scope.message = 'Senha fornecida está incorreta';
         });
     };
+
+    
   });

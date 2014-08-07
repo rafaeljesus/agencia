@@ -1,10 +1,5 @@
   <form role="form" name="profileForm" ng-submit="updateProfile()" novalidate>
-  
-       <div class="alert alert-dange alert-dismissible" role="alert" ng-show="isFormValid">
-  	   <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Fechar</span></button>
-       	   <strong>Aten&ccedil&atilde;o!</strong> Por favor preencha todos os campos em todas as abas ("Dados Pessoas" e "Caracter&iacute;sticas/Social").
-       </div>
-
+ 
       <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ng-init="loadProfile()">
       <br/><br/> 
        <h1 class="page-header">Meu Perfil</h1>
@@ -13,6 +8,10 @@
               </div>
 
             <br/><br/>  
+
+        <div class="alert alert-warning" role="alert" ng-show="!isFormValid">
+              <strong>Aten&ccedil&atilde;o!</strong> Por favor preencha todos os campos <strong>corretamente</strong> em <strong>todas as</strong> ("Dados Pessoas" e "Caracter&iacute;sticas/Social").
+         </div>
 
 
             <div id="container">
@@ -28,32 +27,7 @@
 						            <h1>Dados Pessoais</h3>
                         <hr></hr>     
                         <br/>
-
-                        <div class="row">
-                           <div class="col-md-3">
-                              &nbsp;
-                           </div> 
-                          <!--login-->
-                          <div class="input-group col-md-6">
-                            <span class="input-group-addon">Login</span>
-                            <input maxlength="20" type="text" name="login" ng-model="profile.login" required="true" class="form-control"/>
-                          </div>                          
-                        </div>  
-                        
-                        <br/> 
                           
-                        <div class="row">
-                           <div class="col-md-3">
-                              &nbsp;
-                           </div> 
-                          <!--senha-->
-                          <div class="input-group col-md-6">
-                            <span class="input-group-addon">Senha</span>
-                            <input maxlength="20" type="password" name="senha" ng-model="senha" required="true" class="form-control"/>
-                          </div>                          
-                        </div>  
-                        
-                        <br/> 
                           
                         <div class="row">
                            <div class="col-md-3">
@@ -73,6 +47,25 @@
 
                           </div>                          
                         </div>  
+
+                        <br/>
+
+                        <div class="row">
+                           <div class="col-md-3">
+                              &nbsp;
+                           </div> 
+                          <!--senha-->
+                          <div change-password></div>
+                          <div class="input-group col-md-6">
+                            <span class="input-group-addon">Senha</span>
+                            <input maxlength="20" type="password" name="senha" ng-model="senha" disabled="disabled" class="form-control"/>
+                            <span class="input-group-addon">
+                              <a href="#" onclick="return false;" data-toggle="modal" data-target="#change-password-modal">Alterar senha</a>
+                            </span>
+                          </div>                          
+                          
+                        </div>  
+                        
 
                         <br/> 
 
@@ -569,12 +562,13 @@
 
                     <div class="row">
                       <!--ng-disabled="profileForm.$invalid"-->
-                        <button type="submit" class="btn btn-success btn-lg" >
-                           <span class="glyphicon glyphicon-floppy-save"></span>&nbsp;Salvar
-                        </button>
                         <button type="button" class="btn btn-default btn-lg">
                            Cancelar
                         </button>
+                        <button type="submit" class="btn btn-success btn-lg" >
+                           <span class="glyphicon glyphicon-floppy-save"></span>&nbsp;Salvar
+                        </button>
+                        
                     </div>                                   
 
                 </div> <!-- tab content-->
