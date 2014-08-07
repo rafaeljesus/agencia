@@ -30,12 +30,12 @@ module.exports = function(app){
       });
     },
 
-    changePassword: function(req, res) {
+    resetPassword: function(req, res) {
      var options = {
         id: req.body.user.id,
         password: req.body.user.password
       };
-      User.changePassword(options, function(user) {
+      User.resetPassword(options, function(user) {
         res.json(200);
       }, function(err) {
         res.json(err);
