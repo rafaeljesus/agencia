@@ -222,6 +222,26 @@ module.exports = function(sequelize, DataTypes) {
           });
       },//end change password
       
+      checkMailInUse: function(options, success, error){
+        
+          return User.findAll({
+             where: {
+               id: { ne: options.id  },
+               email: options.email
+             }
+          }).complete(function(err, user){
+            
+             if(err || (user && user.id) ){
+               transaction.rollback();
+               error(500, { error: 'error', reason: 'another_user_with_same_email' });
+               return;
+             }
+             
+            success({});
+          });
+          
+      },//end of checkMailInUse
+      
     },
     
     
