@@ -171,21 +171,15 @@ module.exports = function(sequelize, DataTypes) {
           //init onCompleteFindAll
           var onCompleteFindAll = function(err, user){
             
-             if(err){
-               error(500, err);
-               transaction.rollback();
-               return;
-             }
-             
-             if(user && user.id){
+             if(err || (user && user.id) ){
                transaction.rollback();
                error(500, { error: 'error', reason: 'another_user_with_same_email' });
                return;
              }
              
              User.find(options.id).complete(onCompleteFindUser);
-          };
-          //end of onCompleteFindAll
+          }; //end of onCompleteFindAll
+         
           return User.findAll({
              where: {
                id: { ne: options.id  },
@@ -196,7 +190,37 @@ module.exports = function(sequelize, DataTypes) {
       },//end updateProfile
       
       changePassword: function(options, success, error){
-      },
+        var shaOldPassword = crypto.createHash('sha256'); shaOldPassword.update(options.oldPassword);
+        var shaNewPassword = crypto.createHash('sha256'); shaNewPassword.update(options.newPassword);
+       
+        var onCompleteChangePassword = function(err, user) {
+          if (err) {
+            error(error);
+            return;
+          }
+          user
+            .updateAttributes({ password: shaNewPassword.digest('hex') })
+            .complete(function(err, user) {
+              if (err) {
+                error(error);
+                return;
+              }
+              success(user);
+            });
+        };
+        return User.findAll({
+             where: {
+               id: options.id,
+               senha: shaOldPassword.digest('hex');
+             }
+          }).complete(function(err, user){
+               if(err || !user || !user.id){
+                 error(500, { error: 'error', reason: 'password_invalid' });
+                 return;
+               }
+               User.find(options.id).complete(onCompleteChangePassword);
+          });
+      },//end change password
       
     },
     
