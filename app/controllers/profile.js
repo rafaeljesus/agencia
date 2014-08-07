@@ -22,8 +22,12 @@ module.exports = function(app) {
     )},
 
     changePassword: function(req, res){
-      //TODO implement
-      console.log('changePassword entrou'); 
+      User.changePassword(req.body.profile, function(user){
+        res.json(user);
+      },
+      function(err){
+        res.json(500);
+      } 
     },
 
     checkMailInUse: function(req, res){
