@@ -15,7 +15,7 @@ var agencia = angular
         authenticatedUsersOnly: true
       })
       .when('/profile', {
-        templateUrl: 'templates/meuPerfil.html',
+        templateUrl: 'templates/my-profile.html',
         controller: 'ProfileController',
         authenticatedUsersOnly: true
       })
