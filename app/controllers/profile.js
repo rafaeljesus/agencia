@@ -31,8 +31,12 @@ module.exports = function(app) {
     },
 
     checkMailInUse: function(req, res){
-      //TODO implement
-      console.log('check mail entrou'); 
+      User.checkMailInUse(req.body.profile, function(check){
+        res.json(check);
+      },
+      function(err){
+        res.json(500);
+      }  
     }
 
   };
