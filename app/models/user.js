@@ -69,6 +69,7 @@ module.exports = function(sequelize, DataTypes) {
 
   var User = sequelize.define('User', definition, {
     classMethods: {
+      
       authenticate: function(options, success, error) {
         var shaSum = crypto.createHash('sha256');
         shaSum.update(options.password);
@@ -87,6 +88,7 @@ module.exports = function(sequelize, DataTypes) {
           success(user);
         });
       },
+      
       register: function(options, success, error) {
         var shaSum = crypto.createHash('sha256');
         shaSum.update(options.password);
@@ -104,6 +106,7 @@ module.exports = function(sequelize, DataTypes) {
           success(user);
         });
       },
+      
       resetPassword: function(options, success, error) {
         var shaSum = crypto.createHash('sha256');
         shaSum.update(options.password);
@@ -123,6 +126,7 @@ module.exports = function(sequelize, DataTypes) {
             });
         });
       },
+      
       load: function(id, success, error) {
         return User.find(id).complete(function(err, user) {
           if (err) {
@@ -132,10 +136,9 @@ module.exports = function(sequelize, DataTypes) {
           return success(user);            
         });
       },
+      
       updateProfile: function(options, success, error){
         sequelize.transaction(function(transaction) {
-          
-          
           //init of onCompleteUpdateAttributes
           var onCompleteUpdateAttributes = function(err, user) {
               if (err) {
@@ -149,9 +152,7 @@ module.exports = function(sequelize, DataTypes) {
               success(user);
           };
           //end of onCompleteUpdateAttributes
-          
-          
-          
+        
           //init of onCompleteFindUser 
           var onCompleteFindUser = function(err, user){
             
@@ -166,8 +167,6 @@ module.exports = function(sequelize, DataTypes) {
               .complete(onCompleteUpdateAttributes);
           };
           //end of onCompleteFindUser
-           
-           
            
           //init onCompleteFindAll
           var onCompleteFindAll = function(err, user){
@@ -187,16 +186,12 @@ module.exports = function(sequelize, DataTypes) {
              User.find(options.id).complete(onCompleteFindUser);
           };
           //end of onCompleteFindAll
-           
-           
           return User.findAll({
              where: {
                id: { ne: options.id  },
                email: options.email
              }
           }).complete(onCompleteFindAll);//end complete findall
-           
-             
         });//end of transaction     
       },//end updateProfile
       
