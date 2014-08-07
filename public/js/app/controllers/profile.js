@@ -183,13 +183,15 @@ agencia
       if($scope.newPassword && $scope.oldPassword && $scope.confirmPassword){
           if($scope.newPassword === $scope.confirmPassword){
             
-            $scope.user = {
+            var options = {
+                profile : {
                   oldPassword: $scope.oldPassword, 
                   newPassword: $scope.newPassword, 
                   id: $scope.currentUser.id
+                }
             };
 
-            return Profile.changePassword($scope.user)
+            return Profile.changePassword(options)
                   .then(function(user) {
                     $scope.user = user;
                     $scope.message = 'Sua senha foi alterada com sucesso';
