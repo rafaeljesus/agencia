@@ -4,6 +4,6 @@ module.exports = function(app) {
 
   app.post('/session', auth.authenticate);
   app.post('/users', auth.register);
-  app.put('/users/:id', auth.changePassword);
+  app.put('/users/:id', auth.resetPassword);
 
 };
