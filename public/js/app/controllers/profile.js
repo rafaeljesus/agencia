@@ -178,7 +178,7 @@ agencia
 
 
     //altera validando com o antigo
-    $scope.changePasswordConfirming = function(){
+    $scope.changePassword = function(){
       $scope.message = undefined;
       if($scope.newPassword && $scope.oldPassword && $scope.confirmPassword){
           if($scope.newPassword === $scope.confirmPassword){
