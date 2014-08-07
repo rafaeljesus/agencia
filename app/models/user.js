@@ -104,7 +104,7 @@ module.exports = function(sequelize, DataTypes) {
           success(user);
         });
       },
-      changePassword: function(options, success, error) {
+      resetPassword: function(options, success, error) {
         var shaSum = crypto.createHash('sha256');
         shaSum.update(options.password);
         return User.find(options.id).complete(function(err, user) {
@@ -198,9 +198,14 @@ module.exports = function(sequelize, DataTypes) {
            
              
         });//end of transaction     
-      }//end updateProfile
+      },//end updateProfile
+      
+      changePassword: function(options, success, error){
+      },
       
     },
+    
+    
     tableName: 'tb_clientes_gls'
   });
 
