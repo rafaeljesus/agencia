@@ -161,7 +161,7 @@ agencia
             idade: parseInt($scope.profile.idade),
             como_atua: parseInt($scope.profile.como_atua.value),
             compromissado: $scope.profile.compromissado.value,
-            cidade: $scope.regiao.name,//todo split "," e pegar pos[0] ver itaipava por exemplo
+            cidade: $scope.regiao.name.split(',')[0],
             estado: $scope.regiao.region,
             pais: $scope.regiao.country_code
           }
