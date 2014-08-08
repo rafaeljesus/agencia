@@ -82,8 +82,7 @@ module.exports = function(sequelize, DataTypes) {
           )
         }).complete(function(err, user){
           if (err || !user) {
-            error({ reason: 'not_authenticated', message: 'Senha ou usuário informados estão inválidos' });
-            return;
+            return error({ reason: 'not_authenticated', message: 'Senha ou usuário informados estão inválidos' });
           }
           success(user);
         });
@@ -100,8 +99,7 @@ module.exports = function(sequelize, DataTypes) {
         };
         return User.create(attrs).complete(function(err, user) {
           if (err) {
-            error(err);
-            return;
+            return error(err);
           }
           success(user);
         });
@@ -112,15 +110,13 @@ module.exports = function(sequelize, DataTypes) {
         shaSum.update(options.password);
         return User.find(options.id).complete(function(err, user) {
           if (err) {
-            error(err);
-            return;
+            return error(err);
           }
           user
             .updateAttributes({ password: shaSum.digest('hex') })
             .complete(function(err, user) {
               if (err) {
-                error(err);
-                return;
+                return error(err);
               }
               success(user);
             });
@@ -130,9 +126,9 @@ module.exports = function(sequelize, DataTypes) {
       load: function(id, success, error) {
         return User.find(id).complete(function(err, user) {
           if (err) {
-            error(err);
-            return;
+            return error(err);
           }
+          
           return success(user);            
         });
       },
@@ -142,9 +138,8 @@ module.exports = function(sequelize, DataTypes) {
           //init of onCompleteUpdateAttributes
           var onCompleteUpdateAttributes = function(err, user) {
               if (err) {
-                  error(err);
                   transaction.rollback();
-                  return;
+                  return error(err);
               }
               
               //commit
@@ -157,9 +152,8 @@ module.exports = function(sequelize, DataTypes) {
           var onCompleteFindUser = function(err, user){
             
             if (err) {
-              error(err);
               transaction.rollback();
-              return;
+              return error(err);
             }
            
             user
@@ -173,8 +167,7 @@ module.exports = function(sequelize, DataTypes) {
             
              if(err || (user && user.id) ){
                transaction.rollback();
-               error({ reason: 'another_user_with_same_email', message: 'O e-mail '+user.email+' já está em uso' });
-               return;
+               return error({ reason: 'another_user_with_same_email', message: 'O e-mail '+user.email+' já está em uso' });
              }
              
              User.find(options.id).complete(onCompleteFindUser);
@@ -195,15 +188,13 @@ module.exports = function(sequelize, DataTypes) {
        
         var onCompleteChangePassword = function(err, user) {
           if (err) {
-            error(err);
-            return;
+            return error(err);
           }
           user
             .updateAttributes({ password: shaNewPassword.digest('hex') })
             .complete(function(err, user) {
               if (err) {
-                error(err);
-                return;
+                return error(err);
               }
               success(user);
             });
@@ -215,8 +206,7 @@ module.exports = function(sequelize, DataTypes) {
              }
           }).complete(function(err, user){
                if(err || !user || !user.id){
-                 error({reason: 'password_invalid', message: 'Senha fornecida não confere' });
-                 return;
+                 return error({reason: 'password_invalid', message: 'Senha fornecida não confere' });
                }
                User.find(options.id).complete(onCompleteChangePassword);
           });
@@ -233,8 +223,7 @@ module.exports = function(sequelize, DataTypes) {
             
              if(err || (user && user.id) ){
                transaction.rollback();
-               error({ error: 'error', reason: 'another_user_with_same_email' });
-               return;
+               return error({ error: 'error', reason: 'another_user_with_same_email' });
              }
              
             success(user);
