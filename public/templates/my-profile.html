@@ -3,7 +3,7 @@
   <form role="form" name="profileForm" ng-submit="updateProfile()" novalidate>
  
       <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ng-init="loadProfile()">
-      <br/><br/> 
+      <br/><br/> re
        <h1 class="page-header">Meu Perfil</h1>
         <div class="row placeholders">
               <div>Ol&aacute; <strong><span ng-bind="profile.primeiro_nome"/></strong><br/><br/>Parab&eacute;ns! Você agora faz parte da Ag&ecirc;ncia de Namoro Gay! Seja muito bem vindo<br/>. Para come&ccedil;ar a utiliza&ccedil;&atilde;o da ag&ecirc;ncia &eacute; necess&aacute;rio completar o cadastro de seu perfil:
@@ -106,7 +106,8 @@
                       <div class="row">
                       	<div class="form-group"> 
                     	    <div class="input-group-addon">Região</div>
-                      	    <input id="cityStateCountry" required="true" class="form-control" type="text" select2-region-auto-complete model="region" option-id="name" option-value="name" option-description="name"/>	
+                      	    <input id="cityStateCountry" required="true" class="form-control" type="text" 
+                      	    	select2-region-auto-complete model="regiao" option-id="name" option-value="name" option-description="name"/>	
                       	</div>	
                       </div>
 
