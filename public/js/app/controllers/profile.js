@@ -154,15 +154,16 @@ agencia
             viagem2: $scope.profile.viagem2,
             pratica_exercicio: $scope.profile.pratica_exercicio.value,
             bebida: $scope.profile.bebida,
-            //login: $scope.profile.login, todo validar
-            //senha: $scope.profile.senha, todo validar
             email: $scope.profile.email, 
             sexo: parseInt($scope.profile.sexo.value),
             primeiro_nome: $scope.profile.primeiro_nome,
             sobrenome: $scope.profile.sobrenome,
             idade: parseInt($scope.profile.idade),
             como_atua: parseInt($scope.profile.como_atua.value),
-            compromissado: $scope.profile.compromissado.value
+            compromissado: $scope.profile.compromissado.value,
+            cidade: $scope.regiao.name,
+            estado: $scope.regiao.region,
+            pais: $scope.regiao.country_code
           }
       };
 
