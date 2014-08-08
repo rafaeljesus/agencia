@@ -8,7 +8,7 @@ module.exports = function(app) {
     			res.json(user); 			
     		}, 
     		function(err) {
-        	res.json(401);
+        	res.json(401, err);
       	}
     )},
 
@@ -17,7 +17,7 @@ module.exports = function(app) {
         res.json(user);
       },
       function(err){
-        res.json(500);
+        res.json(500, err);
       }
     )},
 
@@ -26,7 +26,7 @@ module.exports = function(app) {
         res.json(user);
       },
       function(err){
-        res.json(500);
+        res.json(500, err);
       } 
     },
 
@@ -35,7 +35,7 @@ module.exports = function(app) {
         res.json(check);
       },
       function(err){
-        res.json(500);
+        res.json(500, err);
       }  
     }
 
