@@ -4,7 +4,7 @@ agencia.
     
       element.select2({
          minimumInputLength: attrs.minInputLength || 4,
-         placeholder: attrs.placeHolder || "Digite a cidade",
+         placeholder: attrs.placeHolder || "",
          
          id: function(option) { //specifing an unique id for option
          	var id = eval('option.'+ (attrs.optionId || 'id') );

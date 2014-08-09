@@ -14,6 +14,14 @@ agencia
         if(alturaSplit[1].length == 1){  alturaSplit[1] = '0'+alturaSplit[1]; }
     		return { metros: ''+alturaSplit[0], centimetros: ''+alturaSplit[1]};
       },
+
+      toRegiao: function(profile) {
+        var regiao = {};
+        regiao.name = profile.cidade;
+        regiao.country_code = profile.pais;
+        regiao.region = profile.estado;        
+        return regiao;
+      },
       
       findJsonInArray: function(simNaoArray, simNaoOption){
         for(var opt = 0; opt<simNaoArray.length; opt++){

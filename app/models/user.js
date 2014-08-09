@@ -163,12 +163,13 @@ module.exports = function(sequelize, DataTypes) {
           //end of onCompleteFindUser
            
           //init onCompleteFindAll
-          var onCompleteFindAll = function(err, user){
-            
-             if(err || (user && user.id) ){
+          var onCompleteFindAll = function(err, users){
+             if(err || ( users && users[0] ) ){
                transaction.rollback();
-               return error({ reason: 'another_user_with_same_email', message: 'O e-mail '+user.email+' já está em uso' });
              }
+
+             if( users && users[0] ){  return error({ reason: 'another_user_with_same_email', message: 'O e-mail '+users[0].email+' já está em uso' }); }
+             if(err){  return error(err); }
              
              User.find(options.id).complete(onCompleteFindUser);
           }; //end of onCompleteFindAll
@@ -183,15 +184,17 @@ module.exports = function(sequelize, DataTypes) {
       },//end updateProfile
       
       changePassword: function(options, success, error){
-        var shaOldPassword = crypto.createHash('sha256'); shaOldPassword.update(options.oldPassword);
-        var shaNewPassword = crypto.createHash('sha256'); shaNewPassword.update(options.newPassword);
-       
+        var shaOldPassword = crypto.createHash('sha256'); 
+        shaOldPassword.update(options.oldPassword);
+        var shaNewPassword = crypto.createHash('sha256'); 
+        shaNewPassword.update(options.newPassword);
+
         var onCompleteChangePassword = function(err, user) {
           if (err) {
             return error(err);
           }
           user
-            .updateAttributes({ password: shaNewPassword.digest('hex') })
+            .updateAttributes({ senha: shaNewPassword.digest('hex') })
             .complete(function(err, user) {
               if (err) {
                 return error(err);
@@ -199,13 +202,15 @@ module.exports = function(sequelize, DataTypes) {
               success(user);
             });
         };
+       
         return User.findAll({
              where: {
                id: options.id,
-               senha: shaOldPassword.digest('hex');
+               senha: shaOldPassword.digest('hex')
              }
-          }).complete(function(err, user){
-               if(err || !user || !user.id){
+          }).complete(function(err, users){
+
+               if(err || users == undefined || users[0] == undefined){
                  return error({reason: 'password_invalid', message: 'Senha fornecida não confere' });
                }
                User.find(options.id).complete(onCompleteChangePassword);
@@ -213,18 +218,14 @@ module.exports = function(sequelize, DataTypes) {
       },//end change password
       
       checkMailInUse: function(options, success, error){
-        
           return User.findAll({
              where: {
                id: { ne: options.id  },
                email: options.email
              }
-          }).complete(function(err, user){
-            
-             if(err || (user && user.id) ){
-               transaction.rollback();
-               return error({ error: 'error', reason: 'another_user_with_same_email' });
-             }
+          }).complete(function(err, users){
+             if(users && users[0]){  return error({ reason: 'another_user_with_same_email', message: 'O e-mail '+users[0].email+' já está em uso' }); }
+             if(err) {return error(err);}
              
             success(user);
           });

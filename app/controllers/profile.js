@@ -28,18 +28,24 @@ module.exports = function(app) {
       function(err){
         res.json(500, err);
       } 
-    },
+    )},
 
     checkMailInUse: function(req, res){
-      User.checkMailInUse(req.body.profile, function(check){
+      var profile = {
+        email: req.query.email,
+        id: req.session.user.id
+      }
+      User.checkMailInUse(profile, function(check){
         res.json(check);
       },
       function(err){
         res.json(500, err);
       }  
-    }
+    )}
 
   };
 
   return ProfileController;
 };
+
+

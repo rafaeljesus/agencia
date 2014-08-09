@@ -5,6 +5,7 @@ agencia
   function($scope, profileTransformer, User, Profile) {
     
     $scope.isFormValid = true;
+    $scope.senha = 'Senha fake para usuario saber que campo esta preenchido';
     
     $scope.tiposFisicos = [
       "Magro", "Médio",  "Em forma",  "Pouco Acima do Peso", 
@@ -115,14 +116,16 @@ agencia
       $scope.profile.como_atua = profileTransformer.findJsonInArray($scope.comoAtua, profile.como_atua);
       $scope.profile.idade = ''+profile.idade;
       $scope.profile.compromissado = profileTransformer.findJsonInArray($scope.simNao, profile.compromissado);
-      
+   
+      $scope.regiao = profileTransformer.toRegiao(profile);
+      $("#cityStateCountry").select2("data", $scope.regiao);
     });
 
    
     $scope.updateProfile = function(){ 
       
-      $scope.isFormValid = $scope.profileForm.$valid;
-      if(!$scope.isFormValid) return false;
+      $scope.isFormValid = $scope.profileForm.$valid && $scope.regiao;
+      if(!$scope.isFormValid ) return false;
       
       var options = {
           profile: {
@@ -170,7 +173,13 @@ agencia
       Profile.update(options).$promise.then(function(profile){
         alert('Profile atualizado com sucesso');
       }, function(err){
-        alert('Error: '+err);
+
+        if(err.data && err.data.message){
+          alert(err.data.message);
+        } else {
+          alert('Erro ao atualizar seu profile.');
+        }
+        
       });
     };
     //end of update
@@ -192,12 +201,12 @@ agencia
                 }
             };
 
-            return Profile.changePassword(options)
-                  .then(function(user) {
+            Profile.changePassword(options).
+                  $promise.then(function(user) {
                     $scope.user = user;
                     $scope.message = 'Sua senha foi alterada com sucesso';
-                  }).catch(function() {
-                    $scope.message = 'Senha fornecida está incorreta';
+                  }, function(err) {
+                    $scope.message = err.data.message;
                   });
             }
 
@@ -207,6 +216,24 @@ agencia
       $scope.message = 'Forneça os valores para todos os campos corretamente';
       return false;
     };//end of changePasswordConfirming
+
+    $scope.checkMailInUse = function(){
+
+          if(!$scope.profile.email ){
+            return;
+          }
+
+          var options = {
+             email: $scope.profile.email                                
+          };
+          Profile.checkMail(options).
+            $promise.then(function(user){
+              //do nothing
+            }, function(err){
+              console.log('err: '+err);
+              $scope.emailInUser =  err.data.message;
+            });
+    };
 
 
 

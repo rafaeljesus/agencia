@@ -3,18 +3,13 @@
   <form role="form" name="profileForm" ng-submit="updateProfile()" novalidate>
  
       <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ng-init="loadProfile()">
-      <br/><br/> re
+      <br/><br/> 
        <h1 class="page-header">Meu Perfil</h1>
         <div class="row placeholders">
               <div>Ol&aacute; <strong><span ng-bind="profile.primeiro_nome"/></strong><br/><br/>Parab&eacute;ns! Você agora faz parte da Ag&ecirc;ncia de Namoro Gay! Seja muito bem vindo<br/>. Para come&ccedil;ar a utiliza&ccedil;&atilde;o da ag&ecirc;ncia &eacute; necess&aacute;rio completar o cadastro de seu perfil:
               </div>
 
             <br/><br/>  
-
-        <div class="alert alert-warning" role="alert" ng-show="!isFormValid">
-              <strong>Aten&ccedil&atilde;o!</strong> Por favor preencha todos os campos <strong>corretamente</strong> em <strong>todas as</strong> ("Dados Pessoas" e "Caracter&iacute;sticas/Social").
-         </div>
-
 
             <div id="container">
                 <div id="content">
@@ -30,15 +25,23 @@
                         <hr></hr>     
                         <br/>
                           
-                          
                         <div class="row">
                            <div class="col-md-3">
                               &nbsp;
+                           </div>
+                           <div class="col-md-6"> 
+                            <span class="error" ng-bind="emailInUse"/>
+                           </div> 
+                        </div>  
+                        
+                        <div class="row">
+                           <div class="col-md-3">
+                            &nbsp;
                            </div> 
                           <!--email-->
                           <div class="input-group col-md-6">
                             <div class="input-group-addon">E-mail</div>
-                            <input maxlength="100" type="email" name="email" ng-model="profile.email" required="true" class="form-control"/>
+                            <input maxlength="100" type="email" name="email" ng-model="profile.email" required="true" class="form-control" ng-blur="checkMailInUse()"/>
 
                               <div class="input-group-addon">Sexo</div>
                               <select class="form-control" name="sexo" 
@@ -59,7 +62,7 @@
                           <!--senha-->
                           <div class="input-group col-md-6">
                             <span class="input-group-addon">Senha</span>
-                            <input maxlength="20" type="password" name="senha" ng-model="senha" disabled="disabled" class="form-control"/>
+                            <input maxlength="20" type="password" name="senha" ng-model="senha" disabled="disabled" class="form-control" />
                             <span class="input-group-addon">
                               <a href="#" onclick="return false;" data-toggle="modal" data-target="#change-password-modal">Alterar senha</a>
                             </span>
@@ -104,11 +107,15 @@
                       </div>  
                       
                       <div class="row">
+                        <div class="col-md-3">
+                              &nbsp;
+                        </div> 
                       	<div class="form-group"> 
-                    	    <div class="input-group-addon">Região</div>
-                      	    <input id="cityStateCountry" required="true" class="form-control" type="text" 
-                      	    	select2-region-auto-complete model="regiao" option-id="name" option-value="name" option-description="name"/>	
-                      	</div>	
+                          <div class="input-group col-md-6">
+                      	    <div class="input-group-addon">Região</div>
+                        	    <input id="cityStateCountry" required="true" class="form-control" type="text" select2-region-auto-complete model="regiao" option-id="name" option-value="name" option-description="name"/>	
+                        	</div>	
+                        </div>
                       </div>
 
                       <div class="row">
@@ -577,6 +584,12 @@
                         <button type="submit" class="btn btn-success btn-lg" >
                            <span class="glyphicon glyphicon-floppy-save"></span>&nbsp;Salvar
                         </button>
+
+                        <br/><br/>
+                        <div class="alert alert-warning" role="alert" ng-show="!isFormValid">
+                              <strong>Aten&ccedil&atilde;o!</strong> Por favor preencha todos os campos <strong>corretamente</strong> em <strong>todas as</strong> ("Dados Pessoas" e "Caracter&iacute;sticas/Social").
+                         </div>
+
                         
                     </div>                                   
 

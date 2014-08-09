@@ -18,10 +18,9 @@ agencia
         $location.path('/profile');
       }).catch(function(err) {
         err = err.data;
-        $scope.errors = {other: err.message || ''};
-        if(err.reason === 'not_authenticated'){
-            alert('Usuário ou senha estão inválidos. TODO Usar alert do bootstrap');
-        }
+        $scope.errors = err.message || '';
+        alert($scope.errors);
+        
       });
     };
 

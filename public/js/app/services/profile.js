@@ -8,6 +8,7 @@ agencia
           get: {method: 'GET', params: {}},
           update: {method: 'PUT', params: {}},
           changePassword: {method: 'PUT', params: {action: 'changePassword'}},
-          checkMail: {method: 'GET', params: {action: 'checkMail'}},
-     		});
+          checkMail: {method: 'GET', params: {action: 'checkMail'}}
+     		}
+   );
 });  
