@@ -118,7 +118,9 @@ agencia
       $scope.profile.compromissado = profileTransformer.findJsonInArray($scope.simNao, profile.compromissado);
    
       $scope.regiao = profileTransformer.toRegiao(profile);
-      $("#cityStateCountry").select2("data", $scope.regiao);
+      if(!$scope.regiao){
+        $("#cityStateCountry").select2("data", $scope.regiao);
+      }
     });
 
    

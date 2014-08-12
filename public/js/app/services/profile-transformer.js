@@ -5,11 +5,13 @@ agencia
 
   return {
       toProfile: function(altura) {
+        if(!altura){ return null};
       		var alturaString = altura.metros +'.'+altura.centimetros;
       		return parseFloat(eval('alturaString'));          
       },
 
       toAltura: function(profile) {
+        if(!profile.altura){ return null};
       	var alturaSplit = (""+profile.altura).split('.');
         if(alturaSplit[1].length == 1){  alturaSplit[1] = '0'+alturaSplit[1]; }
     		return { metros: ''+alturaSplit[0], centimetros: ''+alturaSplit[1]};
