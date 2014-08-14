@@ -4,7 +4,6 @@ agencia
   .controller('ProfileController', ['$scope','profileTransformer','User', 'Profile',
   function($scope, profileTransformer, User, Profile) {
     
-    $scope.isFormValid = true;
     $scope.senha = 'Senha fake para usuario saber que campo esta preenchido';
     
     $scope.tiposFisicos = [
@@ -118,16 +117,13 @@ agencia
       $scope.profile.compromissado = profileTransformer.findJsonInArray($scope.simNao, profile.compromissado);
    
       $scope.regiao = profileTransformer.toRegiao(profile);
-      if(!$scope.regiao){
+      if($scope.regiao){
         $("#cityStateCountry").select2("data", $scope.regiao);
       }
     });
 
    
     $scope.updateProfile = function(){ 
-      
-      $scope.isFormValid = $scope.profileForm.$valid && $scope.regiao;
-      if(!$scope.isFormValid ) return false;
       
       var options = {
           profile: {
@@ -238,16 +234,5 @@ agencia
     };
 
 
-
-
-  	jQuery(document).ready(function ($) {
-        $('#tabs').tab();
-    });
-
-    $('a[data-toggle="tab"]').on('shown', function (e) {
-      error.target // activated tab
-      e.relatedTarget // previous tab
-    });
-   		
 }]);
 

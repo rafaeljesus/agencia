@@ -86,7 +86,7 @@ describe('User', function(){
     }, function(err) {
       expect(err.email).to.not.equal(null);
       done();
-    })
+    });
   });
 
   it('should load a user by id', function(done){
@@ -232,7 +232,7 @@ describe('User', function(){
       
     }, function(err){
         expect(err.reason).to.equal('password_invalid');
-         done();
+        done();
     });
   });
 
@@ -251,9 +251,58 @@ describe('User', function(){
     });
   });
 
+  it('should be able to check if a email is in user - email already in Use Case', function(done){
+    
+    //Saving a new user
+    var options = {
+      email: 'kadusjc@yahoo.com.br',
+      password: 'new-password',
+      firstName: 'new-first-name',
+      lastName: 'new-last-name'
+    };
+    User.register(options, function(user) {
+      expect(user).to.not.equal(null);
+      
 
-  
+      options.id = currentUser.id;
+
+        User.checkMailInUse(options, function(user){
+
+        }, function(err){
+          expect(err.reason).to.equal('another_user_with_same_email');
+          done();
+        });  
+
+
+    }, function(err) {
+      return done(err);
+      
+    })
+
+  });
+
+  it('should be able to check if a email is in user - email not in use Case', function(done){
+    
+      var options = {
+        email: 'kadusjc@yahoo.com.br',
+        password: 'new-password',
+        firstName: 'new-first-name',
+        lastName: 'new-last-name',
+        id: currentUser.id
+      };
+      
+      User.checkMailInUse(options, function(user){
+         expect(user).to.not.equal(null);
+         done();
+      }, function(err){
+        console.log('ERRO **************************'+err.reason);
+         return done(err);
+      });  
+
+  });
+ 
 });
+
 
 
 

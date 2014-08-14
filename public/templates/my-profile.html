@@ -1,6 +1,6 @@
   <!--modal de alterar senha-->
   <div change-password></div>
-  <form role="form" name="profileForm" ng-submit="updateProfile()" novalidate>
+  <form role="form" name="profileForm" ng-submit="updateProfile()">
  
       <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ng-init="loadProfile()">
       <br/><br/> 
@@ -165,11 +165,16 @@
                                 <label>Altura</label> 
                                 <div>
                                   <select class="form-control" name="altura_metros" 
-                                  ng-model="altura.metros" 
-                                    required= "true" ng-options="n for n in [] | range:0:3:false"/><small>&nbsp;m&nbsp;</small>
+                                    ng-model="altura.metros" required= "true" ng-options="n for n in [] | range:0:3:false">
+                                    <option value=""></option>
+                                  </select>
+                                  <small>&nbsp;m&nbsp;</small>
+
                                   <select class="form-control" name="altura_cm" 
-                                    ng-model="altura.centimetros" 
-                                    required= "true" ng-options="n for n in [] | range:0:100:true"/><small>cm</small>
+                                    ng-model="altura.centimetros" required= "true" ng-options="n for n in [] | range:0:100:true">
+                                    <option value=""></option>
+                                  </select>
+                                  <small>cm</small>
                                 </div>
                               </div>  
                             </div>  
@@ -179,7 +184,11 @@
                                 <label>Peso</label> 
                                 <div>
                                   <select class="form-control" name="peso_kilo" 
-                                  ng-model="profile.peso"                                 required= "true" ng-options="n for n in [] | range:0:251:false"/><small>&nbsp;kilos&nbsp;</small>
+                                    ng-model="profile.peso" required= "true" 
+                                    ng-options="n for n in [] | range:0:251:false">
+                                    <option value=""></option>
+                                  </select>
+                                  <small>&nbsp;kilos&nbsp;</small>
                                   
                                 </div>    
                               </div>                                  
@@ -577,7 +586,11 @@
                     </div>                                            
 
                     <div class="row">
-                      <!--ng-disabled="profileForm.$invalid"-->
+                        <br/><br/>
+                        <div class="alert alert-warning" role="alert" ng-show="profileForm.$invalid">
+                              <strong>Aten&ccedil&atilde;o!</strong> Por favor preencha todos os campos <strong>corretamente</strong> em <strong>todas as</strong> ("Dados Pessoas" e "Caracter&iacute;sticas/Social").
+                         </div>
+                        <!--ng-disabled="profileForm.$invalid"-->
                         <button type="button" class="btn btn-default btn-lg">
                            Cancelar
                         </button>
@@ -585,10 +598,7 @@
                            <span class="glyphicon glyphicon-floppy-save"></span>&nbsp;Salvar
                         </button>
 
-                        <br/><br/>
-                        <div class="alert alert-warning" role="alert" ng-show="!isFormValid">
-                              <strong>Aten&ccedil&atilde;o!</strong> Por favor preencha todos os campos <strong>corretamente</strong> em <strong>todas as</strong> ("Dados Pessoas" e "Caracter&iacute;sticas/Social").
-                         </div>
+                        
 
                         
                     </div>                                   
@@ -612,6 +622,16 @@
    document.getElementById('meuPerfil').style.display='none';
    document.getElementById('outrosClientes').style.display='block';
  }
+
+  jQuery(document).ready(function ($) {
+      $('#tabs').tab();
+  });
+
+  $('a[data-toggle="tab"]').on('shown', function (e) {
+    error.target // activated tab
+    e.relatedTarget // previous tab
+  });
+    
  </script>
 
   
