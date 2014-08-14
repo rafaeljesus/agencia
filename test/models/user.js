@@ -89,6 +89,22 @@ describe('User', function(){
     });
   });
 
+    it('should not register a user with a email that already was registered by another user', function(done){
+    var options = {
+      email: 'valid@email.com',
+      password: 'new-password',
+      firstName: 'new-first-name',
+      lastName: 'new-last-name'
+    };
+    User.register(options, function(user) {
+      
+    }, function(err) {
+      expect(err.reason).to.equal('another_user_with_same_email');
+      done();
+    });
+  });
+
+
   it('should load a user by id', function(done){
     
     var options = {

@@ -97,13 +97,46 @@ module.exports = function(sequelize, DataTypes) {
           primeiro_nome: options.firstName,
           sobrenome: options.lastName
         };
-        return User.create(attrs).complete(function(err, user) {
-          if (err) {
-            return error(err);
-          }
-          success(user);
-        });
-      },
+
+        //checando se email ja em uso antes de salvar
+        sequelize.transaction(function(transaction) {
+
+           //Init register user 
+          var onCompleteRegisterUser = function(err, user) {
+              if (err) {
+                  transaction.rollback();
+                  return error(err);
+              }
+              
+              //commit
+              transaction.commit();
+              success(user);
+          };
+          //end register user
+
+          //init onCompleteFindByMail
+          var onCompleteFindByMail = function(err, users){
+             if(err || ( users && users[0] ) ){
+               transaction.rollback();
+             }
+             
+             if( users && users[0] ){  return error({ reason: 'another_user_with_same_email', message: 'O e-mail '+users[0].email+' já está em uso' }); }
+             if(err){  return error(err); }
+
+             User.create(attrs).complete(onCompleteRegisterUser);             
+             
+          }; //end of onCompleteFindByMail
+         
+          return User.findAll({
+             where: {
+               email: attrs.email
+             }
+          }).complete(onCompleteFindByMail);//end complete findall
+
+        });//end of transaction
+
+      },//end of register
+
       
       resetPassword: function(options, success, error) {
         var shaSum = crypto.createHash('sha256');

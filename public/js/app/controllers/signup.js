@@ -12,7 +12,8 @@ agencia
           password: $scope.user.password
         }
       }
-      Auth.register(options).then(function() {
+      Auth.register(options).then(function(data) {
+        alert(JSON.stringify(data));
         $('#closeButton').click();
         $location.path('/');
       }).catch(function(err) {
