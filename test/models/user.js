@@ -219,7 +219,36 @@ describe('User', function(){
         return done(err);
     });
 
-    
+  });
+
+  it('should be able to change the user"s password validating it - error case', function(done){
+    var options = {
+      oldPassword: 'errado',
+      newPassword: 'Novo',
+      id: currentUser.id
+    };
+
+    User.changePassword(options, function(user){
+      
+    }, function(err){
+        expect(err.reason).to.equal('password_invalid');
+         done();
+    });
+  });
+
+  it('should be able to change the user"s password validating it - successfully case', function(done){
+    var options = {
+      oldPassword: 'userTestPassword',
+      newPassword: 'Novo',
+      id: currentUser.id
+    };
+
+    User.changePassword(options, function(user){
+        expect(user.senha).to.not.equal(currentUser.senha);
+        done();   
+    }, function(err){
+        return done(err);         
+    });
   });
 
 
