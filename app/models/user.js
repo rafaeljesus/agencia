@@ -34,7 +34,9 @@ module.exports = function(sequelize, DataTypes) {
     idade: DataTypes.INTEGER,
     estado: DataTypes.STRING,
     cidade: DataTypes.STRING,
+    //todo criar migrate para criar coluna pais
     pais: DataTypes.STRING,
+    
     altura: DataTypes.FLOAT,
     peso: DataTypes.INTEGER,
     estilo_corpo: DataTypes.STRING,
@@ -89,6 +91,7 @@ module.exports = function(sequelize, DataTypes) {
       },
       
       register: function(options, success, error) {
+        var defError = {reason: 'unknown_error', message:'Ocorreu um erro ao salvar dados do seu perfil'};
         var shaSum = crypto.createHash('sha256');
         shaSum.update(options.password);
         var attrs = {
@@ -105,7 +108,7 @@ module.exports = function(sequelize, DataTypes) {
           var onCompleteRegisterUser = function(err, user) {
               if (err) {
                   transaction.rollback();
-                  return error(err);
+                  return error(defError);
               }
               
               //commit
@@ -121,7 +124,7 @@ module.exports = function(sequelize, DataTypes) {
              }
              
              if( users && users[0] ){  return error({ reason: 'another_user_with_same_email', message: 'O e-mail '+users[0].email+' já está em uso' }); }
-             if(err){  return error(err); }
+             if(err){  return error(defError); }
 
              User.create(attrs).complete(onCompleteRegisterUser);             
              
@@ -167,12 +170,13 @@ module.exports = function(sequelize, DataTypes) {
       },
       
       updateProfile: function(options, success, error){
+        var defError = {reason: 'unknown_error', message:'Ocorreu um erro ao salvar dados do seu perfil'};
         sequelize.transaction(function(transaction) {
           //init of onCompleteUpdateAttributes
           var onCompleteUpdateAttributes = function(err, user) {
               if (err) {
                   transaction.rollback();
-                  return error(err);
+                  return error(defError);
               }
               
               //commit
@@ -186,7 +190,7 @@ module.exports = function(sequelize, DataTypes) {
             
             if (err) {
               transaction.rollback();
-              return error(err);
+              return error(defError);
             }
            
             user
@@ -202,7 +206,7 @@ module.exports = function(sequelize, DataTypes) {
              }
 
              if( users && users[0] ){  return error({ reason: 'another_user_with_same_email', message: 'O e-mail '+users[0].email+' já está em uso' }); }
-             if(err){  return error(err); }
+             if(err){  return error(defError); }
              
              User.find(options.id).complete(onCompleteFindUser);
           }; //end of onCompleteFindAll
@@ -260,7 +264,7 @@ module.exports = function(sequelize, DataTypes) {
              if(users && users[0]){  return error({ reason: 'another_user_with_same_email', message: 'O e-mail '+users[0].email+' já está em uso' }); }
              if(err) {return error(err);}
              
-            success(users[0]);
+            return;
           });
           
       },//end of checkMailInUse

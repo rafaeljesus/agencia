@@ -29,9 +29,7 @@ agencia.
          },
          
          formatSelection: function(option) { 
-         	scope.$apply(function () {
          	eval('scope.'+attrs.model+' = option');	       	 
-         	});
          	return getFormattedSelection(option, attrs); 
          },
          //nao apagar - para usar o select2('val',) no selenium precisa haver este metodo

@@ -8,7 +8,7 @@ module.exports = function(app) {
     			res.json(user); 			
     		}, 
     		function(err) {
-        	res.json(401, err);
+        	res.json(500, err);
       	}
     )},
 

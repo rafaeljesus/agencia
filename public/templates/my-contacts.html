@@ -1,0 +1,115 @@
+  <!--modal de alterar senha-->
+  <div change-password></div>
+  <form role="form" name="contactsForm" ng-submit="saveContact()">
+ 
+      <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ng-init="loadContact()">
+      <br/><br/> 
+
+          <h1 class="page-header">Contato com a Ag&ecirc;ncia</h1>
+          <div class="row placeholders">
+                O e-mail abaixo representa seu contato com a <strong>ag&ecirc;ncia</strong> e pode ser alterado na tela de dados do seu <strong>perfil</strong>.<br/>.
+          </div>
+          <div class="row">
+             <div class="col-md-3">
+              &nbsp;
+             </div> 
+             <!--email-->
+             <div class="input-group col-md-6">
+                <div class="input-group-addon">E-mail</div>
+                <input maxlength="100" ng-model="emailProfile" class="form-control" readOnly="readOnly"/>
+             </div>                          
+          </div>
+
+          <br/><br/><br/>
+
+	        <h1 class="page-header">Contatos com os Pretendentes</h1>
+	        <div class="row placeholders">
+	              Informe os contatos que voc&ecirc; permite exibir aos pretendentes que voc&ecirc; aceitar conhecer.<br/>.
+	        </div>
+          
+           <div class="row">
+             <div class="col-md-3">
+                &nbsp;
+             </div>
+             <div class="col-md-6"> 
+                <span class="error" ng-bind="emailContactInUse"/>
+             </div> 
+          </div>  
+
+	        <div class="row">
+             <div class="col-md-3">
+              &nbsp;
+             </div> 
+            <div class="input-group col-md-6">
+              <div class="input-group-addon">E-mail</div>
+              <input maxlength="100" type="email" name="email" ng-model="contact.e_mail_contato" required="true" class="form-control" ng-blur="checkMailInUse()"/>
+              <div class="input-group-addon">Tel. Residencial</div>
+              <input maxlength="100" type="text" name="telRes" ng-model="contact.tel_residencial" class="form-control"/>
+            </div>                          
+          </div>
+
+          <br/>
+
+          <div class="row">
+             <div class="col-md-3">
+              &nbsp;
+             </div> 
+             <div class="input-group col-md-6">
+                <div class="input-group-addon">Tel. Celular</div>
+                <input maxlength="100" type="text" name="celular" ng-model="contact.tel_celular" class="form-control" />
+
+                <div class="input-group-addon">Tel. Comercial</div>
+                <input maxlength="100" type="text" name="telCom" ng-model="contact.tel_trabalho" class="form-control" />
+            </div>                          
+          </div>    
+
+          <br/>
+
+          <div class="row">
+             <div class="col-md-3">
+              &nbsp;
+             </div> 
+             <div class="input-group col-md-6">
+                <div class="input-group-addon">Contato do Skype</div>
+                <input maxlength="100" type="text" name="skype" ng-model="contact.skype" class="form-control" />
+            </div>                          
+          </div>    
+
+		      <div class="row">
+	            <hr></hr>
+	            </br>     
+	        </div>                                            
+
+	        <div class="row">
+	            <div class="col-md-4">
+	              &nbsp;
+	            </div> 
+	            <div class="col-md-6">
+		            <button type="button" class="btn btn-default btn-lg">
+		               Cancelar
+		            </button>
+		            <button type="submit" class="btn btn-success btn-lg" >
+		               <span class="glyphicon glyphicon-floppy-save"></span>&nbsp;Salvar
+		            </button>            
+		        	</div>                                   
+		        </div>
+
+        </div> 
+    </div>
+</form>  
+         
+
+<script>
+ function showMeuPerfil(){
+   document.getElementById('meuPerfil').style.display='block';
+   document.getElementById('outrosClientes').style.display='none';
+ }
+  
+ function showOutrosClientes(){
+   document.getElementById('meuPerfil').style.display='none';
+   document.getElementById('outrosClientes').style.display='block';
+ }
+    
+ </script>
+
+  

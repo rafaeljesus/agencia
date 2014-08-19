@@ -19,6 +19,11 @@ var agencia = angular
         controller: 'ProfileController',
         authenticatedUsersOnly: true
       })
+      .when('/contacts', {
+        templateUrl: 'templates/my-contacts.html',
+        controller: 'ContactController',
+        authenticatedUsersOnly: true
+      })
       .otherwise({
         redirectTo: '/'
       });

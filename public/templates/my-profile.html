@@ -581,12 +581,11 @@
                      </div><!--end caracteristicas tab-->
 
                     <div class="row">
-                          <hr></hr>     
-                          <br/> 
+                          <hr></hr>                            
                     </div>                                            
 
                     <div class="row">
-                        <br/><br/>
+                        <br/>
                         <div class="alert alert-warning" role="alert" ng-show="profileForm.$invalid">
                               <strong>Aten&ccedil&atilde;o!</strong> Por favor preencha todos os campos <strong>corretamente</strong> em <strong>todas as</strong> ("Dados Pessoas" e "Caracter&iacute;sticas/Social").
                          </div>
@@ -597,10 +596,6 @@
                         <button type="submit" class="btn btn-success btn-lg" >
                            <span class="glyphicon glyphicon-floppy-save"></span>&nbsp;Salvar
                         </button>
-
-                        
-
-                        
                     </div>                                   
 
                 </div> <!-- tab content-->
@@ -613,15 +608,6 @@
          
 
 <script>
- function showMeuPerfil(){
-   document.getElementById('meuPerfil').style.display='block';
-   document.getElementById('outrosClientes').style.display='none';
- }
-  
- function showOutrosClientes(){
-   document.getElementById('meuPerfil').style.display='none';
-   document.getElementById('outrosClientes').style.display='block';
- }
 
   jQuery(document).ready(function ($) {
       $('#tabs').tab();

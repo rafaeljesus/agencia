@@ -120,6 +120,7 @@ agencia
       if($scope.regiao){
         $("#cityStateCountry").select2("data", $scope.regiao);
       }
+
     });
 
    
@@ -170,6 +171,7 @@ agencia
 
       Profile.update(options).$promise.then(function(profile){
         alert('Profile atualizado com sucesso');
+        
       }, function(err){
 
         if(err.data && err.data.message){
@@ -217,20 +219,20 @@ agencia
 
     $scope.checkMailInUse = function(){
 
-          if(!$scope.profile.email ){
-            return;
-          }
+      $scope.emailInUser = '';
+      if(!$scope.profile.email ){
+        return;
+      }
 
-          var options = {
-             email: $scope.profile.email                                
-          };
-          Profile.checkMail(options).
-            $promise.then(function(user){
-              //do nothing
-            }, function(err){
-              console.log('err: '+err);
-              $scope.emailInUser =  err.data.message;
-            });
+      var options = {
+         email: $scope.profile.email                                
+      };
+      Profile.checkMail(options).
+        $promise.then(function(user){
+          //do nothing
+        }, function(err){
+          $scope.emailInUser =  err.data.message;
+        });
     };
 
 

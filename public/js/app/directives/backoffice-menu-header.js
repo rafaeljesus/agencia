@@ -27,8 +27,8 @@ agencia
     '<div class="row">'+
       '<div class="col-sm-3 col-md-2 sidebar">'+
         '<ul class="nav nav-sidebar" style="display:block" id="meuPerfil">'+
-          '<li class="active"><a href="#"><img src="../img/icons/ico_menu_editarperfil.png"/>&nbsp;Editar Perfil</a></li>'+
-          '<li><a href="#"><img src="../img/icons/ico_menu_editardados.png"/>&nbsp;Editar Dados</a></li>'+
+          '<li id="editarPerfil" onclick="activate(\'editarPerfil\')"><a href="#/profile" ><img src="../img/icons/ico_menu_editarperfil.png"/>&nbsp;Editar Perfil</a></li>'+
+          '<li id="editarDados" onclick="activate(\'editarDados\')"><a href="#/contacts" ><img src="../img/icons/ico_menu_editardados.png"/>&nbsp;Editar Dados</a></li>'+
           '<li><a href="#"><img src="../img/icons/icone_fotos.png"/>&nbsp;Minhas Fotos</a></li>'+
           '<li><a href="#"><img src="../img/icons/ico_menu_busca.png"/>&nbsp;Perfil que Procuro</a></li>'+
           '<li><a href="#"><img src="../img/icons/ico_pg.png"/>&nbsp;Fazer Upgrade</a></li>'+
@@ -41,7 +41,9 @@ agencia
         '<li><a href="#"><img src="../img/icons/ico_menu_perfisaceitos.png"/>&nbsp;Perfis aceitos</a></li>'+
         '<li><a href="#"><img src="../img/icons/ico_menu_perfisrejeit.png"/>&nbsp;Perfis Rejeitados</a></li>'+
       '</ul>'+
-    '</div>';
+    '</div>'
+    
+;
 
     return {
       restrict: 'E',
