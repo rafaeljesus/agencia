@@ -29,7 +29,7 @@ agencia
         '<ul class="nav nav-sidebar" style="display:block" id="meuPerfil">'+
           '<li id="editarPerfil" onclick="activate(\'editarPerfil\')"><a href="#/profile" ><img src="../img/icons/ico_menu_editarperfil.png"/>&nbsp;Editar Perfil</a></li>'+
           '<li id="editarDados" onclick="activate(\'editarDados\')"><a href="#/contacts" ><img src="../img/icons/ico_menu_editardados.png"/>&nbsp;Editar Dados</a></li>'+
-          '<li><a href="#"><img src="../img/icons/icone_fotos.png"/>&nbsp;Minhas Fotos</a></li>'+
+          '<li id="minhasFotos" activate(\'minhasFotos\')><a href="#/photos"><img src="../img/icons/icone_fotos.png"/>&nbsp;Minhas Fotos</a></li>'+
           '<li><a href="#"><img src="../img/icons/ico_menu_busca.png"/>&nbsp;Perfil que Procuro</a></li>'+
           '<li><a href="#"><img src="../img/icons/ico_pg.png"/>&nbsp;Fazer Upgrade</a></li>'+
           '<li><a href="#"><img src="../img/icons/ico_menu_excluir.png"/>&nbsp;Cancelar Minha Conta</a></li>'+

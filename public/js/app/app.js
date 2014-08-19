@@ -24,6 +24,11 @@ var agencia = angular
         controller: 'ContactController',
         authenticatedUsersOnly: true
       })
+      .when('/photos', {
+        templateUrl: 'templates/my-photos.html',
+        controller: 'PhotoController',
+        authenticatedUsersOnly: true
+      })
       .otherwise({
         redirectTo: '/'
       });
