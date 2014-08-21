@@ -264,7 +264,7 @@ module.exports = function(sequelize, DataTypes) {
              if(users && users[0]){  return error({ reason: 'another_user_with_same_email', message: 'O e-mail '+users[0].email+' já está em uso' }); }
              if(err) {return error(err);}
              
-            return;
+            return success();
           });
           
       },//end of checkMailInUse

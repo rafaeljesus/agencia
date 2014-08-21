@@ -189,7 +189,7 @@ describe('User', function(){
         compromissado: true,
         cidade: 'São Juza',
         estado: 'Sampa',
-        //pais: 'BR' - todo criar migration de pais e aplicar em test
+        pais: 'BR'
     };
 
     User.updateProfile(options, function(userUpdated){
@@ -230,6 +230,7 @@ describe('User', function(){
         expect(userUpdated.compromissado).to.equal(options.compromissado);
         expect(userUpdated.cidade).to.equal(options.cidade);
         expect(userUpdated.estado).to.equal(options.estado);
+        expect(userUpdated.pais).to.equal(options.pais);
         done();
     }, function(err){
         return done(err);
@@ -300,7 +301,7 @@ describe('User', function(){
   it('should be able to check if a email is in user - email not in use Case', function(done){
     
       var options = {
-        email: 'kadusjc@yahoo.com.br',
+        email: 'valid@email.com.br',
         password: 'new-password',
         firstName: 'new-first-name',
         lastName: 'new-last-name',
@@ -311,7 +312,6 @@ describe('User', function(){
          expect(user).to.not.equal(null);
          done();
       }, function(err){
-        console.log('ERRO **************************'+err.reason);
          return done(err);
       });  
 

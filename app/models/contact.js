@@ -1,18 +1,16 @@
 module.exports = function(sequelize, DataTypes) {
 
   var definition = {
-    //email: DataTypes.STRING,
     msn: DataTypes.STRING,
     tel_residencial: DataTypes.STRING,
     tel_celular: DataTypes.STRING,
     tel_trabalho: DataTypes.STRING,
     e_mail_contato: DataTypes.STRING,
-
-    //criar migration para criar coluna
+   //criar migration para criar coluna
     skype: DataTypes.STRING
-  //Criar colunas pelo migration
-    //createdAt: DataTypes.DATE,
-    // updatedAt: DataTypes.DATE,
+   //Criar colunas pelo migration
+   //createdAt: DataTypes.DATE,
+   // updatedAt: DataTypes.DATE,
           
   };
 
@@ -51,21 +49,21 @@ module.exports = function(sequelize, DataTypes) {
             };
 
             var onCompleteFindByIdCliente = function(err, contact){
-                if(err){
+                if(err || !contact){
                   return error(defError);
                 }
-               return contact.updateAttributes(options).complete(onCompleteThenCommit);                                
+                return contact.updateAttributes(options).complete(onCompleteThenCommit);                                
             };
 
-            var onCompleteCheckEmailInUse = function(err, contacts){
+            var onCompleteCheckEmailInUse = function(err, contacts){  
                 if(err || ( contacts && contacts[0] ) ){
                     transaction.rollback();
                     defError.error =  JSON.stringify(err);
                 }
 
-                if( contacts && contacts[0] ){  return error({ reason: 'another_user_with_same_email', message: 'O e-mail de contato, '+contacts[0].e_mail_contato+', já está em uso' }); }
+                if( contacts && contacts[0] ){  return error({ reason: 'another_contact_with_same_email', message: 'O e-mail de contato, '+contacts[0].e_mail_contato+', já está em uso' }); }
                 if(err){  return error(defError); }
-                Contact.find( { where: sequelize.and({id_cliente: options.id_cliente }) }).complete(onCompleteFindByIdCliente);                    
+                return Contact.find( { where: sequelize.and({id_cliente: options.id_cliente }) }).complete(onCompleteFindByIdCliente);                    
             };
 
             return Contact.findAll({
@@ -86,10 +84,10 @@ module.exports = function(sequelize, DataTypes) {
                e_mail_contato: options.e_mail_contato
              }
           }).complete(function(err, contacts){
-             if(contacts && contacts[0]){  return error({ reason: 'another_user_with_same_email', message: 'Outro cliente já está utilizando o e-mail '+contacts[0].e_mail_contato}); }
+             if(contacts && contacts[0]){  return error({ reason: 'another_contact_with_same_email', message: 'Outro cliente já está utilizando o e-mail de contato '+contacts[0].e_mail_contato}); }
              if(err) {return error({reason: 'unknow_error', message:'Ocorreu um erro ao checar uso do e-mail de contato'});}
              
-            return;
+            return success();
           });
           
       },//end of checkMailInUse
