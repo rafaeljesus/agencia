@@ -217,6 +217,10 @@ agencia
       return false;
     };//end of changePasswordConfirming
 
+
+
+
+    //exibe msg para usuário que email esta em uso qdo campo perde foco
     $scope.checkMailInUse = function(){
 
       $scope.emailInUser = '';
