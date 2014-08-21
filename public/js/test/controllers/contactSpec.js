@@ -42,6 +42,44 @@ describe('ContactControllerSpec', function() {
     expect(scope.contact).to.not.be.undefined;
   )};   
   
+  it('should save a contact successfully', function(done) {
+    scope.currentUser = {id: 1};
+    scope.user.id = 1;
+    scope.contact = {
+      tel_residencial: '1',
+      tel_celular:'2',
+      tel_trabalho: '3',
+      skype: 'skype',
+      e_mail_contato: 'contato@gmail.com',
+      id: 1
+    };
+    http.when('PUT', '/contact').respond(scope.contact);
+    scope.saveContact ();
+    http.flush();
+    
+    expect(scope.contact).to.not.be.undefined;
+    expect(scope.error).to.be.undefined;
+  )};   
+  
+  it('should result in a error when save a contact results in an unexpected exception', function(done) {
+    scope.currentUser = {id: 1};
+    scope.user.id = 1;
+    scope.contact = {
+      tel_residencial: '1',
+      tel_celular:'2',
+      tel_trabalho: '3',
+      skype: 'skype',
+      e_mail_contato: 'contato@gmail.com',
+      id: 1
+    };
+    http.when('PUT', '/contact').respond(500, scope.contact);
+    scope.saveContact();
+    http.flush();
+    
+    expect(scope.contact).to.be.undefined;
+    expect(scope.error).to.not.be.undefined;
+  )};   
+  
   it('should show a message to user informing that choosed contact email is already in use when contact email''s input lose the focus', function(done) {
     http.when('GET', '/contact/check/mail').respond(500, scope.user);
     scope.checkMailInUse();
