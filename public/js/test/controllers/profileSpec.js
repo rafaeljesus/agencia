@@ -54,7 +54,7 @@ describe('ProfileControllerSpec', function() {
   });
   
   
-  it('should emit an event when load method is called', function(done) {
+  it('should emit an event when load method is called, then use profileTransformer into user data', function(done) {
     
     scope.currentUser.id = 1;
     
