@@ -1,4 +1,4 @@
-  var expect = chai.expect;
+var expect = chai.expect;
 
 describe('ProfileControllerSpec', function() {
 
@@ -14,7 +14,7 @@ describe('ProfileControllerSpec', function() {
         altura: 1.75,
         peso : 90;
         trabalha : true,
-        estuda : true,
+        estuda : false,
         tem_filhos : true,
         possui_carro : true,
         como_mora : 'Moro sozinho(a)'
@@ -62,6 +62,18 @@ describe('ProfileControllerSpec', function() {
     http.expectGET('/user/1').respond(200, scope.user);
     scope.loadProfile();
     http.flush();
+    
+    expect(scope.altura.metros).to.equal(1);
+    expect(scope.altura.centimetros).to.equal(75);
+    expect(scope.profile).to.not.be.undefined;
+    expect(scope.profile.peso).to.equal('90');
+    expect(scope.profile.trabalha.value).to.be.true;
+    expect(scope.profile.estuda.value).to.be.false;
+    expect(scope.profile.tem_filhos.value).to.be.true;
+    expect(scope.profile.possui_carro.value).to.be.true;
+    expect(scope.profile.como_mora.value).to.equal('Moro sozinho(a)');
+    expect(scope.profile.gosta_tv.value).to.be.true;
+    expect(scope.profile.gosta_ler.value).to.be.true;
     done();
     
   });
