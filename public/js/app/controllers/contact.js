@@ -34,9 +34,9 @@ agencia
           alert('Dados de contato atualizados com sucesso');
           
         }, function(err){
-
           if(err.data && err.data.message){
-            alert(err.data.message);
+           $scope.error = err.data;
+           alert($scope.error.message);
           } else {
             alert('Erro ao atualizar dados de contato.');
           }
