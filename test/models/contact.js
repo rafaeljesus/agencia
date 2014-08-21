@@ -17,54 +17,53 @@ describe('User\'s Contact', function(){
       email: 'valid@email.com'
     };
 
-		//1 - Cria user
+    //1 - Cria user
     User.register(options, function(user) {
       currentUser = user;
     
-    //2 - Carrega criando contact caso nao exista
+      //2 - Carrega criando contact caso nao exista
       Contact.load(user.id, function(contact){
       	 contactOptions = {
-		  			id: contact.id,
-			  	  tel_residencial: '(12) 3999-2222',
-			  	  tel_celular: '(12) 9999-9999',
-			    	tel_trabalho: '0800-140-1244',
-			    	e_mail_contato: 'kadusjc@yahoo.com.br',
-				    skype: 'kadusjc',
-				    msn: 'kadu.boldcron@hotmail.com',
-				    id_cliente: currentUser.id
-		  		};
-		//3 - Atualiza contact
-		    Contact.updateContact(contactOptions, function(contact){
-		    	currentContact = contact
-		      done();
-		    }, function(err) {
-		    	return done(err);
-		    });
+	   id: contact.id,
+	   tel_residencial: '(12) 3999-2222',
+	   tel_celular: '(12) 9999-9999',
+	   tel_trabalho: '0800-140-1244',
+	   e_mail_contato: 'kadusjc@yahoo.com.br',
+           skype: 'kadusjc',
+	   msn: 'kadu.boldcron@hotmail.com',
+	   id_cliente: currentUser.id
+	};
+        //3 - Atualiza contact
+        Contact.updateContact(contactOptions, function(contact){
+	   currentContact = contact
+	   done();
+	}, function(err) {
+	   return done(err);
+	});//end 3
 
       }, function(err){
-				return done(err);
-      });
+	return done(err);
+      });//end 2)
 
-    }, function(err) {
-      return done(err);
-    });
+   }, function(err) {
+     return done(err);
+   });//end 1)
 
   });
 
 	//Apaga todos registros de ambas tables
   afterEach(function(done){
-  	Contact.destroy().success(function(){
-    		User.destroy().success(function(){
-      		done();
-    		});
-  	});
+     Contact.destroy().success(function(){
+        User.destroy().success(function(){
+          done();
+    	});
+      });
   });
 
 
-
   it('should successfully update the empty contact (that was saved on user\'s load)', function(done){
-  	  expect(currentContact.id).to.not.equal(undefined);
-  	  expect(currentContact.msn).to.equal(contactOptions.msn);
+      expect(currentContact.id).to.not.equal(undefined);
+      expect(currentContact.msn).to.equal(contactOptions.msn);
       expect(currentContact.tel_residencial).to.equal(contactOptions.tel_residencial);
       expect(currentContact.tel_celular).to.equal(contactOptions.tel_celular);
       expect(currentContact.tel_trabalho).to.equal(contactOptions.tel_trabalho);
@@ -76,11 +75,11 @@ describe('User\'s Contact', function(){
   it('should not update and return a unknown_errorin case of unexpected exception', function(done){
 
   	 var contactOptions = {
-			id: 80,
-  	  tel_residencial: '(12) 3999-2222',
-  	  tel_celular: '(12) 9999-9999',
-    	tel_trabalho: '0800-140-1244',
-    	e_mail_contato: 'kadusjc@gmail.com.br',
+	     id: 80,
+  	     tel_residencial: '(12) 3999-2222',
+  	     tel_celular: '(12) 9999-9999',
+    	     tel_trabalho: '0800-140-1244',
+    	     e_mail_contato: 'kadusjc@gmail.com.br',
 	    skype: 'kadusjc',
 	    msn: 'kadu.boldcron@hotmail.com',
 	    id_cliente: 7
@@ -88,23 +87,23 @@ describe('User\'s Contact', function(){
 
     return Contact.updateContact(contactOptions, function(contact){		     	      
     }, function(err) {
-    	expect(err.reason).to.equal('unknown_error');
+        expect(err.reason).to.equal('unknown_error');
     	done();
     });	  		
-	});
+  });
 
 
   it('should not update the empty contact if the same e_mail_contato is already in use by another contact', function(done){
   	  
-	  var userOptions = {
+   var userOptions = {
       firstName: 'userTest',
       lastName: 'userTestLogin',
       password: 'userTestPassword',
       email: 'valid@anotheremail.com'
     };
-		var newUser = null, newContact = null;
+    var newUser = null, newContact = null;
 
-		//Init of create new User and new Contact
+   //Init of create new User and new Contact
     User.register(userOptions, function(user) {
       newUser = user;
       Contact.load(newUser.id, function(contact){
@@ -112,24 +111,25 @@ describe('User\'s Contact', function(){
 
       	 //Init of test
       	 var contactOptions = {
-	  			id: newContact.id,
-		  	  tel_residencial: '(12) 3999-2222',
-		  	  tel_celular: '(12) 9999-9999',
-		    	tel_trabalho: '0800-140-1244',
-		    	e_mail_contato: 'kadusjc@yahoo.com.br',
-			    skype: 'kadusjc',
-			    msn: 'kadu.boldcron@hotmail.com',
-			    id_cliente: newUser.id
-		  	};
+	   id: newContact.id,
+	   tel_residencial: '(12) 3999-2222',
+	   tel_celular: '(12) 9999-9999',
+	   tel_trabalho: '0800-140-1244',
+	   e_mail_contato: 'kadusjc@yahoo.com.br',
+	   skype: 'kadusjc',
+	   msn: 'kadu.boldcron@hotmail.com',
+	   id_cliente: newUser.id
+	};
 
-		    return Contact.updateContact(contactOptions, function(contact){		     	      
-		    }, function(err) {
-		    	expect(err.reason).to.equal('another_contact_with_same_email');
-		    	done();
-		    });
+	return Contact.updateContact(contactOptions, function(contact){		     	      
+	  //do nothing	
+	}, function(err) {
+	   expect(err.reason).to.equal('another_contact_with_same_email');
+	   done();
+	});
 		    //end of test
       }, function(err){
-				return done(err);
+	 return done(err);
       });
       //end of contact.load
     }, function(err) {
