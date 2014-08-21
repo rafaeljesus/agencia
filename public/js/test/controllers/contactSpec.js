@@ -2,25 +2,23 @@ var expect = chai.expect;
 
 describe('ContactControllerSpec', function() {
 
-  var controller, scope, user, profile, location, http, profileTransformer, defaultUser;
+  var controller, scope, user, contact, location, http, defaultUser;
 
   beforeEach(function() {
     module('agencia');
     
   });
 
-  beforeEach(inject(function($rootScope, $controller, $location, _$httpBackend_, User, Profile, profileTransformer) {
+  beforeEach(inject(function($rootScope, $controller, $location, _$httpBackend_, User, Contact) {
     user = User;
-    profile = Profile;
+    contact = Contact;
     scope = $rootScope.$new();
-    profileTransformer = profileTransformer;
     location = $location;
     http = _$httpBackend_;
-    controller = $controller('ProfileController', {
+    controller = $controller('ContactController', {
       $scope: scope,
-      profileTransformer: profileTransformer,
       User: user,
-      Profile: profile
+      Contact: contact
     });
   }));
   
@@ -30,15 +28,15 @@ describe('ContactControllerSpec', function() {
   });
   
   it('should show a message to user informing that choosed email is already in use when email''s input lose the focus', function(done) {
-    http.when('GET', '/profile/checkMail').respond(500, scope.user);
-    scope.changePassword();
+    http.when('GET', '/contact/check/mail').respond(500, scope.user);
+    scope.checkMailInUse();
     http.flush();
-    expect(scope.emailInUser).to.not.be.undefined;
+    expect(scope.emailContactInUse).to.not.be.undefined;
     
-    http.when('GET', '/profile/checkMail').respond(200, scope.user);
-    scope.changePassword();
+    http.when('GET', '/contact/check/mail').respond(200, scope.user);
+    scope.checkMailInUse();
     http.flush();
-    expect(scope.emailInUser).to.be.undefined;
+    expect(scope.emailContactInUse).to.be.undefined;
     done();
   });
   
