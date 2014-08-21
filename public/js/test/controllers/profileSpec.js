@@ -59,7 +59,6 @@ describe('ProfileControllerSpec', function() {
     scope.currentUser.id = 1;
     
     http.when('GET', '/user/1').respond(scope.user);
-    http.expectGET('/user/1').respond(200, scope.user);
     scope.loadProfile();
     http.flush();
     
@@ -89,4 +88,25 @@ describe('ProfileControllerSpec', function() {
     done();
     
   });
-});
+  
+  
+  it('should update User attributes successfully', function(done) {
+    http.when('PUT', '/profile').respond(scope.profile);
+    scope.updateProfile();
+    http.flush();
+    
+  });
+  
+   it('should update User attributes successfully', function(done) {
+    http.when('PUT', '/profile').respond(scope.profile);
+    scope.updateProfile();
+    http.flush();
+    expect(scope.error).to.be.undefined;
+  });
+  
+   it('should update User attributes with error - case occurs and unexpected exception', function(done) {
+    http.when('PUT', '/profile').respond(500, scope.profile);
+    scope.updateProfile();
+    http.flush();
+    expect(scope.error).to.not.be.undefined;
+  });
