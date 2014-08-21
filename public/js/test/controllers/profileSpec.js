@@ -94,7 +94,7 @@ describe('ProfileControllerSpec', function() {
     http.when('PUT', '/profile').respond(scope.profile);
     scope.updateProfile();
     http.flush();
-    
+    done();
   });
   
    it('should update User attributes successfully', function(done) {
@@ -102,11 +102,44 @@ describe('ProfileControllerSpec', function() {
     scope.updateProfile();
     http.flush();
     expect(scope.error).to.be.undefined;
+    done();
   });
   
-   it('should update User attributes with error - case occurs and unexpected exception', function(done) {
+  it('should update User attributes with error - case occurs and unexpected exception', function(done) {
     http.when('PUT', '/profile').respond(500, scope.profile);
     scope.updateProfile();
     http.flush();
     expect(scope.error).to.not.be.undefined;
+    done();
   });
+  
+  it('should allow user to update its password successfully', function(done) {
+    http.when('PUT', '/profile/changePassword').respond(scope.user);
+    scope.changePassword();
+    http.flush();
+    expect(scope.message).to.equal('Sua senha foi alterada com sucesso');
+    done();
+  });
+  
+  it('should not allow user to update its password case oldPassword does not match with server one', function(done) {
+    http.when('PUT', '/profile/changePassword').respond(500, scope.user);
+    scope.changePassword();
+    http.flush();
+    expect(scope.message).to.equal('A senha nova deve ser idêntica a sua confirmação');
+    done();
+  });
+  
+  it('should show a message to user informing that choosed email is already in use when email''s input lose the focus', function(done) {
+    http.when('GET', '/profile/checkMail').respond(500, scope.user);
+    scope.changePassword();
+    http.flush();
+    expect(scope.emailInUser).to.not.be.undefined;
+    
+    http.when('GET', '/profile/checkMail').respond(200, scope.user);
+    scope.changePassword();
+    http.flush();
+    expect(scope.emailInUser).to.be.undefined;
+    done();
+  });
+  
+});
