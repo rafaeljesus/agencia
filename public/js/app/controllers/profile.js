@@ -173,7 +173,7 @@ agencia
         alert('Profile atualizado com sucesso');
         
       }, function(err){
-
+        $scope.error = err.data;
         if(err.data && err.data.message){
           alert(err.data.message);
         } else {
