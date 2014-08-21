@@ -131,12 +131,12 @@ describe('ProfileControllerSpec', function() {
   
   it('should show a message to user informing that choosed email is already in use when email''s input lose the focus', function(done) {
     http.when('GET', '/profile/checkMail').respond(500, scope.user);
-    scope.changePassword();
+    scope.checkMailInUse();
     http.flush();
     expect(scope.emailInUser).to.not.be.undefined;
     
     http.when('GET', '/profile/checkMail').respond(200, scope.user);
-    scope.changePassword();
+    scope.checkMailInUse();
     http.flush();
     expect(scope.emailInUser).to.be.undefined;
     done();
