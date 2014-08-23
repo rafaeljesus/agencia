@@ -66,7 +66,7 @@ describe('AuthSpec', function() {
     , newPassword = expectedUser.password;
     http.when('PUT', '/users').respond(expectedUser);
     http.expectPUT('/users').respond(200, expectedUser);
-    auth.changePassword(oldPassword, newPassword, function(user) {
+    auth.resetPassword(oldPassword, newPassword, function(user) {
       expect(user).to.not.be.an('undefined');
       expect(user.password).to.be.equal(expectedUser.password);
       done();

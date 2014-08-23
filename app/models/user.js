@@ -17,7 +17,6 @@ module.exports = function(sequelize, DataTypes) {
     },
     email: {
       type: DataTypes.STRING,
-      unique: { name: 'email', msg: 'Email is already registered.' },
       validate: {
         isEmail: true
       }
@@ -34,7 +33,6 @@ module.exports = function(sequelize, DataTypes) {
     idade: DataTypes.INTEGER,
     estado: DataTypes.STRING,
     cidade: DataTypes.STRING,
-    //todo criar migrate para criar coluna pais
     pais: DataTypes.STRING,
     
     altura: DataTypes.FLOAT,

@@ -5,8 +5,7 @@ describe('ContactControllerSpec', function() {
   var controller, scope, user, contact, location, http, defaultUser;
 
   beforeEach(function() {
-    module('agencia');
-    
+    module('agencia');    
   });
 
   beforeEach(inject(function($rootScope, $controller, $location, _$httpBackend_, User, Contact) {
@@ -40,7 +39,7 @@ describe('ContactControllerSpec', function() {
     http.flush();
     
     expect(scope.contact).to.not.be.undefined;
-  )};   
+  });   
   
   it('should save a contact successfully', function(done) {
     scope.currentUser = {id: 1};
@@ -59,7 +58,7 @@ describe('ContactControllerSpec', function() {
     
     expect(scope.contact).to.not.be.undefined;
     expect(scope.error).to.be.undefined;
-  )};   
+  });   
   
   it('should result in a error when save a contact results in an unexpected exception', function(done) {
     scope.currentUser = {id: 1};
@@ -78,9 +77,9 @@ describe('ContactControllerSpec', function() {
     
     expect(scope.contact).to.be.undefined;
     expect(scope.error).to.not.be.undefined;
-  )};   
+  });   
   
-  it('should show a message to user informing that choosed contact email is already in use when contact email''s input lose the focus', function(done) {
+  it('should show a message to user informing that choosed contact email is already in use when contact email"s input lose the focus', function(done) {
     http.when('GET', '/contact/check/mail').respond(500, scope.user);
     scope.checkMailInUse();
     http.flush();

@@ -13,7 +13,6 @@ agencia
         }
       }
       Auth.register(options).then(function(data) {
-        alert(JSON.stringify(data));
         $('#closeButton').click();
         $location.path('/');
       }).catch(function(err) {

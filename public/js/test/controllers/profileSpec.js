@@ -12,12 +12,12 @@ describe('ProfileControllerSpec', function() {
         sobrenome: 'reallyTest', 
         email: 'valid@email.com',
         altura: 1.75,
-        peso : 90;
+        peso : 90,
         trabalha : true,
         estuda : false,
         tem_filhos : true,
         possui_carro : true,
-        como_mora : 'Moro sozinho(a)'
+        como_mora : 'Moro sozinho(a)',
         gosta_tv : true,
         gosta_ler : true,
         fuma : false,
@@ -60,8 +60,7 @@ describe('ProfileControllerSpec', function() {
     
     http.when('GET', '/user/1').respond(scope.user);
     scope.loadProfile();
-    http.flush();
-    
+        
     expect(scope.altura.metros).to.equal(1);
     expect(scope.altura.centimetros).to.equal(75);
     expect(scope.profile).to.not.be.undefined;
@@ -85,6 +84,8 @@ describe('ProfileControllerSpec', function() {
     expect(scope.regiao.country_code).to.equal('BR');
     expect(scope.regiao.name).to.equal('São José dos Campos');
     expect(scope.regiao.region).to.equal('São Paulo');
+
+    http.flush();
     done();
     
   });
@@ -129,7 +130,7 @@ describe('ProfileControllerSpec', function() {
     done();
   });
   
-  it('should show a message to user informing that choosed email is already in use when email''s input lose the focus', function(done) {
+  it('should show a message to user informing that choosed email is already in use when email"s input lose the focus', function(done) {
     http.when('GET', '/profile/checkMail').respond(500, scope.user);
     scope.checkMailInUse();
     http.flush();

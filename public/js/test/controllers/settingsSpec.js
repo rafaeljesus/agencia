@@ -27,7 +27,7 @@ describe('SettingsControllerSpec', function() {
     scope.user = { oldPassword: '123456', newPassword: '654321' };
     http.when('PUT', '/users').respond(scope.user);
     http.expectPUT('/users').respond(200, scope.user);
-    scope.changePassword();
+    scope.resetPassword();
     http.flush();
     done();
     expect(scope.message).to.be.equal('Password successfully changed.');

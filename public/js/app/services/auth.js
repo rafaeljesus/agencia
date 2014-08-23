@@ -75,7 +75,7 @@ agencia
         if($sessionStorage){
           user = $sessionStorage.userLoggedIn;      
         }
-
+        
         if(!!user){
           $rootScope.currentUser = user;
           $rootScope.$broadcast('user:loggedIn');
