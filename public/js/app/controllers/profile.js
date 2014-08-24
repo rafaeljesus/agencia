@@ -117,7 +117,7 @@ agencia
       $scope.profile.compromissado = profileTransformer.findJsonInArray($scope.simNao, profile.compromissado);
    
       $scope.regiao = profileTransformer.toRegiao(profile);
-      if($scope.regiao){
+      if($scope.regiao &&  $("#cityStateCountry").size() > 0){
         $("#cityStateCountry").select2("data", $scope.regiao);
       }
 
@@ -235,7 +235,9 @@ agencia
         $promise.then(function(user){
           //do nothing
         }, function(err){
-          $scope.emailInUser =  err.data.message;
+          if(err.data && err.data.message){
+            $scope.emailInUser =  err.data.message;
+          }
         });
     };
 

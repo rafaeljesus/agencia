@@ -52,15 +52,20 @@ describe('ProfileControllerSpec', function() {
     http.verifyNoOutstandingExpectation();
     http.verifyNoOutstandingRequest();
   });
+
+  var loadProfile = function(scope, http, done){
+    scope.currentUser = {id : 1};
+    http.when('GET', '/users/1').respond(defaultUser);
+    scope.loadProfile();
+    http.flush();
+    done();    
+  };
   
   
   it('should emit an event when load method is called, then use profileTransformer into user data', function(done) {
     
-    scope.currentUser = {id : 1};
-    
-    http.when('GET', '/user/1').respond(scope.user);
-    scope.loadProfile();
-        
+    loadProfile(scope, http, done);
+
     expect(scope.altura.metros).to.equal(1);
     expect(scope.altura.centimetros).to.equal(75);
     expect(scope.profile).to.not.be.undefined;
@@ -85,28 +90,22 @@ describe('ProfileControllerSpec', function() {
     expect(scope.regiao.name).to.equal('São José dos Campos');
     expect(scope.regiao.region).to.equal('São Paulo');
 
-    http.flush();
-    done();
     
   });
   
   
   it('should update User attributes successfully', function(done) {
+    loadProfile(scope, http, done);
+    
     http.when('PUT', '/profile').respond(scope.profile);
     scope.updateProfile();
     http.flush();
-    done();
-  });
-  
-   it('should update User attributes successfully', function(done) {
-    http.when('PUT', '/profile').respond(scope.profile);
-    scope.updateProfile();
-    http.flush();
-    expect(scope.error).to.be.undefined;
     done();
   });
   
   it('should update User attributes with error - case occurs and unexpected exception', function(done) {
+    loadProfile(scope, http, done);
+
     http.when('PUT', '/profile').respond(500, scope.profile);
     scope.updateProfile();
     http.flush();
@@ -115,6 +114,9 @@ describe('ProfileControllerSpec', function() {
   });
   
   it('should allow user to update its password successfully', function(done) {
+    loadProfile(scope, http, done);
+
+
     http.when('PUT', '/profile/changePassword').respond(scope.user);
     scope.changePassword();
     http.flush();
@@ -123,6 +125,8 @@ describe('ProfileControllerSpec', function() {
   });
   
   it('should not allow user to update its password case oldPassword does not match with server one', function(done) {
+    loadProfile(scope, http, done);
+
     http.when('PUT', '/profile/changePassword').respond(500, scope.user);
     scope.changePassword();
     http.flush();
@@ -131,11 +135,13 @@ describe('ProfileControllerSpec', function() {
   });
   
   it('should show a message to user informing that choosed email is already in use when email"s input lose the focus', function(done) {
+    loadProfile(scope, http, done);
+
     http.when('GET', '/profile/checkMail').respond(500, scope.user);
     scope.checkMailInUse();
     http.flush();
     expect(scope.emailInUser).to.not.be.undefined;
-    
+
     http.when('GET', '/profile/checkMail').respond(200, scope.user);
     scope.checkMailInUse();
     http.flush();

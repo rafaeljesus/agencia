@@ -6,8 +6,8 @@ agencia
     
 
    User.get({id: $scope.currentUser.id}).$promise.then(function(user){
-	 $scope.user = user;
-	 $scope.emailProfile = user.email;
+	   $scope.user = user;
+	   $scope.emailProfile = user.email;
    });
     
     $scope.loadContact = function(){

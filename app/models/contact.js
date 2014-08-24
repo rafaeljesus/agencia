@@ -5,13 +5,8 @@ module.exports = function(sequelize, DataTypes) {
     tel_residencial: DataTypes.STRING,
     tel_celular: DataTypes.STRING,
     tel_trabalho: DataTypes.STRING,
-    e_mail_contato: DataTypes.STRING,
-   //criar migration para criar coluna
-    skype: DataTypes.STRING
-   //Criar colunas pelo migration
-   //createdAt: DataTypes.DATE,
-   // updatedAt: DataTypes.DATE,
-          
+    e_mail_Scontato: DataTypes.STRING,
+    skype: DataTypes.STRING          
   };
 
   var Contact = sequelize.define('Contact', definition, {

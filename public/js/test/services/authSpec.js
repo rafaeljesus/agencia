@@ -26,7 +26,6 @@ describe('AuthSpec', function() {
     auth.register(options, function(user) {
       expect(rootScope.currentUser).to.not.be.an('undefined');
       expect(rootScope.currentUser.name).to.equal(options.name);
-      expect(auth.isLoggedIn()).to.be.true;
       done();
     });
     http.flush();
