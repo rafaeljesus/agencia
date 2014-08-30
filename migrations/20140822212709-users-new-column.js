@@ -21,8 +21,8 @@ module.exports = {
   },
   
   down: function(migration, DataTypes, done) {
-    migration.removeIndex('tb_clientes_gls', 'UniqueEmailIndex');
-    migration.removeColumn('tb_clientes_gls', 'pais')
+    //migration.removeIndex('tb_clientes_gls', 'UniqueEmailIndex');
+    //migration.removeColumn('tb_clientes_gls', 'pais')
     done();
   }
 }

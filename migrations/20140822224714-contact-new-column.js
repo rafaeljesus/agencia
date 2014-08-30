@@ -31,10 +31,10 @@ module.exports = {
     done();
   },
   down: function(migration, DataTypes, done) {
-    migration.removeIndex('tb_contatos_gls','UniqueEmailContatoIndex');
-    migration.removeColumn('tb_contatos_gls', 'skype');
-    migration.removeColumn('tb_contatos_gls', 'updatedAt');
-    migration.removeColumn('tb_contatos_gls', 'createdAt');
+    //migration.removeIndex('tb_contatos_gls','UniqueEmailContatoIndex');
+    //migration.removeColumn('tb_contatos_gls', 'skype');
+    //migration.removeColumn('tb_contatos_gls', 'updatedAt');
+    //migration.removeColumn('tb_contatos_gls', 'createdAt');
     done();
   }
 }

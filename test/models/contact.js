@@ -23,42 +23,45 @@ describe('User\'s Contact', function(){
     
       //2 - Carrega criando contact caso nao exista
       Contact.load(user.id, function(contact){
+
       	 contactOptions = {
-	   id: contact.id,
-	   tel_residencial: '(12) 3999-2222',
-	   tel_celular: '(12) 9999-9999',
-	   tel_trabalho: '0800-140-1244',
-	   e_mail_contato: 'kadusjc@yahoo.com.br',
+  	       id: contact.id,
+  	       tel_residencial: '(12) 3999-2222',
+  	       tel_celular: '(12) 9999-9999',
+  	       tel_trabalho: '0800-140-1244',
+  	       e_mail_contato: 'kadusjc@yahoo.com.br',
            skype: 'kadusjc',
-	   msn: 'kadu.boldcron@hotmail.com',
-	   id_cliente: currentUser.id
-	};
+  	       msn: 'kadu.boldcron@hotmail.com',
+  	       id_cliente: currentUser.id
+	       };
+
         //3 - Atualiza contact
-        Contact.updateContact(contactOptions, function(contact){
-	   currentContact = contact
-	   done();
-	}, function(err) {
-	   return done(err);
-	});//end 3
+         Contact.updateContact(contactOptions, function(contact){
+           currentContact = contact
+           done();
+         }, function(err) {
+            return done(err);
+          });//end 3
 
       }, function(err){
-	return done(err);
+	       return done(err);
       });//end 2)
+
 
    }, function(err) {
      return done(err);
    });//end 1)
 
-  });
+});
 
 	//Apaga todos registros de ambas tables
-  afterEach(function(done){
-     Contact.destroy().success(function(){
-        User.destroy().success(function(){
-          done();
-    	});
-      });
-  });
+afterEach(function(done){
+   Contact.destroy().success(function(){
+       User.destroy().success(function(){
+         done();
+    	 });
+   });
+});
 
 
   it('should successfully update the empty contact (that was saved on user\'s load)', function(done){
@@ -111,25 +114,26 @@ describe('User\'s Contact', function(){
 
       	 //Init of test
       	 var contactOptions = {
-	   id: newContact.id,
-	   tel_residencial: '(12) 3999-2222',
-	   tel_celular: '(12) 9999-9999',
-	   tel_trabalho: '0800-140-1244',
-	   e_mail_contato: 'kadusjc@yahoo.com.br',
-	   skype: 'kadusjc',
-	   msn: 'kadu.boldcron@hotmail.com',
-	   id_cliente: newUser.id
-	};
+          	   id: newContact.id,
+          	   tel_residencial: '(12) 3999-2222',
+          	   tel_celular: '(12) 9999-9999',
+          	   tel_trabalho: '0800-140-1244',
+          	   e_mail_contato: 'kadusjc@yahoo.com.br',
+          	   skype: 'kadusjc',
+          	   msn: 'kadu.boldcron@hotmail.com',
+          	   id_cliente: newUser.id
+	       };
 
-	return Contact.updateContact(contactOptions, function(contact){		     	      
-	  //do nothing	
-	}, function(err) {
-	   expect(err.reason).to.equal('another_contact_with_same_email');
-	   done();
-	});
+	        return Contact.updateContact(contactOptions, function(contact){		     	      
+	         //do nothing	
+           done();
+	       }, function(err) {
+	         expect(err.reason).to.equal('another_contact_with_same_email');
+	         done();
+	       });
 		    //end of test
       }, function(err){
-	 return done(err);
+	     return done(err);
       });
       //end of contact.load
     }, function(err) {
@@ -150,7 +154,7 @@ describe('User\'s Contact', function(){
 
     
     Contact.checkMailInUse(options, function(contact){
-
+        done();
     }, function(err){
        expect(err.reason).to.equal('another_contact_with_same_email');
        done();

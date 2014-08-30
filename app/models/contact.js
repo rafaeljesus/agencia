@@ -5,7 +5,7 @@ module.exports = function(sequelize, DataTypes) {
     tel_residencial: DataTypes.STRING,
     tel_celular: DataTypes.STRING,
     tel_trabalho: DataTypes.STRING,
-    e_mail_Scontato: DataTypes.STRING,
+    e_mail_contato: DataTypes.STRING,
     skype: DataTypes.STRING          
   };
 
