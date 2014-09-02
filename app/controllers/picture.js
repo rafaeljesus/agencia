@@ -4,6 +4,19 @@ module.exports = function(app) {
   , formidable = require('formidable')
   , Picture =  require('../models').Picture
   //, easyimg = require('easyimage'); to crop
+  
+  /*easyimg.crop(
+    {
+        src:'beach.jpg', dst:'beach-cropped.png',
+        cropwidth:128, cropheight:128,
+        gravity:'North',
+        x:30, y:50
+    },
+    function(err, stdout, stderr) {
+        if (err) throw err;
+        console.log('Cropped');
+    }
+);*/
 
   
   var PictureController = {
