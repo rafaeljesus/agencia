@@ -22,7 +22,6 @@ module.exports = function(app) {
     )},
 
     checkMailInUse: function(req, res){
-      console.log('***************** Entrou no controller '+req.query.e_mail_contat);
       var contact = {
          id_cliente: req.session.user.id,
          e_mail_contato: req.query.e_mail_contato       
@@ -32,7 +31,7 @@ module.exports = function(app) {
       },
       function(err){
         res.json(500, err);
-      })
+      });
     }
 
   };

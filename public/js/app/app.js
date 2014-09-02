@@ -1,7 +1,7 @@
 'use strict';
 
 var agencia = angular
-  .module('agencia', ['ngResource', 'ngRoute', 'ngStorage'])
+  .module('agencia', ['ngResource', 'ngRoute', 'ngStorage', 'ngUpload',])
   .config(function ($routeProvider, $locationProvider, $httpProvider) {
     $routeProvider
       .when('/', {
@@ -26,7 +26,7 @@ var agencia = angular
       })
       .when('/photos', {
         templateUrl: 'templates/my-photos.html',
-        controller: 'PhotoController',
+        controller: 'PictureController',
         authenticatedUsersOnly: true
       })
       .otherwise({

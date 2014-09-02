@@ -81,7 +81,7 @@ module.exports = function(sequelize, DataTypes) {
             { email: options.loginOrEmail })
           )
         }).complete(function(err, user){
-          if (err || !user) {
+          if (!!err || !user) {
             return error({ reason: 'not_authenticated', message: 'Senha ou usuário informados estão inválidos' });
           }
           success(user);
@@ -104,7 +104,7 @@ module.exports = function(sequelize, DataTypes) {
 
            //Init register user 
           var onCompleteRegisterUser = function(err, user) {
-              if (err) {
+              if (!!err) {
                   transaction.rollback();
                   return error(defError);
               }
@@ -117,12 +117,12 @@ module.exports = function(sequelize, DataTypes) {
 
           //init onCompleteFindByMail
           var onCompleteFindByMail = function(err, users){
-             if(err || ( users && users[0] ) ){
+             if(!!err || ( !!users && !!users[0] ) ){
                transaction.rollback();
              }
              
-             if( users && users[0] ){  return error({ reason: 'another_user_with_same_email', message: 'O e-mail '+users[0].email+' já está em uso' }); }
-             if(err){  return error(defError); }
+             if( !!users && !!users[0] ){  return error({ reason: 'another_user_with_same_email', message: 'O e-mail '+users[0].email+' já está em uso' }); }
+             if(!!err){  return error(defError); }
 
              User.create(attrs).complete(onCompleteRegisterUser);             
              
@@ -143,13 +143,13 @@ module.exports = function(sequelize, DataTypes) {
         var shaSum = crypto.createHash('sha256');
         shaSum.update(options.password);
         return User.find(options.id).complete(function(err, user) {
-          if (err) {
+          if (!!err) {
             return error(err);
           }
           user
             .updateAttributes({ password: shaSum.digest('hex') })
             .complete(function(err, user) {
-              if (err) {
+              if (!!err) {
                 return error(err);
               }
               success(user);
@@ -159,7 +159,7 @@ module.exports = function(sequelize, DataTypes) {
       
       load: function(id, success, error) {
         return User.find(id).complete(function(err, user) {
-          if (err) {
+          if (!!err) {
             return error(err);
           }
           
@@ -172,7 +172,7 @@ module.exports = function(sequelize, DataTypes) {
         sequelize.transaction(function(transaction) {
           //init of onCompleteUpdateAttributes
           var onCompleteUpdateAttributes = function(err, user) {
-              if (err) {
+              if (!!err) {
                   transaction.rollback();
                   return error(defError);
               }
@@ -186,7 +186,7 @@ module.exports = function(sequelize, DataTypes) {
           //init of onCompleteFindUser 
           var onCompleteFindUser = function(err, user){
             
-            if (err) {
+            if (!!err) {
               transaction.rollback();
               return error(defError);
             }
@@ -199,12 +199,12 @@ module.exports = function(sequelize, DataTypes) {
            
           //init onCompleteFindAll
           var onCompleteFindAll = function(err, users){
-             if(err || ( users && users[0] ) ){
+             if(!!err || ( !!users && !!users[0] ) ){
                transaction.rollback();
              }
 
-             if( users && users[0] ){  return error({ reason: 'another_user_with_same_email', message: 'O e-mail '+users[0].email+' já está em uso' }); }
-             if(err){  return error(defError); }
+             if( !!users && !!users[0] ){  return error({ reason: 'another_user_with_same_email', message: 'O e-mail '+users[0].email+' já está em uso' }); }
+             if(!!err){  return error(defError); }
              
              User.find(options.id).complete(onCompleteFindUser);
           }; //end of onCompleteFindAll
@@ -225,13 +225,13 @@ module.exports = function(sequelize, DataTypes) {
         shaNewPassword.update(options.newPassword);
 
         var onCompleteChangePassword = function(err, user) {
-          if (err) {
+          if (!!err) {
             return error(err);
           }
           user
             .updateAttributes({ senha: shaNewPassword.digest('hex') })
             .complete(function(err, user) {
-              if (err) {
+              if (!!err) {
                 return error(err);
               }
               success(user);
@@ -245,7 +245,7 @@ module.exports = function(sequelize, DataTypes) {
              }
           }).complete(function(err, users){
 
-               if(err || users == undefined || users[0] == undefined){
+               if(!!err || users == undefined || users[0] == undefined){
                  return error({reason: 'password_invalid', message: 'Senha fornecida não confere' });
                }
                User.find(options.id).complete(onCompleteChangePassword);
@@ -259,8 +259,8 @@ module.exports = function(sequelize, DataTypes) {
                email: options.email
              }
           }).complete(function(err, users){
-             if(users && users[0]){  return error({ reason: 'another_user_with_same_email', message: 'O e-mail '+users[0].email+' já está em uso' }); }
-             if(err) {return error(err);}
+             if(!!users && !!users[0]){  return error({ reason: 'another_user_with_same_email', message: 'O e-mail '+users[0].email+' já está em uso' }); }
+             if(!!err) {return error(err);}
              
             return success();
           });

@@ -1,6 +1,8 @@
 module.exports = function(app) {
 
   var User = require('../models').User;
+  var fs = require('fs')
+  , formidable = require('formidable');
 
   var ProfileController = {
     load: function(req, res) {

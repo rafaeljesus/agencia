@@ -7,5 +7,6 @@ agencia
     	{
     		get: { method: "GET", params: {} },
         update: {method: "PUT", params:{} }
+        
     	});
   });

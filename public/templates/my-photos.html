@@ -1,8 +1,21 @@
-  <form role="form" name="photosForm" ng-submit="saveContact()">
- 
-      <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ng-init="loadPhotos()">
+ <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ng-init="loadPhotos()">
       <br/><br/> 
 
-          <h1 class="page-header">Minhas Fotos</h1>
-    </div>
-</form>          
+      <h1 class="page-header">Minhas Fotos</h1>
+
+      <br/>
+      <form ng-upload="updateComplete(content)" ng-submit="validate()" action="/picture/upload/firstImage" method="POST" name="editForm" novalidate>
+      		<div class="col-md-3">
+            <span class="file-input btn btn-default btn-file">
+              Escolha uma imagem: <input type="file" name="file">
+            </span>            
+
+            
+            <br/><br/>
+            <button type="submit" class="btn btn-success btn-lg" >
+               <span class="glyphicon glyphicon-floppy-save"></span>&nbsp;Salvar
+            </button>
+          </div>
+      </form>	
+
+ </div>
