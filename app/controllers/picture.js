@@ -3,7 +3,7 @@ module.exports = function(app) {
   var fs = require('fs')
   , formidable = require('formidable')
   , Picture =  require('../models').Picture
-  //, easyimg = require('easyimage'); to crop
+  //, easyimg = require('easyimage'); to crop and convert png
   
   /*easyimg.crop(
     {
