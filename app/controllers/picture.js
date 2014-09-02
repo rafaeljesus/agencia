@@ -4,7 +4,7 @@ module.exports = function(app) {
   , formidable = require('formidable')
   , Picture =  require('../models').Picture
   //, easyimg = require('easyimage'); to crop
-  //PNG = require('pngjs').PNG; to convert to PNG
+
   
   var PictureController = {
     
