@@ -4,7 +4,25 @@ module.exports = function(app) {
   , formidable = require('formidable')
   , Picture =  require('../models').Picture
   , easyimg = require('easyimage');
-  
+
+ var persistImage =  function(foto, croppedFile, res){
+     Picture.update(foto, function(foto){
+         fs.unlink(croppedFile);
+         res.json(foto);
+      }, function(err){
+        res.json(500, err);
+      });
+  }; 
+
+  var onCrop = function(image) {
+      console.log('Resized and cropped: ' + image.width + ' x ' + image.height);
+      var stream = new Buffer(image).toString('base64');    
+      var foto = {
+        id_cliente: req.session.user.id,
+        foto1: stream
+      };
+      persistImage(foto, croppedFile, res);          
+  };
  
   var PictureController = {
 
@@ -27,46 +45,33 @@ module.exports = function(app) {
            res.json(500, defError);
         }
       
-        var filePath = files.file.path+'/'+files.file.name;
-        var croppedFile = '/tmp/' + req.session.user.id+'_1.png';
-        cropImage(filePath, croppedFile, defError);
+        var filePath = files.file.path;
+        var croppedFile = process.env.HOMEPATH + '/'+req.session.user.id+'_1.png';
+        fs.openSync(croppedFile, 'w');
         
-        var stream = fs.createReadStream(croppedFile);
-        var foto = {
-           id_cliente: req.session.user.id,
-           foto1: stream
-        };
-        persistImage(foto);  
-        fs.unlink(croppedFile);
-        res.end();
-      });
-       
-    },
-    
-    cropImage: function(source, destiny, defError){
-      easyimg.crop({
-            src: source, dst: destiny,
-            cropwidth:128, cropheight:128,  gravity:'North',  x:30, y:50
+        /*easyimg.crop({
+            src: filePath, dst: croppedFile,
+            cropwidth:128, cropheight:128,  
+            gravity:'North', x:30, y:50
           },
-
           function(err, stdout, stderr) {
             if(err) res.json(500, defError);          
           }
-      );
+        );*/
+        var options = {
+           src:filePath, dst:croppedFile,
+           cropwidth:128, cropheight:128,
+           gravity:'North', x:30, y:50
+        };
 
-    },
+        var errorOnCrop = function(err){
+          res.json(500, defError);
+        };
 
-    
-    persistImage: function(foto){
-    	console.log('JSON STRINGIFY PART FOTO 1'+JSON.stringify(foto.foto1));
-    	console.log('JSON STRINGIFY PART FOTO 2'+JSON.stringify(foto.foto1));
-    	console.log('JSON STRINGIFY PART FOTO 3'+JSON.stringify(foto.foto1));
-    	
-        Picture.update(foto, function(foto){
-          res.json(foto);
-        }, function(err){
-          res.json(500, err);
-        });
+        easyimg.crop(options).then(onCrop(image), errorOnCrop);
+        
+      });
+       
     }
 
   };
