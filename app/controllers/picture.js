@@ -3,69 +3,59 @@ module.exports = function(app) {
   var fs = require('fs')
   , formidable = require('formidable')
   , Picture =  require('../models').Picture
-  //, easyimg = require('easyimage'); to crop and convert png
+  , easyimg = require('easyimage');
   
-  /*easyimg.crop(
-    {
-        src:'beach.jpg', dst:'beach-cropped.png',
-        cropwidth:128, cropheight:128,
-        gravity:'North',
-        x:30, y:50
-    },
-    function(err, stdout, stderr) {
-        if (err) throw err;
-        console.log('Cropped');
-    }
-);*/
-
-  
+ 
   var PictureController = {
-    
+
     load: function(req, res) {
 
       Picture.load(req.params.id, function(contact) {
-    	 res.json(contact); 			
-    	}, function(err) {
-       	res.json(500, err);
+       res.json(contact);       
+      }, function(err) {
+        res.json(500, err);
       }
     )},
 
     uploadFirstImage: function(req, res){
+      var defError = {reason: 'unknown_error', message:'Ocorreu um erro ao fazer upload da primeira imagem'};
       var form = new formidable.IncomingForm();
       form.encoding = 'utf-8';
+
+      form.parse(req, function (error, fields, files) {
+        if(!files){
+           res.json(500, defError);
+        }
       
-      form.on('file', function(name, file) {
-      	if(!file){
-      	   res.json(500, err);
-      	}
-      	var stream = fs.createReadStream(file.path);
-      	var foto = {
+        var filePath = files.file.path+'/'+files.file.name;
+        var croppedFile = '/tmp/' + req.session.user.id+'_1.png';
+        cropImage(filePath, croppedFile, defError);
+        
+        var stream = fs.createReadStream(croppedFile);
+        var foto = {
            id_cliente: req.session.user.id,
-           foto1: stream;
+           foto1: stream
         };
-        persistImage(foto);
-      	
+        persistImage(foto);  
+        fs.unlink(croppedFile);
+        res.end();
       });
-     
-      form.on('error', function(err) {
-     	alert('Ocorreu um erro ao executar o upload ') 
-     	res.json(500, err);
-      });
-     
-      form.on('end', function(err) {
-     	alert('Upload finalizado'); 
-     	res.json(500, err);
-      });
-     
-      form.on('progress', function(bytesReceived, bytesExpected) {
-     	alert('Recebendo bytes '+bytesReceived '/'+bytesExpected); 
-      });
+       
+    },
     
-      form.on('end', function(err) {
-       console.log('IMAGE UPLOADED');
-      });
-      
-    };
+    cropImage: function(source, destiny, defError){
+      easyimg.crop({
+            src: source, dst: destiny,
+            cropwidth:128, cropheight:128,  gravity:'North',  x:30, y:50
+          },
+
+          function(err, stdout, stderr) {
+            if(err) res.json(500, defError);          
+          }
+      );
+
+    },
+
     
     persistImage: function(foto){
     	console.log('JSON STRINGIFY PART FOTO 1'+JSON.stringify(foto.foto1));
@@ -77,7 +67,7 @@ module.exports = function(app) {
         }, function(err){
           res.json(500, err);
         });
-    };
+    }
 
   };
 
