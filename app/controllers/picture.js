@@ -3,8 +3,10 @@ module.exports = function(app) {
   var fs = require('fs')
   , formidable = require('formidable')
   , Picture =  require('../models').Picture
-  , path = require("path"),
+  , path = require("path")
+  , img = require('imagemagick')
   , easyimg = require('easyimage');
+  
 
  var persistImage =  function(foto, croppedFile, res){
      Picture.update(foto, function(foto){
