@@ -68,7 +68,7 @@ module.exports = function(app) {
           res.json(500, defError);
         };
 
-        easyimg.crop(options).then(onCrop(image), errorOnCrop);
+        easyimg.crop(options).then(onCrop, errorOnCrop);
         
       });
        
