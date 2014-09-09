@@ -7,6 +7,8 @@ module.exports = function(app) {
   , easyimg = require('easyimage');
   
 
+ var defError = {reason: 'unknown_error', message:'Ocorreu um erro ao fazer upload da imagem'};
+
  var persistImage =  function(foto, croppedFile, res){
      Picture.update(foto, function(foto){
          fs.unlink(croppedFile);
@@ -15,17 +17,8 @@ module.exports = function(app) {
         res.json(500, err);
       });
   }; 
-
-  var onCrop = function(image) {
-      console.log('Resized and cropped: ' + image.width + ' x ' + image.height);
-      var stream = new Buffer(image).toString('base64');    
-      var foto = {
-        id_cliente: req.session.user.id,
-        foto1: stream
-      };
-      persistImage(foto, croppedFile, res);          
-  };
- 
+  
+  
   var PictureController = {
 
     load: function(req, res) {
@@ -38,7 +31,6 @@ module.exports = function(app) {
     )},
 
     uploadFirstImage: function(req, res){
-      var defError = {reason: 'unknown_error', message:'Ocorreu um erro ao fazer upload da primeira imagem'};
       var form = new formidable.IncomingForm();
       form.encoding = 'utf-8';
 
@@ -70,14 +62,24 @@ module.exports = function(app) {
            gravity:'North', x:30, y:50
         };
 
-        var errorOnCrop = function(err){
-          res.json(500, defError);
-        };
-
-        easyimg.crop(options).then(onCrop, errorOnCrop);
+        easyimg.crop(options, function(err, stdout, stderr){
+           if(!!err) {
+      	     defError.message = 'Erro ao cortar imagem';
+      	     res.json(500, defError);    
+      	   }
+      
+          var stream = new Buffer(croppedFile).toString('base64');    
+          var foto = {
+             id_cliente: req.session.user.id,
+             foto1: stream
+       	  };
+          return persistImage(foto, croppedFile, res);
+          
+        });
         
-      });
-       
+        
+      });//end form.parse
+     
     }
 
   };
