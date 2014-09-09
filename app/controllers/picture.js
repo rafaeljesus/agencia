@@ -4,7 +4,6 @@ module.exports = function(app) {
   , formidable = require('formidable')
   , Picture =  require('../models').Picture
   , path = require("path")
-  , img = require('imagemagick')
   , easyimg = require('easyimage');
   
 
