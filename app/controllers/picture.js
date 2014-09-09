@@ -3,6 +3,7 @@ module.exports = function(app) {
   var fs = require('fs')
   , formidable = require('formidable')
   , Picture =  require('../models').Picture
+  , path = require("path"),
   , easyimg = require('easyimage');
 
  var persistImage =  function(foto, croppedFile, res){
@@ -45,8 +46,12 @@ module.exports = function(app) {
            res.json(500, defError);
         }
       
-        var filePath = files.file.path;
-        var croppedFile = process.env.HOMEPATH + '/'+req.session.user.id+'_1.png';
+        var directory = path.dirname(files.file.path);
+		    var filename = path.basename(files.file);
+		    var filePath = directory + "/" + filename.toLowerCase();
+	 	    fs.renameSync(files.file, filePath);
+	 	    
+        var croppedFile = directory + '/'+req.session.user.id+'_1.png';
         fs.openSync(croppedFile, 'w');
         
         /*easyimg.crop({
