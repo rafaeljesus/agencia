@@ -4,4 +4,5 @@ module.exports = function(app) {
 
   app.get('/picture/:id', picture.load);
   app.post('/picture/upload/firstImage', picture.uploadFirstImage);  
+  app.get('/picture/:id/firstImage', picture.displayFirstImage)
 };
