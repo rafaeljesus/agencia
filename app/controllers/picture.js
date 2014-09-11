@@ -41,7 +41,8 @@ module.exports = function(app) {
       defError.message = 'Ocorreu um erro ao carregar a primeira foto do cliente';
       Picture.load(req.params.id, function(picture) {
         res.writeHead(200, { 'Content-Type': 'image/png' });
-        res.end(new Buffer(picture.foto1));
+        res.data(new Buffer(picture.foto1, 'base64'));
+        //res.end(new Buffer(picture.foto1));
       }, function(err) {
         res.json(500, defError);
       }
@@ -57,12 +58,7 @@ module.exports = function(app) {
         }
       
         var directory = path.dirname(files.file.path);
-        //var filename = path.basename(files.file.name);
-        //var filePath = directory + "/" + filename.toLowerCase();
-        //fs.renameSync(files.file.path, filePath);
-	 	    
         var croppedFile = directory + '/'+req.session.user.id+'_1.png';
-        //fs.openSync(croppedFile, 'w');
         
         easyimg.crop({
             src: files.file.path, dst: croppedFile,
