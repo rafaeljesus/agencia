@@ -3,8 +3,15 @@ module.exports = function(app) {
   var fs = require('fs')
   , formidable = require('formidable')
   , Picture =  require('../models').Picture
+<<<<<<< HEAD
   , path = require('path')
+=======
+  , path = require("path")
+>>>>>>> 534d3a02b2b2962d755c5c9121286cd4cb4714f6
   , easyimg = require('easyimage');
+  
+
+ var defError = {reason: 'unknown_error', message:'Ocorreu um erro ao fazer upload da imagem'};
 
  var persistImage =  function(foto, croppedFile, res){
      Picture.update(foto, function(foto){
@@ -14,17 +21,8 @@ module.exports = function(app) {
         res.json(500, err);
       });
   }; 
-
-  var onCrop = function(image) {
-      console.log('Resized and cropped: ' + image.width + ' x ' + image.height);
-      var stream = new Buffer(image).toString('base64');    
-      var foto = {
-        id_cliente: req.session.user.id,
-        foto1: stream
-      };
-      persistImage(foto, croppedFile, res);          
-  };
- 
+  
+  
   var PictureController = {
 
     load: function(req, res) {
@@ -37,7 +35,6 @@ module.exports = function(app) {
     )},
 
     uploadFirstImage: function(req, res){
-      var defError = {reason: 'unknown_error', message:'Ocorreu um erro ao fazer upload da primeira imagem'};
       var form = new formidable.IncomingForm();
       form.encoding = 'utf-8';
 
@@ -50,8 +47,9 @@ module.exports = function(app) {
         var filename = path.basename(files.file.name);
         var filePath = directory + "/" + filename.toLowerCase();
         fs.renameSync(files.file.name, filePath);
-        
+	 	    
         var croppedFile = directory + '/'+req.session.user.id+'_1.png';
+        fs.openSync(croppedFile, 'w');
         
         easyimg.crop({
             src: filePath, dst: croppedFile,
@@ -62,7 +60,7 @@ module.exports = function(app) {
             if(err) res.json(500, defError);       
             console.log(stdout) ;  
           }
-        );
+       );
       
       });
        
