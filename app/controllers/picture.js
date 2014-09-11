@@ -37,43 +37,34 @@ module.exports = function(app) {
       }
     )},
 
-    displayFirstImage: function(req, res){
+    displayImage: function(req, res){
       defError.message = 'Ocorreu um erro ao carregar a primeira foto do cliente';
       Picture.load(req.params.id, function(picture) {
         res.writeHead(200, { 'Content-Type': 'image/png' });
-        res.data(new Buffer(picture.foto1, 'base64'));
-        //res.end(new Buffer(picture.foto1));
+        res.end(new Buffer(picture.foto1));
       }, function(err) {
         res.json(500, defError);
       }
     )}, 
 
-    uploadFirstImage: function(req, res){
+    uploadImage: function(req, res){
       var form = new formidable.IncomingForm();
       form.encoding = 'utf-8';
-
       form.parse(req, function (error, fields, files) {
         if(!files){
            res.json(500, defError);
         }
-      
         var directory = path.dirname(files.file.path);
         var croppedFile = directory + '/'+req.session.user.id+'_1.png';
-        
         easyimg.crop({
             src: files.file.path, dst: croppedFile,
             cropwidth:400, cropheight:600,  
             gravity:'North', x:30, y:400
-          },
-          function(err, stdout, stderr) {
-            if(err) res.json(500, defError);       
-            persistImage(croppedFile, res);
-          }
-       );
-      
-      });
-       
-    }
+        }).then(function(image){  persistImage(croppedFile, res);  },
+            function(err) {  res.json(500, defError);  }
+        );      
+      });//end of form       
+    }//end of uploadFirstImage
 
   };
 

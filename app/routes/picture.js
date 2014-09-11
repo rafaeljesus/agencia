@@ -3,6 +3,6 @@ module.exports = function(app) {
   var picture = app.controllers.picture;
 
   app.get('/picture/:id', picture.load);
-  app.post('/picture/upload/firstImage', picture.uploadFirstImage);  
-  app.get('/picture/:id/firstImage', picture.displayFirstImage)
+  app.post('/picture/upload/firstImage', picture.uploadImage);  //TODO use the same method an route for 3 imagems
+  app.get('/picture/:id/firstImage', picture.displayImage)
 };
