@@ -3,11 +3,7 @@ module.exports = function(app) {
   var fs = require('fs')
   , formidable = require('formidable')
   , Picture =  require('../models').Picture
-<<<<<<< HEAD
-  , path = require('path')
-=======
   , path = require("path")
->>>>>>> 534d3a02b2b2962d755c5c9121286cd4cb4714f6
   , easyimg = require('easyimage');
   
 
