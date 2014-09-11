@@ -3,6 +3,7 @@ module.exports = function(app) {
   var fs = require('fs')
   , formidable = require('formidable')
   , Picture =  require('../models').Picture
+  , path = require('path')
   , easyimg = require('easyimage');
 
  var persistImage =  function(foto, croppedFile, res){
@@ -45,31 +46,24 @@ module.exports = function(app) {
            res.json(500, defError);
         }
       
-        var filePath = files.file.path;
-        var croppedFile = process.env.HOMEPATH + '/'+req.session.user.id+'_1.png';
-        fs.openSync(croppedFile, 'w');
+        var directory = path.dirname(files.file.path);
+        var filename = path.basename(files.file.name);
+        var filePath = directory + "/" + filename.toLowerCase();
+        fs.renameSync(files.file.name, filePath);
         
-        /*easyimg.crop({
+        var croppedFile = directory + '/'+req.session.user.id+'_1.png';
+        
+        easyimg.crop({
             src: filePath, dst: croppedFile,
             cropwidth:128, cropheight:128,  
             gravity:'North', x:30, y:50
           },
           function(err, stdout, stderr) {
-            if(err) res.json(500, defError);          
+            if(err) res.json(500, defError);       
+            console.log(stdout) ;  
           }
-        );*/
-        var options = {
-           src:filePath, dst:croppedFile,
-           cropwidth:128, cropheight:128,
-           gravity:'North', x:30, y:50
-        };
-
-        var errorOnCrop = function(err){
-          res.json(500, defError);
-        };
-
-        easyimg.crop(options).then(onCrop, errorOnCrop);
-        
+        );
+      
       });
        
     }
