@@ -45,7 +45,7 @@ module.exports = function(app) {
       }, function(err) {
         res.json(500, defError);
       }
-    }, 
+    )}, 
 
     uploadFirstImage: function(req, res){
       var form = new formidable.IncomingForm();
