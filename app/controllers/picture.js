@@ -11,7 +11,8 @@ module.exports = function(app) {
 
  var persistImage =  function(croppedFile, res){
      var readFile = fs.readFileSync(croppedFile);
-     var stream = new Buffer(readFile).toString('base64');
+     //var stream = new Buffer(readFile).toString('base64');
+     var stream = readFile.toString('base64');
      var foto = {
         id_cliente: req.session.user.id,
         foto1: stream
