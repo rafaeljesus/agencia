@@ -9,26 +9,24 @@ module.exports = function(app) {
 
  var defError = {reason: 'unknown_error', message:'Ocorreu um erro ao fazer upload da imagem'};
 
- var persistImage =  function(croppedFile, res){
-     var readFile = fs.readFileSync(croppedFile);
-     var stream = new Buffer(readFile).toString('base64');
+ var persistImage =  function(croppedFile, req, res){
+     var imageData = fs.readFileSync(croppedFile);
      var foto = {
-        id_cliente: req.session.user.id,
-        foto1: stream
-      };
-           
+       id_cliente: req.session.user.id,
+       foto1:  imageData
+     };
+
      Picture.update(foto, function(foto){
-         fs.unlink(croppedFile);
-         res.json(foto);
-      }, function(err){
-        res.json(500, err);
-      });
+       fs.unlinkSync(croppedFile);
+       res.json(foto);
+     }, function(err){
+       res.json(500, err);
+     });
   }; 
-  
   
   var PictureController = {
 
-    load: function(req, res) {
+   load: function(req, res) {
       defError.message = 'Ocorreu um erro ao carregar fotos do cliente';
       Picture.load(req.params.id, function(picture) {
        res.json(picture);       
@@ -40,8 +38,13 @@ module.exports = function(app) {
     displayImage: function(req, res){
       defError.message = 'Ocorreu um erro ao carregar a primeira foto do cliente';
       Picture.load(req.params.id, function(picture) {
-        res.writeHead(200, { 'Content-Type': 'image/png' });
-        res.end(new Buffer(picture.foto1));
+        if(!!picture && !!picture.foto1){
+          var decodedImage = new Buffer(picture.foto1, 'binary'); 
+          res.writeHead(200, { 'Content-Type': 'image/png' });
+          res.write(decodedImage);
+          res.end();
+        }
+        
       }, function(err) {
         res.json(500, defError);
       }
@@ -58,9 +61,9 @@ module.exports = function(app) {
         var croppedFile = directory + '/'+req.session.user.id+'_1.png';
         easyimg.crop({
             src: files.file.path, dst: croppedFile,
-            cropwidth:400, cropheight:600,  
+            cropwidth:100, cropheight:100,  
             gravity:'North', x:30, y:400
-        }).then(function(image){  persistImage(croppedFile, res);  },
+        }).then(function(image){  persistImage(croppedFile, req, res);  },
             function(err) {  res.json(500, defError);  }
         );      
       });//end of form       
