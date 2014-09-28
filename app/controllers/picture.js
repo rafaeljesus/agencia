@@ -37,7 +37,7 @@ module.exports = function(app) {
 
     displayImage: function(req, res){
       defError.message = 'Ocorreu um erro ao carregar a primeira foto do cliente';
-      var photoParam = req.params.picture;
+      var photoParam = req.params.photoParam;
 
       Picture.load(req.params.id, function(picture) {
 
