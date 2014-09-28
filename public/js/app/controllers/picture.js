@@ -4,13 +4,9 @@ agencia
   .controller('PictureController', ['$scope','User','Picture',
   function($scope, User, Picture) {
     
-    $scope.firstImageURL = '/picture/'+$scope.currentUser.id+'/firstImage';
-
-		$scope.loadPhotos = function(){
-    	 Picture.get({ id: $scope.currentUser.id }).$promise.then(function(picture){      
-          $scope.picture = picture;          
-      });
-    };
+    $scope.firstImage = '/picture/'+$scope.currentUser.id+'/image?picture=foto1';
+    $scope.secondImage = '/picture/'+$scope.currentUser.id+'/image?picture=foto2';
+    $scope.thirdImage = '/picture/'+$scope.currentUser.id+'/image?picture=foto3';
 
 }]);
 
