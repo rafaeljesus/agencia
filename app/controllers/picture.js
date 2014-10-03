@@ -41,7 +41,7 @@ module.exports = function(app) {
 
       Picture.load(req.params.id, function(picture) {
 
-        if(!picture){
+        if(!picture || !picture[photoParam]){
           return res.json(500, defError);  
         }
         var decodedImage = new Buffer(picture[photoParam], 'binary'); 
