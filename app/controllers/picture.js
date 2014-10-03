@@ -37,14 +37,13 @@ module.exports = function(app) {
 
     displayImage: function(req, res){
       defError.message = 'Ocorreu um erro ao carregar a primeira foto do cliente';
-      var photoParam = req.params.photoParam;
+      var photoParam = req.query.photoParam;
 
       Picture.load(req.params.id, function(picture) {
 
         if(!picture){
           return res.json(500, defError);  
         }
-
         var decodedImage = new Buffer(picture[photoParam], 'binary'); 
         res.writeHead(200, { 'Content-Type': 'image/png' });
         res.write(decodedImage);
