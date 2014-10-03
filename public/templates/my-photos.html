@@ -16,9 +16,8 @@
           <img src='/picture/{{currentUser.id}}/image?photoParam=foto1' style='width: 300px height: 200px'/>
           <br/>
           <br/>
-          <button type="button" class="btn btn-warning btn-lg">
-            Alterar Foto
-          </button>
+          <a href="#myModal" onclick="return false;" role="button" class="btn btn-warning btn-lg" data-toggle="modal"><i class="glyphicon glyphicon-picture"></i> Altera Foto</a>
+          
         </div>
         
         <div class="col-md-4">
@@ -38,13 +37,26 @@
           <br/>
           <br/>
           <button type="button" class="btn btn-warning btn-lg">
+            <i class="glyphicon glyphicon-picture"></i> 
             Alterar Foto
           </button>
         </div>
       </div>
-      
-
-      <!--form ng-upload="updateComplete(content)" ng-submit="validate()" action="/picture/upload/firstImage" method="POST" name="editForm" novalidate>
+            
+     <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">Modal header</h3>
+      </div>
+      <div class="modal-body">
+        <p>One fine body…</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+        <button class="btn btn-primary">Save changes</button>
+      </div>
+    </div> 
+    <!--form ng-upload="updateComplete(content)" ng-submit="validate()" action="/picture/upload/firstImage" method="POST" name="editForm" novalidate>
       		<div class="col-md-3">
             <span class="file-input btn btn-default btn-file">
               Escolha uma imagem: <input type="file" name="file">
