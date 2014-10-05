@@ -61,10 +61,10 @@ module.exports = function(app) {
         form.encoding = 'utf-8';
         form.parse(req, function (error, fields, files) {
 
-        var width = req.query.width;
-        var height = req.query.height;
-        var axisX = req.query.axisX;
-        var axisY =  req.query.axisY;
+        var width = req.query.w;
+        var height = req.query.h;
+        var axisX = req.query.x;
+        var axisY =  req.query.y;
 
         if(!files){
            res.json(500, defError);

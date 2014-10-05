@@ -8,5 +8,8 @@ agencia
     	$scope.foto = index;
     }
 
+	$scope.updateComplete  = function(content){
+		alert('UPLOAD FINALIZADO');
+	}
 }]);
 

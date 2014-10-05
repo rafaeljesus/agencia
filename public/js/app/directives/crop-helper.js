@@ -2,22 +2,23 @@ var jcrop_api = undefined;
 			
 function submitImage() {
 	alert('jcrop_api' + jcrop_api);
-	alert($('#axisX').val());
-	alert($('#axisX').val());
-	alert($('#width').val());
-	alert($('#height').val());
+	alert($('#x').val());
+	alert($('#y').val());
+	alert($('#w').val());
+
+	alert($('#h').val());
 	uploadImage.submit();
 };
 
 function updateCoords(c) {
-	$('#axisX').val(c.axisX);
-	$('#axisY').val(c.axisY);
-	$('#width').val(c.width);
-	$('#height').val(c.height);
+	$('#x').val(c.x);
+	$('#y').val(c.y);
+	$('#w').val(c.w);
+	$('#h').val(c.h);
 };
 
 function checkCoords() {
-	if (parseInt($('#width').val())) {
+	if (parseInt($('#w').val())) {
 		return submitImage();
 
 	}

@@ -11,17 +11,17 @@ agencia.directive('uploadCropForm', ["$compile", function ($compile) {
 			}
 			url = url + 'photoParam='+scope.foto;
 
-			var html = '<form method="POST" action="'+attrs.url+'" name="uploadImage" id="uploadImage">'+
+			var html = '<form ng-upload="updateComplete(content)" method="POST" action="'+attrs.url+'" name="uploadImage" id="uploadImage">'+
 			'<div id="outer">'+
 				'<div class="jcExample">'+ 
 					'<div class="article">'+
 						'<img id="cropbox" src="" alt="image" style="width: 400px; height: 400px;" /> <br/>'+
 							'<input type="file" name="file" id="file" accept="image/*" onchange="showMyImage(this)" />'+ 
 							
-							'<input type="hidden" id="axisX" name="axisX"/>'+ 
-							'<input type="hidden" id="axisY" name="axisY" />'+ 
-							'<input type="hidden" id="width" name="width" />'+ 
-							'<input type="hidden" id="height" name="height" />'+
+							'<input type="hidden" id="x" name="x"/>'+ 
+							'<input type="hidden" id="y" name="y" />'+ 
+							'<input type="hidden" id="w" name="w" />'+ 
+							'<input type="hidden" id="h" name="h" />'+
 						
 						
 					'</div>'+ 
