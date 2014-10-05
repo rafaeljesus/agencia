@@ -10,11 +10,13 @@ module.exports = function(app) {
  var defError = {reason: 'unknown_error', message:'Ocorreu um erro ao fazer upload da imagem'};
 
  var persistImage =  function(croppedFile, req, res){
+     var photoParam = req.query.photoParam;
      var imageData = fs.readFileSync(croppedFile);
      var foto = {
-       id_cliente: req.session.user.id,
-       foto1:  imageData
+       id_cliente: req.session.user.id       
      };
+
+     foto[photoParam] = imageData;
 
      Picture.update(foto, function(foto){
        fs.unlinkSync(croppedFile);
@@ -55,9 +57,15 @@ module.exports = function(app) {
     )}, 
 
     uploadImage: function(req, res){
-      var form = new formidable.IncomingForm();
-      form.encoding = 'utf-8';
-      form.parse(req, function (error, fields, files) {
+        var form = new formidable.IncomingForm();
+        form.encoding = 'utf-8';
+        form.parse(req, function (error, fields, files) {
+
+        var width = req.query.width;
+        var height = req.query.height;
+        var axisX = req.query.axisX;
+        var axisY =  req.query.axisY;
+
         if(!files){
            res.json(500, defError);
         }
@@ -65,8 +73,8 @@ module.exports = function(app) {
         var croppedFile = directory + '/'+req.session.user.id+'_1.png';
         easyimg.crop({
             src: files.file.path, dst: croppedFile,
-            cropwidth:100, cropheight:100,  
-            gravity:'North', x:30, y:400
+            cropwidth: width, cropheight: height,  
+            gravity:'North', x: axisX, y: axisY
         }).then(function(image){  persistImage(croppedFile, req, res);  },
             function(err) {  res.json(500, defError);  }
         );      

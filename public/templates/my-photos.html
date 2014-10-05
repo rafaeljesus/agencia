@@ -13,61 +13,62 @@
         <div class="col-md-4">
           <h3>Foto 1</h3>
           <br/>
-          <img src='/picture/{{currentUser.id}}/image?photoParam=foto1' style='width: 300px height: 200px'/>
+          <img src='/picture/{{currentUser.id}}/image?photoParam=foto1' style='width: 300px height: 200px' ng-if="currentUser.id > 0"/>
           <br/>
           <br/>
-          <a href="#myModal" onclick="return false;" role="button" class="btn btn-warning btn-lg" data-toggle="modal"><i class="glyphicon glyphicon-picture"></i> Altera Foto</a>
+          <a href="#" onclick="return false" ng-click="setFoto('1')" data-toggle="modal" data-target="#change-picture-modal" class="btn btn-warning btn-lg"><i class="glyphicon glyphicon-picture"></i> Alterar Foto</a>
           
         </div>
         
         <div class="col-md-4">
           <h3>Foto 2</h3>
           <br/>
-          <img src='/picture/{{currentUser.id}}/image?photoParam=foto2' style='width: 300px height: 200px'/>
+          <img src='/picture/{{currentUser.id}}/image?photoParam=foto2' style='width: 300px height: 200px' ng-if="currentUser.id > 0"/>
           <br/>
           <br/>
-          <button type="button" class="btn btn-warning btn-lg"><i class="glyphicon glyphicon-picture"></i> Alterar Foto
-          </button>
+          <a href="#" onclick="return false" ng-click="setFoto('2')" data-toggle="modal" data-target="#change-picture-modal" class="btn btn-warning btn-lg"><i class="glyphicon glyphicon-picture"></i> Alterar Foto</a>
         </div>
 
         <div class="col-md-4">
           <h3>Foto 3</h3>
           <br/>
-          <img src='/picture/{{currentUser.id}}/image?photoParam=foto3' style='width: 300px height: 200px'/>
+          <img src='/picture/{{currentUser.id}}/image?photoParam=foto3' style='width: 300px height: 200px' ng-if="currentUser.id > 0"/>
           <br/>
           <br/>
-          <button type="button" class="btn btn-warning btn-lg">
-            <i class="glyphicon glyphicon-picture"></i> 
-            Alterar Foto
+          <a href="#" onclick="return false" ng-click="setFoto('3')" data-toggle="modal" data-target="#change-picture-modal" class="btn btn-warning btn-lg"><i class="glyphicon glyphicon-picture"></i> Alterar Foto</a>
           </button>
         </div>
       </div>
-            
-     <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h3 id="myModalLabel">Modal header</h3>
-      </div>
-      <div class="modal-body">
-        <p>One fine body…</p>
-      </div>
-      <div class="modal-footer">
-        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-        <button class="btn btn-primary">Save changes</button>
-      </div>
-    </div> 
-    <!--form ng-upload="updateComplete(content)" ng-submit="validate()" action="/picture/upload/firstImage" method="POST" name="editForm" novalidate>
-      		<div class="col-md-3">
-            <span class="file-input btn btn-default btn-file">
-              Escolha uma imagem: <input type="file" name="file">
-            </span>            
-            
-            <input type="hidden" name="axisX" value="40"/>
-            <br/><br/>
-            <button type="submit" class="btn btn-success btn-lg" >
-               <span class="glyphicon glyphicon-floppy-save"></span>&nbsp;Salvar
-            </button>
-          </div>
-      </form-->	
 
+      <div>
+        <div class="modal fade" id="change-picture-modal" tabindex="-1" role="dialog" aria-labelledby="change-picture-modal-label" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" id="closeButton" data-dismiss="modal">
+                  <span aria-hidden="true">&times;</span>
+                  <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title">Alterar Foto {{foto}}</h4>
+              </div>
+              <div class="modal-body">
+                  <p>Selecione a foto desejada depois clique a arraste o mouse sobr a mesma para recortá-la conforme o desejado. Quando estiver satisfeito, clique no botão "Enviar".</p>
+                  <br/> 
+                  <br/> 
+                  <div class="row">
+                    <div upload-crop-form url="/picture/upload/image"></div>
+
+              </div>
+              
+              <div class="row-fluid">&nbsp;</div>
+              <div class="modal-footer">
+                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button type="button" onclick="checkCoords()" class="btn btn-primary">Enviar</button>
+              </div>
+            </div>
+          </div>
+        </div>      
+    </div>
+
+    
  </div>
