@@ -9,8 +9,14 @@ module.exports = function(app) {
 
  var defError = {reason: 'unknown_error', message:'Ocorreu um erro ao fazer upload da imagem'};
 
- var persistImage =  function(croppedFile, foto, res){
-     
+ var persistImage =  function(croppedFile, photoParam, req, res){
+     var imageData = fs.readFileSync(croppedFile);
+     var foto = {
+       id_cliente: req.session.user.id       
+     };
+
+     foto[photoParam] = imageData;
+
      Picture.update(foto, function(foto){
        fs.unlinkSync(croppedFile);
        res.json(foto);
@@ -71,20 +77,9 @@ module.exports = function(app) {
             src: files.file.path, dst: croppedFile,
             cropwidth: width, cropheight: height,  
             gravity:'North', x: axisX, y: axisY
-
-        }).then(function(image){ 
-
-            var imageData = fs.readFile(function(croppedFile){
-              var foto = {
-                id_cliente: req.session.user.id       
-              };  
-              foto[photoParam] = imageData;
-              return persistImage(croppedFile, foto, res);  
-            });
-            
-        }, function(err) {
-          res.json(500, defError);
-        });      
+        }).then(function(image){  persistImage(croppedFile, photoParam, req, res);  },
+            function(err) {  res.json(500, defError);  }
+        );      
       });//end of form       
     }//end of uploadFirstImage
 
