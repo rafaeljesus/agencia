@@ -74,12 +74,13 @@ module.exports = function(app) {
 
         }).then(function(image){ 
 
-            var imageData = fs.readFileSync(croppedFile);
-            var foto = {
-              id_cliente: req.session.user.id       
-            };  
-            foto[photoParam] = imageData;
-            persistImage(croppedFile, foto, res);  
+            var imageData = fs.readFile(function(croppedFile){
+              var foto = {
+                id_cliente: req.session.user.id       
+              };  
+              foto[photoParam] = imageData;
+              return persistImage(croppedFile, foto, res);  
+            });
             
         }, function(err) {
           res.json(500, defError);

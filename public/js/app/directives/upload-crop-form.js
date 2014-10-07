@@ -16,7 +16,7 @@ agencia.directive('uploadCropForm', ["$compile", function ($compile) {
          $('#sendFileButton').prop("disabled",false);
       };
 
-			var form = '<form method="post" target="self" ng-upload="uploadFile(content)" action="'+attrs.url+'" name="uploadImage" id="uploadImage" enctype="multipart/form-data" encoding="multipart/form-data">'+
+			var form = '<form method="post" ng-upload="uploadFile(content)" action="'+attrs.url+'" name="uploadImage" id="uploadImage" enctype="multipart/form-data" encoding="multipart/form-data">'+
 			'<div id="outer">'+
 				'<div class="jcExample">'+ 
 					'<div class="article">'+
@@ -27,7 +27,6 @@ agencia.directive('uploadCropForm', ["$compile", function ($compile) {
 							'<input type="hidden" id="y" name="y" />'+ 
 							'<input type="hidden" id="w" name="w" />'+ 
 							'<input type="hidden" id="h" name="h" />'+
-						
 						
 					'</div>'+ 
 				'</div>'+ 
