@@ -11,13 +11,18 @@ agencia.directive('uploadCropForm', ["$compile", function ($compile) {
 			}
 			url = url + 'photoParam='+scope.foto;
 
-			var html = '<form ng-upload="updateComplete(content)" method="POST" action="'+attrs.url+'" name="uploadImage" id="uploadImage">'+
+			scope.uploadFile = function (content) {
+         alert('Arquivo alterado com sucesso');
+         $('#sendFileButton').prop("disabled",false);
+      };
+
+			var form = '<form method="post" target="self" ng-upload="uploadFile(content)" action="'+attrs.url+'" name="uploadImage" id="uploadImage" enctype="multipart/form-data" encoding="multipart/form-data">'+
 			'<div id="outer">'+
 				'<div class="jcExample">'+ 
 					'<div class="article">'+
-						'<img id="cropbox" src="" alt="image" style="width: 400px; height: 400px;" /> <br/>'+
+						'<img id="cropbox" src="" alt="image" style="width: 100%; height: 100%;" /> <br/>'+
 							'<input type="file" name="file" id="file" accept="image/*" onchange="showMyImage(this)" />'+ 
-							
+							'<input type="hidden" name="photoParam" value="{{foto}}" name="photoParam"/>'+
 							'<input type="hidden" id="x" name="x"/>'+ 
 							'<input type="hidden" id="y" name="y" />'+ 
 							'<input type="hidden" id="w" name="w" />'+ 
@@ -27,7 +32,7 @@ agencia.directive('uploadCropForm', ["$compile", function ($compile) {
 					'</div>'+ 
 				'</div>'+ 
 			'</div>';
-			element.html($compile(html)(scope));
+			element.html($compile(form)(scope));
 			
 			$(function($){
 				$('.requiresjcrop').hide();

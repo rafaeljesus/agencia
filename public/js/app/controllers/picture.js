@@ -10,6 +10,7 @@ agencia
 
 	$scope.updateComplete  = function(content){
 		alert('UPLOAD FINALIZADO');
+		$('#sendFileButton').enable();
 	}
 }]);
 

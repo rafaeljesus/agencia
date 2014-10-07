@@ -1,13 +1,9 @@
 var jcrop_api = undefined;
 			
 function submitImage() {
-	alert('jcrop_api' + jcrop_api);
-	alert($('#x').val());
-	alert($('#y').val());
-	alert($('#w').val());
-
-	alert($('#h').val());
+	$('#sendFileButton').prop("disabled",true);
 	uploadImage.submit();
+	return false;
 };
 
 function updateCoords(c) {
@@ -20,8 +16,8 @@ function updateCoords(c) {
 function checkCoords() {
 	if (parseInt($('#w').val())) {
 		return submitImage();
-
 	}
+
 	alert('Favor. Selecione uma área de corte (Clique no mouse e arraste sobre a figura) então clique em submit.');
 	return false;
 };
