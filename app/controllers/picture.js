@@ -59,27 +59,29 @@ module.exports = function(app) {
         var form = new formidable.IncomingForm();
         form.encoding = 'utf-8';
         form.parse(req, function (error, fields, files) {
-
-        var width = fields.w;
-        var height = fields.h;
-        var axisX = fields.x;
-        var axisY =  fields.y;
-        var photoParam = fields.photoParam;
-
-        if(!files){
-           res.json(500, defError);
-        }
-
-        var directory = path.dirname(files.file.path);
-        var croppedFile = directory + '/'+req.session.user.id+'_1.png';
-
-        easyimg.crop({
-            src: files.file.path, dst: croppedFile,
-            cropwidth: width, cropheight: height,  
-            gravity:'North', x: axisX, y: axisY
-        }).then(function(image){  persistImage(croppedFile, photoParam, req, res);  },
-            function(err) {  res.json(500, defError);  }
-        );      
+          
+          var width = fields.w;
+          var height = fields.h;
+          var axisX = fields.x;
+          var axisY =  fields.y;
+          var photoParam = fields.photoParam;
+  
+          if(!files){
+             res.json(500, defError);
+          }
+  
+          var directory = path.dirname(files.file.path);
+          var croppedFile = directory + '/'+req.session.user.id+'_1.png';
+  
+          easyimg.rescrop({
+              src: files.file.path, dst: croppedFile,
+              width:500, height:400,
+              cropwidth: width, cropheight: height,  
+              gravity:'North', x: axisX, y: axisY
+          }).then(function(image){  persistImage(croppedFile, photoParam, req, res);  },
+              function(err) {  res.json(500, defError);  
+          });//end of rescrop
+          
       });//end of form       
     }//end of uploadFirstImage
 
