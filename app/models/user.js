@@ -258,9 +258,7 @@ module.exports = function(sequelize, DataTypes) {
 
           return success();
         });
-
-      },//end of checkMailInUse
-
+      }
     },
 
 
