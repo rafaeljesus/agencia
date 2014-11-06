@@ -11,7 +11,7 @@ module.exports = function(app){
           firstName: user.primeiro_nome,
           email: user.email
         }
-        res.json(req.session.user);       
+        res.json(req.session.user);
       }, function(err) {
         res.json(403, err);
       });
@@ -34,7 +34,7 @@ module.exports = function(app){
      var options = {
         id: req.body.user.id,
         password: req.body.user.password
-      };
+      }
       User.resetPassword(options, function(user) {
         res.json(200);
       }, function(err) {
@@ -44,4 +44,5 @@ module.exports = function(app){
   };
 
   return AuthController;
+
 };

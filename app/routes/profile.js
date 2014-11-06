@@ -6,5 +6,5 @@ module.exports = function(app) {
 
   app.put('/profile', profile.update);
   app.put('/profile/changePassword', profile.changePassword);
-  app.get('/profile/checkMail', profile.checkMailInUse);  
+  app.get('/profile/checkMail', profile.checkMailInUse);
 };
