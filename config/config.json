@@ -1,21 +1,22 @@
 {
   "development": {
     "username": "root",
-    "password": "q1w2e3",
+    "password": "root",
     "database": "agencia_dev",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "test": {
     "username": "root",
-    "password": "q1w2e3",
+    "password": "root",
     "database": "agencia_test",
     "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "mysql",
+    "encoding": "utf8"
   },
   "production": {
     "username": "root",
-    "password": "q1w2e3",
+    "password": "root",
     "database": "agencia_prod",
     "host": "127.0.0.1",
     "dialect": "mysql"

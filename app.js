@@ -1,16 +1,16 @@
 var express = require('express')
-, load = require('express-load')
-, path = require('path')
-, logfmt = require('logfmt')
-, favicon = require('static-favicon')
-, session = require('express-session')
-, cookieParser = require('cookie-parser')
-, redisClient = require('redis').createClient()
-, RedisStore = require('connect-redis')(session)
-, methodOverride = require('method-override')
-, compress = require('compression')
-, bodyParser = require('body-parser')
-, app = express();
+  , load = require('express-load')
+  , path = require('path')
+  , logfmt = require('logfmt')
+  , favicon = require('static-favicon')
+  , session = require('express-session')
+  , cookieParser = require('cookie-parser')
+  , redisClient = require('redis').createClient()
+  , RedisStore = require('connect-redis')(session)
+  , methodOverride = require('method-override')
+  , compress = require('compression')
+  , bodyParser = require('body-parser')
+  , app = express();
 
 app.set('views', path.join(__dirname, 'app/views'));
 app.set('view engine', 'ejs');

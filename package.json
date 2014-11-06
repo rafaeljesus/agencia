@@ -4,12 +4,13 @@
   "description": "Agencia do Namoro Gay Site - http://agencianamorogay.com.br/gay/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/rafaeljesus/agencia.git"
+    "url": "https://github.com/kadusjc/agencia.git"
   },
   "private": false,
   "scripts": {
     "start": "node app.js",
-    "test": " NODE_ENV=test mocha --recursive --reporter spec"
+    "test": " NODE_ENV=test mocha --recursive --reporter spec",
+    "test-cov": "istanbul cover node_modules/mocha/bin/_mocha -- --recursive --reporter spec"
   },
   "dependencies": {
     "body-parser": "~1.0.0",
@@ -44,6 +45,7 @@
     "gulp-uglify": "~0.3.0",
     "mocha": "*",
     "should": "*",
-    "supertest": "*"
+    "supertest": "*",
+    "istanbul": "~0.3.2"
   }
 }
