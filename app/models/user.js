@@ -109,9 +109,7 @@ module.exports = function(sequelize, DataTypes) {
       }
 
       var onCompleteFindByMail = function(err, users) {
-        if (err || (users && users[0])) {
-          transaction.rollback();
-        }
+        if (err || (users && users[0])) transaction.rollback();
         if (users && users[0]) {
           return error({
             reason: 'another_user_with_same_email',
@@ -175,10 +173,7 @@ module.exports = function(sequelize, DataTypes) {
       }
 
       var onCompleteFindAll = function(err, users) {
-        if (err || ( users && users[0] ) ) {
-          transaction.rollback();
-        }
-
+        if (err || (users && users[0])) transaction.rollback();
         if (users && users[0]) {
           return error({
             reason: 'another_user_with_same_email',
