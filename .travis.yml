@@ -4,7 +4,7 @@ node_js:
 services:
   - redis-server
 before_script:
-  # - "export CODECLIMATE_REPO_TOKEN=21f5ea5710713809433aaeddf6a8cb59194f4e8385206e81831fc1169d8df597 codeclimate < coverage/lcov.info"
+  - "export CODECLIMATE_REPO_TOKEN=21f5ea5710713809433aaeddf6a8cb59194f4e8385206e81831fc1169d8df597 codeclimate < coverage/lcov.info"
   - mysql -e 'create database agencia_test;'
   - ./node_modules/sequelize/bin/sequelize -m -e test
   - sleep 2
